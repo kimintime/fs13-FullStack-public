@@ -11,7 +11,8 @@
 * Frontend: SASS, TypeScript, React, Redux Toolkit
 * Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
 
-You can follow the same topics as your backend project. It is also possible to select a different topic
+## About
+This project will be following from the library project from the initial C# backend design projects. Watch this space for more!
 
 ## Setting Up for folder `Backend`
 
