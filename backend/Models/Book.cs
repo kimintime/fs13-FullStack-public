@@ -11,4 +11,17 @@ public class Book : BaseModel
     [MaxLength(500)]
     public string? Description { get; set; }
 
+    public ICollection<Category> Categories { get; set; } = null!;
+    public ICollection<Author> Authors { get; set; } = null!;
+    public ICollection<Copy> Copies { get; set; } = null!;
+    public ICollection<Publisher>? Publishers 
+    { 
+        get => Copies?.Select(c => c.Publisher).Distinct().ToList(); 
+    }
+
+    public int CopiesAvailable 
+    { 
+        get => Copies == null ? 0 : Copies.Where(c => c.IsAvailable).Count();
+    }
+
 }
