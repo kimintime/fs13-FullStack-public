@@ -28,4 +28,11 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
             .UseSnakeCaseNamingConvention();
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        
+    }
+
 }
