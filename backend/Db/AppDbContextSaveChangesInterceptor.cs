@@ -31,6 +31,10 @@ public class AppDbContextSaveChangesInterceptor : SaveChangesInterceptor
         return base.SavingChanges(eventData, result);
     }
 
-     
+     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
+     {
+        UpdateTimeStamps(eventData);
+        return base.SavingChangesAsync(eventData, result);
+     }
 }
 
