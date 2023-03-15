@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Backend.Models;
 
-public static class UserConfigExtension
+public static class UserConfigExtensions
 {
     public static void UserConfig(this ModelBuilder modelBuilder)
     {
@@ -26,5 +26,19 @@ public static class UserConfigExtension
         modelBuilder.Entity<User>()
             .Navigation(user => user.Loans)
             .AutoInclude();
+    }
+
+    public static void TimestampConfig(this ModelBuilder modelBuilder)
+    {
+        foreach (var propertyName in modelBuilder.Model.GetEntityTypes().Select(s => s.Name))
+        {
+            modelBuilder.Entity(propertyName)
+                .Property<DateTime>("CreatedAt")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            modelBuilder.Entity(propertyName)
+                .Property<DateTime>("UpdatedAt")
+                .HasDefaultValue("CURRENT_TIMESTAMP");
+        }
     }
 }

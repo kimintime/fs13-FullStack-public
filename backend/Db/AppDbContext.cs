@@ -1,7 +1,6 @@
 namespace Backend.Db;
 
 using Backend.Models;
-using Npgsql;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +31,19 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         base.OnModelCreating(modelBuilder);
 
-        
+        modelBuilder.UserConfig();
+        modelBuilder.TimestampConfig();
+        modelBuilder.BookConfig();
+        modelBuilder.PublisherConfig();
+        modelBuilder.AuthorConfig();
+        modelBuilder.LoanConfig();
+        modelBuilder.CopyConfig();
     }
 
+    public DbSet<Book> Books { get; set; } = null!;
+    public DbSet<Author> Authors { get; set; } = null!;
+    public DbSet<Publisher> Publishers { get; set; } = null!;
+    public DbSet<Category> Categories { get; set; } = null!;
+    public DbSet<Loan> Loans { get; set; } = null!;
+    public DbSet<Copy> Copies { get; set; } = null!;
 }
