@@ -34,7 +34,7 @@ public abstract class CrudController<TModel, TDto> : ApiControllerBase
     [HttpGet("{id:int}")]
     public virtual async Task<ActionResult<TModel?>> Get(int id)
     {
-        var result = await _service.GetByIdAsync(id);
+        var result = await _service.GetAsync(id);
 
         if (result is null)
         {
