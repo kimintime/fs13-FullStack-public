@@ -17,8 +17,8 @@ public class UserRegResponseDTO
             Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Username = user.UserName,
-            Email = user.Email,
+            Username = user.UserName!,
+            Email = user.Email!,
         };
     }
 
