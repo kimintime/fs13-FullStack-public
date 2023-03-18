@@ -6,5 +6,7 @@ using Backend.DTOs;
 public interface IUserService
 {
     Task<User?> RegisterAsync(UserRegistrationDTO request);
-    Task<UserRegResponseDTO?> LoginAsync(LoginDTO request);
+    Task<LoginReponseDTO?> LoginAsync(CredentialsDTO request);
+    Task<User?>GetAsync(int id);
+    Task<bool> UserRolesAsync(string?[] roles, User user);
 }

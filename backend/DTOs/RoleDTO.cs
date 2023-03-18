@@ -2,5 +2,5 @@ namespace Backend.DTOs;
 
 public class RoleDTO
 {
-    public string[] Roles { get; set; } = null!;
+    public string[] RoleNames { get; set; } = null!;
 }

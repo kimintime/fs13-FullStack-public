@@ -2,11 +2,8 @@ namespace Backend.Controllers;
 
 using Backend.Services;
 using Backend.DTOs;
-using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using System.Runtime.CompilerServices;
 
 public class UserController : ApiControllerBase
 {
@@ -43,7 +40,7 @@ public class UserController : ApiControllerBase
     
     [AllowAnonymous]
     [HttpPost("login")]
-    public async Task<IActionResult> Login(LoginDTO request)
+    public async Task<IActionResult> Login(CredentialsDTO request)
     {
         var response = await _service.LoginAsync(request);
 
@@ -55,5 +52,27 @@ public class UserController : ApiControllerBase
         return Ok(response);
     }
 
-    
+    [HttpPost("{id:int}/roles")]
+    [Authorize(Roles = "Admin")]
+    public async Task<bool> UserRoles([FromBody] RoleDTO request, [FromRoute] int id)
+    {
+        var roles = await _roleService.GetRolesAsync(request);
+        var user = await _service.GetAsync(id);
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        return await _service.UserRolesAsync(roles.Select(role => role.Name).ToArray(), user);
+    }
+
+    [HttpPost("roles")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> AddRole(RoleDTO request)
+    {
+        var amountAdded = await _roleService.AddRolesAsync(request);
+        return Ok(new { Added = amountAdded });
+    }
+
 }
