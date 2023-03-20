@@ -62,10 +62,10 @@ public abstract class CrudController<TModel, TDto> : ApiControllerBase
     {
         var result = await _service.DeleteAsync(id);
 
-        if (!result)
-        {
-            return NotFound("The item could not be found.");
-        }
+        // if (!result)
+        // {
+        //     return NotFound("The item could not be found.");
+        // }
 
         return Ok(new { Message = "The item is deleted." });
     }

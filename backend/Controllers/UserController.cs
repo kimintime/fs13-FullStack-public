@@ -17,6 +17,7 @@ public class UserController : ApiControllerBase
         _jwTokenService = tokenService;
     }
 
+    //Ask Alia!
     [HttpGet]
     [Authorize]
     public IActionResult CheckAuthorization()
@@ -72,7 +73,9 @@ public class UserController : ApiControllerBase
     public async Task<IActionResult> AddRole(RoleDTO request)
     {
         var amountAdded = await _roleService.AddRolesAsync(request);
-        return Ok(new { Added = amountAdded });
+        // return Ok(new { Added = amountAdded });
+
+        return Ok(amountAdded);
     }
 
 }

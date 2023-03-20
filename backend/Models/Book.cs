@@ -11,6 +11,7 @@ public class Book : BaseModel
     [MaxLength(500)]
     public string? Description { get; set; }
 
+    //Ask Alia!
     public ICollection<Category> Categories { get; set; } = null!;
     public ICollection<Author> Authors { get; set; } = null!;
     public ICollection<Copy> Copies { get; set; } = null!;
