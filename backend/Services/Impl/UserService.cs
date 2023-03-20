@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 public class UserService : IUserService
 {
+    //My GetAsync method went walkabout, will put back soon!
     private readonly UserManager<User> _userManager;
     private readonly IJWTokenService _jwTokenService;
 
