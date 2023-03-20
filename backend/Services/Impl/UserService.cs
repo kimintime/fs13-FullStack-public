@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 
 public class UserService : IUserService
 {
-    //My GetAsync method went walkabout, will put back soon!
     private readonly UserManager<User> _userManager;
     private readonly IJWTokenService _jwTokenService;
 
@@ -69,6 +68,15 @@ public class UserService : IUserService
         return result.Succeeded;
     }
 
+    public async Task<User?> GetAsync(int id)
+    {
+        var user = await _userManager.FindByIdAsync(id.ToString());
 
+        if (user is null)
+        {
+            return null;
+        }
 
+        return user;
+    }
 }
