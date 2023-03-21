@@ -11,6 +11,19 @@ using Backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//setup localhost
+// builder.WebHost.ConfigureKestrel(options =>
+//         {
+//             // Set HTTPS port => choose any available port you want
+//             // options.ListenLocalhost(5001, listenOptions =>
+//             // {
+//             //     listenOptions.UseHttps();
+//             // });
+
+//             // Set HTTP port  => choose any available port you want
+//             options.ListenLocalhost(5000);
+//         });
+
 // Add services to the container.
 
 builder.Services
@@ -101,7 +114,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
 }
 
 app.UseHttpsRedirection();

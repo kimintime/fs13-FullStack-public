@@ -54,7 +54,7 @@ public class UserController : ApiControllerBase
     }
 
     [HttpPost("{id:int}/roles")]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public async Task<bool> UserRoles([FromBody] RoleDTO request, [FromRoute] int id)
     {
         var roles = await _roleService.GetRolesAsync(request);

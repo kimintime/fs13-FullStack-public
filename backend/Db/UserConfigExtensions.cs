@@ -22,7 +22,7 @@ public static class UserConfigExtensions
         modelBuilder.Entity<User>()
             .HasIndex(user => new { user.FirstName, user.LastName })
             .IsUnique();
-        
+
         modelBuilder.Entity<User>()
             .Navigation(user => user.Loans)
             .AutoInclude();
@@ -30,15 +30,16 @@ public static class UserConfigExtensions
 
     public static void TimestampConfig(this ModelBuilder modelBuilder)
     {
-        foreach (var propertyName in modelBuilder.Model.GetEntityTypes().Select(s => s.Name))
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
-            modelBuilder.Entity(propertyName)
+            modelBuilder.Entity(entityType.Name)
                 .Property<DateTime>("CreatedAt")
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                .HasDefaultValue(DateTime.UtcNow);
 
-            modelBuilder.Entity(propertyName)
+            modelBuilder.Entity(entityType.Name)
                 .Property<DateTime>("UpdatedAt")
-                .HasDefaultValue("CURRENT_TIMESTAMP");
+                .HasDefaultValue(DateTime.UtcNow);
         }
     }
+
 }
