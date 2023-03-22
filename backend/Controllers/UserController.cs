@@ -41,7 +41,7 @@ public class UserController : ApiControllerBase
     
     [AllowAnonymous]
     [HttpPost("login")]
-    public async Task<IActionResult> Login(CredentialsDTO request)
+    public async Task<ActionResult<LoginReponseDTO?>> Login(CredentialsDTO request)
     {
         var response = await _service.LoginAsync(request);
 
