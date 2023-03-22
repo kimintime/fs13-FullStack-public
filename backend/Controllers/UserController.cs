@@ -1,5 +1,4 @@
 namespace Backend.Controllers;
-
 using Backend.Services;
 using Backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +26,7 @@ public class UserController : ApiControllerBase
 
     [AllowAnonymous]
     [HttpPost("register")]
-    public async Task<IActionResult> Register(UserRegistrationDTO request)
+    public async Task<ActionResult<UserRegResponseDTO?>> Register(UserRegistrationDTO request)
     {
         var user = await _service.RegisterAsync(request);
 
@@ -47,7 +46,7 @@ public class UserController : ApiControllerBase
 
         if (response is null)
         {
-            return Unauthorized();
+            return BadRequest();
         }
 
         return Ok(response);
@@ -55,6 +54,7 @@ public class UserController : ApiControllerBase
 
     [HttpPost("{id:int}/roles")]
     [Authorize]
+    //[Authorize(Roles = "Admin")]
     public async Task<bool> UserRoles([FromBody] RoleDTO request, [FromRoute] int id)
     {
         var roles = await _roleService.GetRolesAsync(request);

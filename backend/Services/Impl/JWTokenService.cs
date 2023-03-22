@@ -17,6 +17,26 @@ public class JWTokenService : IJWTokenService
     {
         _config = config;
         _userManager = userManager;
+
+        // var secret = _config["Jwt:Secret"];
+        // if (string.IsNullOrWhiteSpace(secret))
+        // {
+        //     throw new InvalidOperationException("Jwt:Secret configuration value not found.");
+        // }
+
+        // var issuer = _config["Jwt:Issuer"];
+        // if (string.IsNullOrEmpty(issuer))
+        // {
+        //     throw new ApplicationException("Jwt:Issuer configuration value not found");
+        // }
+
+        // var audience = _config["Jwt:Audience"];
+        // if (string.IsNullOrEmpty(audience))
+        // {
+        //     throw new ApplicationException("Jwt:Audience configuration value not found");
+        // }
+
+        // Console.WriteLine($"The secret, issue, and audience: {secret}, {issuer}, {audience}");
     }
 
     public async Task<LoginReponseDTO?> GenerateTokenAsync(User user)
@@ -26,7 +46,7 @@ public class JWTokenService : IJWTokenService
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email!),
-            new Claim(JwtRegisteredClaimNames.Name, user.UserName ?? string.Empty),
+            //new Claim(JwtRegisteredClaimNames.Name, user.UserName ?? string.Empty),
         };
 
         var roles = await _userManager.GetRolesAsync(user);
@@ -58,6 +78,8 @@ public class JWTokenService : IJWTokenService
             expires: expiration,
             signingCredentials: loginKey
         );
+
+        Console.WriteLine($"Generated token for user {user.Id}");
 
         var tokenWriter = new JwtSecurityTokenHandler();
 
