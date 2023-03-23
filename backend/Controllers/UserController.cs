@@ -73,9 +73,9 @@ public class UserController : ApiControllerBase
     public async Task<IActionResult> AddRole(RoleDTO request)
     {
         var amountAdded = await _roleService.AddRolesAsync(request);
-        // return Ok(new { Added = amountAdded });
+        return Ok(new { Added = amountAdded });
 
-        return Ok(amountAdded);
+        //return Ok(amountAdded);
     }
 
 }
