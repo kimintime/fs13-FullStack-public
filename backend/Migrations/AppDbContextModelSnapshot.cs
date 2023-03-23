@@ -38,7 +38,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(490))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(1660))
                         .HasColumnName("created_at");
 
                     b.Property<string>("FirstName")
@@ -56,7 +56,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(760))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2000))
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -90,7 +90,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(880))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2170))
                         .HasColumnName("created_at");
 
                     b.Property<string>("Description")
@@ -107,7 +107,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(990))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2310))
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -136,7 +136,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(1080))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2430))
                         .HasColumnName("created_at");
 
                     b.Property<string>("Description")
@@ -152,7 +152,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(1210))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2750))
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -180,7 +180,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(1320))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2920))
                         .HasColumnName("created_at");
 
                     b.Property<bool>("IsAvailable")
@@ -194,7 +194,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(1450))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3090))
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -225,7 +225,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(1570))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3260))
                         .HasColumnName("created_at");
 
                     b.Property<DateTime>("DateDue")
@@ -243,7 +243,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(1710))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3420))
                         .HasColumnName("updated_at");
 
                     b.Property<int>("UserId")
@@ -278,7 +278,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(1830))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3600))
                         .HasColumnName("created_at");
 
                     b.Property<string>("PublisherName")
@@ -290,7 +290,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(1940))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3830))
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -327,7 +327,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(2660))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(5270))
                         .HasColumnName("created_at");
 
                     b.Property<string>("Email")
@@ -392,7 +392,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(3260))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(6020))
                         .HasColumnName("updated_at");
 
                     b.Property<string>("UserName")
@@ -440,7 +440,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(3660))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(6530))
                         .HasColumnName("created_at");
 
                     b.Property<string>("Name")
@@ -456,7 +456,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(4020))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(6940))
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -489,7 +489,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(4500))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(7560))
                         .HasColumnName("created_at");
 
                     b.Property<int>("RoleId")
@@ -499,7 +499,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(5030))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(8200))
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
@@ -531,13 +531,13 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(5550))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(8830))
                         .HasColumnName("created_at");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(6140))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(9460))
                         .HasColumnName("updated_at");
 
                     b.Property<int>("UserId")
@@ -566,7 +566,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(6760))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(90))
                         .HasColumnName("created_at");
 
                     b.Property<string>("ProviderDisplayName")
@@ -576,7 +576,7 @@ namespace backend.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(7270))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(680))
                         .HasColumnName("updated_at");
 
                     b.Property<int>("UserId")
@@ -605,13 +605,13 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(7850))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(1350))
                         .HasColumnName("created_at");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(8440))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(2030))
                         .HasColumnName("updated_at");
 
                     b.HasKey("UserId", "RoleId")
@@ -640,13 +640,13 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(8970))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(2810))
                         .HasColumnName("created_at");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2023, 3, 21, 22, 0, 8, 862, DateTimeKind.Utc).AddTicks(9480))
+                        .HasDefaultValue(new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(3500))
                         .HasColumnName("updated_at");
 
                     b.Property<string>("Value")

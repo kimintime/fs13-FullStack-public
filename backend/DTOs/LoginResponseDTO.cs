@@ -7,6 +7,8 @@ public class LoginReponseDTO
     public int Id { get; set; }
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
+
+    public string UserName { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string Token { get; set; } = null!;
     public string[]? Roles { get; set; }
@@ -19,7 +21,7 @@ public class LoginReponseDTO
             Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Email = user.Email!,
+            UserName = user.UserName!,
             Token = token,
             Expiration = expires,
             Roles = roles.ToArray()
