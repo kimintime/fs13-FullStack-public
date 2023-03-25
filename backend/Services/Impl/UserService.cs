@@ -8,11 +8,13 @@ public class UserService : IUserService
 {
     private readonly UserManager<User> _userManager;
     private readonly IJWTokenService _jwTokenService;
+    private readonly IRoleService _roleService;
 
-    public UserService(UserManager<User> userManager, IJWTokenService jWTokenService)
+    public UserService(UserManager<User> userManager, IJWTokenService jWTokenService, IRoleService roleService)
     {
         _userManager = userManager;
         _jwTokenService = jWTokenService;
+        _roleService = roleService;
     }
 
     public async Task<LoginReponseDTO?> LoginAsync(CredentialsDTO request)
@@ -46,27 +48,22 @@ public class UserService : IUserService
 
         if (!result.Succeeded)
         {
-            return null;
+            var errors = result.Errors.Select(e => e.Description);
+            throw new ApplicationException($"Unable to create user: {string.Join(", ", errors)}");
+        }
+
+        await _roleService.AddRolesAsync();
+
+        if (request.Email is "admin@mail.com")
+        {
+            await _userManager.AddToRoleAsync(user, "Admin");
+        }
+        else
+        {
+            await _userManager.AddToRoleAsync(user, "Customer");
         }
 
         return user;
-    }
-
-    public async Task<bool> UserRolesAsync(string?[] roles, User user)
-    {
-        if (roles is null)
-        {
-            throw new ArgumentNullException(nameof(roles));
-        }
-        
-        var nonNullRoles = roles.Where(r => r != null).Select(r => r!);
-        var result = await _userManager.AddToRolesAsync(user, nonNullRoles);
-
-        if (!result.Succeeded)
-        {
-            return false;
-        }
-        return result.Succeeded;
     }
 
     public async Task<User?> GetAsync(int id)

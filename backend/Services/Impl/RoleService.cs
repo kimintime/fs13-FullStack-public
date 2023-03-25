@@ -8,40 +8,33 @@ public class RoleService : IRoleService
     private readonly RoleManager<IdentityRole<int>> _roleManager;
     public RoleService(RoleManager<IdentityRole<int>> roleManager) => _roleManager = roleManager;
 
-    public async Task<int> AddRolesAsync(RoleDTO request)
+    public async Task AddRolesAsync()
     {
-        int addedRoles = 0;
+        var roles = new[] { "Admin", "Customer" };
 
-        foreach (string role in request.RoleNames)
+        foreach (string role in roles)
         {
-            if (!await _roleManager.RoleExistsAsync(role))
+            if (await _roleManager.FindByNameAsync(role) is null)
             {
-                var result = await _roleManager.CreateAsync(new IdentityRole<int>() { Name = role });
-
-                if (result.Succeeded)
-                {
-                    addedRoles++;
-                }
+                await _roleManager.CreateAsync(new IdentityRole<int>() { Name = role });
             }
         }
-
-        return addedRoles;
     }
 
-    public async Task<ICollection<IdentityRole<int>>> GetRolesAsync(RoleDTO request)
-    {
-        ICollection<IdentityRole<int>> roles = new List<IdentityRole<int>>();
+    // public async Task<ICollection<IdentityRole<int>>> GetRolesAsync(RoleDTO request)
+    // {
+    //     ICollection<IdentityRole<int>> roles = new List<IdentityRole<int>>();
 
-        foreach (var roleName in request.RoleNames)
-        {
-            var role = await _roleManager.FindByNameAsync(roleName);
+    //     foreach (var roleName in request.RoleNames)
+    //     {
+    //         var role = await _roleManager.FindByNameAsync(roleName);
             
-            if (role is not null)
-            {
-                roles.Add(role);
-            }
-        }
+    //         if (role is not null)
+    //         {
+    //             roles.Add(role);
+    //         }
+    //     }
 
-        return roles;
-    }
+    //     return roles;
+    // }
 }
