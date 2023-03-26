@@ -15,4 +15,5 @@ public class User : IdentityUser<int>
 
     public string FullName => $"{FirstName} {LastName}";
     public ICollection<Loan> Loans { get; set; } = null!;
+    public ICollection<IdentityRole<int>> Roles { get; set; } = null!;
 }

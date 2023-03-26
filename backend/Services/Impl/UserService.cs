@@ -1,20 +1,24 @@
 namespace Backend.Services;
 
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Backend.DTOs;
 using Backend.Models;
-using Microsoft.AspNetCore.Identity;
+using Backend.Db;
 
 public class UserService : IUserService
 {
     private readonly UserManager<User> _userManager;
     private readonly IJWTokenService _jwTokenService;
     private readonly IRoleService _roleService;
+    private readonly AppDbContext _context;
 
-    public UserService(UserManager<User> userManager, IJWTokenService jWTokenService, IRoleService roleService)
+    public UserService(UserManager<User> userManager, IJWTokenService jWTokenService, AppDbContext context, IRoleService roleService)
     {
         _userManager = userManager;
         _jwTokenService = jWTokenService;
         _roleService = roleService;
+        _context = context;
     }
 
     public async Task<LoginReponseDTO?> LoginAsync(CredentialsDTO request)
@@ -65,6 +69,13 @@ public class UserService : IUserService
 
         return user;
     }
+
+    public async Task<IEnumerable<User>> GetAllAsync()
+    {
+        var users = await _context.Users.Include(u => u.Roles).ToListAsync();
+        return users;
+    }
+
 
     public async Task<User?> GetAsync(int id)
     {

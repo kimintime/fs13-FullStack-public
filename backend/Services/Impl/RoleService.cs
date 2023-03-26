@@ -1,12 +1,17 @@
 namespace Backend.Services;
 
-using Backend.DTOs;
+using Backend.Models;
 using Microsoft.AspNetCore.Identity;
 
 public class RoleService : IRoleService
 {
     private readonly RoleManager<IdentityRole<int>> _roleManager;
-    public RoleService(RoleManager<IdentityRole<int>> roleManager) => _roleManager = roleManager;
+    private readonly UserManager<User> _userManager;
+    public RoleService(RoleManager<IdentityRole<int>> roleManager, UserManager<User> userManager)
+    {
+        _roleManager = roleManager;
+        _userManager = userManager;
+    }
 
     public async Task AddRolesAsync()
     {
@@ -21,20 +26,16 @@ public class RoleService : IRoleService
         }
     }
 
-    // public async Task<ICollection<IdentityRole<int>>> GetRolesAsync(RoleDTO request)
-    // {
-    //     ICollection<IdentityRole<int>> roles = new List<IdentityRole<int>>();
+    public async Task<IList<string>> GetRolesAsync(int userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId.ToString());
+        if (user is null)
+        {
+            throw new ArgumentException("Invalid user id");
+        }
 
-    //     foreach (var roleName in request.RoleNames)
-    //     {
-    //         var role = await _roleManager.FindByNameAsync(roleName);
-            
-    //         if (role is not null)
-    //         {
-    //             roles.Add(role);
-    //         }
-    //     }
+        var roles = await _userManager.GetRolesAsync(user);
+        return roles;
+    }
 
-    //     return roles;
-    // }
 }

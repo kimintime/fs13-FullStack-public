@@ -28,17 +28,17 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
+{
+    base.OnModelCreating(modelBuilder);
 
-        modelBuilder.UserConfig();
-        modelBuilder.TimestampConfig();
-        modelBuilder.BookConfig();
-        modelBuilder.PublisherConfig();
-        modelBuilder.AuthorConfig();
-        modelBuilder.LoanConfig();
-        modelBuilder.CopyConfig();
-    }
+    modelBuilder.UserConfig();
+    modelBuilder.TimestampConfig();
+    modelBuilder.BookConfig();
+    modelBuilder.PublisherConfig();
+    modelBuilder.AuthorConfig();
+    modelBuilder.LoanConfig();
+    modelBuilder.CopyConfig();
+}
 
     public DbSet<Book> Books { get; set; } = null!;
     public DbSet<Author> Authors { get; set; } = null!;
