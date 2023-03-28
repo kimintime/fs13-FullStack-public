@@ -57,15 +57,7 @@ public class UserService : IUserService
         }
 
         await _roleService.AddRolesAsync();
-
-        if (request.Email is "admin@mail.com")
-        {
-            await _userManager.AddToRoleAsync(user, "Admin");
-        }
-        else
-        {
-            await _userManager.AddToRoleAsync(user, "Customer");
-        }
+        await _userManager.AddToRoleAsync(user, "Customer");
 
         return user;
     }
@@ -86,6 +78,30 @@ public class UserService : IUserService
             return null;
         }
 
+        return user;
+    }
+
+    public async Task<User?> UpdateUserAsync(UpdateUserDTO request)
+    {
+        var user = await _userManager.FindByEmailAsync(request.Email);
+
+        if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
+        {
+            return null;
+        }
+
+        if (request.NewPassword != null)
+        {
+            await _userManager.ChangePasswordAsync(user, request.Password, request.NewPassword);
+        }
+
+        user.UserName = request.UserName ?? user.UserName;
+        user.FirstName = request.FirstName ?? user.FirstName;
+        user.LastName = request.LastName ?? user.LastName;
+
+        request.UpdateUser(user);
+
+        await _userManager.UpdateAsync(user);
         return user;
     }
 }

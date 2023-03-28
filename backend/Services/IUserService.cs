@@ -9,4 +9,5 @@ public interface IUserService
     Task<LoginReponseDTO?> LoginAsync(CredentialsDTO request);
     Task<User?>GetAsync(int id);
     Task<IEnumerable<User>> GetAllAsync();
+    Task<User?> UpdateUserAsync(UpdateUserDTO request);
 }

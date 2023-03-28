@@ -23,6 +23,7 @@ public class UserController : ApiControllerBase
         return Ok();
     }
 
+    //Only for development mode!
     [Authorize(Roles = "Admin")]
     [HttpGet("all")]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
@@ -77,5 +78,40 @@ public class UserController : ApiControllerBase
 
         return Ok(response);
     }
+
+    [HttpPut("{id:int}")]
+    [Authorize(Roles = "Admin,Customer")]
+
+    public async Task<bool> EditUser([FromRoute] int id, [FromBody] UpdateUserDTO updateUser)
+    {
+        Request.Headers.TryGetValue("Authorization", out var token);
+
+        var tokenString = token.FirstOrDefault() ?? string.Empty;
+
+        if (!string.IsNullOrEmpty(tokenString))
+        {
+            var jwToken = _jwTokenService.ReadToken(tokenString.Substring(7));
+
+            if (int.TryParse(jwToken.Subject, out int userId))
+            {
+                if (userId != id)
+                {
+                    return false;
+                }
+            }
+
+        }
+
+        var user = await _service.UpdateUserAsync(updateUser);
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+
 
 }
