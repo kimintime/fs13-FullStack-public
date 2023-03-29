@@ -3,6 +3,7 @@ using Backend.Services;
 using Backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 public class UserController : ApiControllerBase
 {
@@ -16,16 +17,9 @@ public class UserController : ApiControllerBase
         _jwTokenService = tokenService;
     }
 
-    [HttpGet]
-    [Authorize]
-    public IActionResult CheckAuthorization()
-    {
-        return Ok();
-    }
-
     //Only for development mode!
     [Authorize(Roles = "Admin")]
-    [HttpGet("all")]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
     {
         var users = await _service.GetAllAsync();
@@ -41,6 +35,7 @@ public class UserController : ApiControllerBase
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Username = user.UserName!,
                 Email = user.Email!,
                 Roles = roles.ToArray() // convert IList<string> to string[]
             };
@@ -50,6 +45,30 @@ public class UserController : ApiControllerBase
 
         return Ok(userDTOs);
     }
+
+    [Authorize(Roles = "Admin")]
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetProfile(string id)
+    {
+        var user = await _service.GetAsync(id);
+        var roles = await _roleService.GetRolesAsync(user!.Id);
+
+        var userDTO = new UserDTO
+        {
+            Id = user!.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Username = user.UserName!,
+            Email = user.Email!,
+            Roles = roles.ToArray()
+        };
+
+        return Ok(userDTO);
+    }
+
+    [Authorize]
+    [HttpGet("profile")]
+
 
     [AllowAnonymous]
     [HttpPost("register")]
@@ -79,30 +98,21 @@ public class UserController : ApiControllerBase
         return Ok(response);
     }
 
-    [HttpPut("{id:int}")]
+    [HttpPut("update")]
     [Authorize(Roles = "Admin,Customer")]
 
-    public async Task<bool> EditUser([FromRoute] int id, [FromBody] UpdateUserDTO updateUser)
+    public async Task<bool> EditUser([FromBody] UpdateUserDTO updateUser)
     {
-        Request.Headers.TryGetValue("Authorization", out var token);
+        
+        var authUser = HttpContext.User;
+        Console.WriteLine(authUser);
+        Console.WriteLine(authUser.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-        var tokenString = token.FirstOrDefault() ?? string.Empty;
+        var userId = authUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-        if (!string.IsNullOrEmpty(tokenString))
-        {
-            var jwToken = _jwTokenService.ReadToken(tokenString.Substring(7));
+        Console.WriteLine(userId);
 
-            if (int.TryParse(jwToken.Subject, out int userId))
-            {
-                if (userId != id)
-                {
-                    return false;
-                }
-            }
-
-        }
-
-        var user = await _service.UpdateUserAsync(updateUser);
+        var user = await _service.UpdateUserAsync(updateUser, userId );
 
         if (user is null)
         {
@@ -111,7 +121,4 @@ public class UserController : ApiControllerBase
 
         return true;
     }
-
-
-
 }

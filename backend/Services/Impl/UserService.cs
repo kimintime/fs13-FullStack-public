@@ -62,16 +62,16 @@ public class UserService : IUserService
         return user;
     }
 
+    //Only for Development Mode!
     public async Task<IEnumerable<User>> GetAllAsync()
     {
         var users = await _context.Users.Include(u => u.Roles).ToListAsync();
         return users;
     }
 
-
-    public async Task<User?> GetAsync(int id)
+    public async Task<User?> GetAsync(string id)
     {
-        var user = await _userManager.FindByIdAsync(id.ToString());
+        var user = await _userManager.FindByIdAsync(id);
 
         if (user is null)
         {
@@ -81,35 +81,26 @@ public class UserService : IUserService
         return user;
     }
 
-    public async Task<User?> UpdateUserAsync(UpdateUserDTO request)
+    public async Task<User?> UpdateUserAsync(UpdateUserDTO request, string id)
     {
-        var user = await _userManager.FindByEmailAsync(request.Email);
-
-        if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
-        {
-            return null;
-        }
-
-        if (request.NewPassword != null)
-        {
-            await _userManager.ChangePasswordAsync(user, request.Password, request.NewPassword);
-        }
-
-        if (request.NewEmail is "string" || request.NewEmail is null)
-            request.NewEmail = user.Email;
+        var user = await _userManager.FindByIdAsync(id);
         
-        if (request.NewUserName is "string" || request.NewUserName is null)
-            request.NewUserName = user.UserName;
-
-        if (request.NewFirstName is "string" || request.NewFirstName is null)
-            request.NewFirstName = user.FirstName;
-
-        if (request.NewLastName is "string" || request.NewLastName is null)
-            request.NewLastName = user.LastName;
+        //Moving to UserUpdateDTO did.not.work
+        if (request.Email is "string" || request.Email is null)
+            request.Email = user!.Email!;
         
-        request.UpdateUser(user);
+        if (request.Username is "string" || request.Username is null)
+            request.Username = user!.UserName!;
 
-        await _userManager.UpdateAsync(user);
+        if (request.FirstName is "string" || request.FirstName is null)
+            request.FirstName = user!.FirstName;
+
+        if (request.LastName is "string" || request.LastName is null)
+            request.LastName = user!.LastName;
+        
+        request.UpdateUser(user!);
+
+        await _userManager.UpdateAsync(user!);
         return user;
     }
 }

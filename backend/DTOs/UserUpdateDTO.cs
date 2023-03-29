@@ -2,18 +2,19 @@ namespace Backend.DTOs;
 
 using Backend.Models;
 
-public class UpdateUserDTO : CredentialsDTO
+public class UpdateUserDTO
 {
-    public string? NewEmail { get; set; }
-    public string? NewUserName { get; set; } 
-    public string? NewFirstName { get; set; }
-    public string? NewLastName { get; set; }
-    public string? NewPassword { get; set; }
+    public string FirstName { get; set; } = null!;
+    public string LastName { get; set; } = null!;
+
+    public string Username { get; set; } = null!;
+
+    public string Email { get; set; } = null!;
     public void UpdateUser(User user)
     {
-        user.Email = NewEmail;
-        user.UserName = NewUserName;
-        user.FirstName = NewFirstName!;
-        user.LastName = NewLastName!;
+        user.Email = Email;
+        user.UserName = Username;
+        user.FirstName = FirstName;
+        user.LastName = LastName;
     }
 }
