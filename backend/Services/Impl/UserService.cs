@@ -95,9 +95,12 @@ public class UserService : IUserService
             await _userManager.ChangePasswordAsync(user, request.Password, request.NewPassword);
         }
 
-        user.UserName = request.UserName ?? user.UserName;
-        user.FirstName = request.FirstName ?? user.FirstName;
-        user.LastName = request.LastName ?? user.LastName;
+        if (request.NewUserName != null)
+            user.UserName = request.NewUserName;
+
+        if (request.NewFirstName != null)
+            user.FirstName = request.NewFirstName;
+        
 
         request.UpdateUser(user);
 
