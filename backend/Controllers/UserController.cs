@@ -97,7 +97,6 @@ public class UserController : ApiControllerBase
         return Ok(UserDTO);
     }
 
-
     [AllowAnonymous]
     [HttpPost("register")]
     public async Task<ActionResult<UserRegResponseDTO?>> Register(UserRegistrationDTO request)
@@ -126,9 +125,8 @@ public class UserController : ApiControllerBase
         return Ok(response);
     }
 
-    [HttpPut("profile/update")]
     [Authorize(Roles = "Admin,Customer")]
-
+    [HttpPut("profile/update")]
     public async Task<bool> EditUser([FromBody] UpdateUserDTO updateUser)
     {
 
@@ -145,8 +143,26 @@ public class UserController : ApiControllerBase
         return true;
     }
 
-    [HttpPut("{id:int}/update")]
+    [Authorize]
+    [HttpPut("profile/update/password")]
+    public async Task<IActionResult> UpdatePassword(UpdatePasswordDTO request)
+    {
+        var authUser = HttpContext.User;
+        var userId = authUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+        if (userId is null)
+            return NotFound();
+
+        var updateUser = await _service.UpdatePasswordAsync(request, userId);
+
+        if (!updateUser)
+            return BadRequest();
+
+        return Ok(new { Message = "Password successfully updated!" });
+    }
+
     [Authorize(Roles = "Admin")]
+    [HttpPut("{id:int}/update")]
     public async Task<bool> AdminEditUser([FromBody] UpdateUserDTO updateUser, string id)
     {
 
@@ -159,5 +175,4 @@ public class UserController : ApiControllerBase
 
         return true;
     }
-
 }

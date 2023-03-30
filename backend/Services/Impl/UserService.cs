@@ -104,4 +104,16 @@ public class UserService : IUserService
         return user;
     }
 
+    public async Task<bool> UpdatePasswordAsync(UpdatePasswordDTO request, string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+
+        if (user is null)
+            return false;
+        
+        var result = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+
+        return true;
+    }
+
 }

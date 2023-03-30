@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Backend.Models;
-using Backend.DTOs;
 using Backend.Db;
 using Backend.Services;
 

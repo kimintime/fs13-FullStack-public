@@ -13,4 +13,5 @@ public interface IUserService
     //Only for development mode!
     Task<IEnumerable<User>> GetAllAsync();
     Task<User?> UpdateUserAsync(UpdateUserDTO request, string id);
+    Task<bool> UpdatePasswordAsync(UpdatePasswordDTO request, string id);
 }
