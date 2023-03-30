@@ -126,7 +126,7 @@ public class UserController : ApiControllerBase
         return Ok(response);
     }
 
-    [HttpPut("update")]
+    [HttpPut("profile/update")]
     [Authorize(Roles = "Admin,Customer")]
 
     public async Task<bool> EditUser([FromBody] UpdateUserDTO updateUser)
@@ -145,12 +145,12 @@ public class UserController : ApiControllerBase
         return true;
     }
 
-    [HttpPut("{id:int}")]
+    [HttpPut("{id:int}/update")]
     [Authorize(Roles = "Admin")]
-    public async Task<bool> AdminEditUser([FromBody] UpdateUserDTO updateUser, [FromRoute] int id)
+    public async Task<bool> AdminEditUser([FromBody] UpdateUserDTO updateUser, string id)
     {
 
-        var user = await _service.UpdateUserAsync(updateUser, id.ToString());
+        var user = await _service.UpdateUserAsync(updateUser, id);
 
         if (user is null)
         {
