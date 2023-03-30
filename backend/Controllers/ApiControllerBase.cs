@@ -1,6 +1,7 @@
 namespace Backend.Controllers;
 
 using System.Net.Mime;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]

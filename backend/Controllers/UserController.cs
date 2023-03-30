@@ -1,4 +1,5 @@
 namespace Backend.Controllers;
+
 using Backend.Services;
 using Backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +49,7 @@ public class UserController : ApiControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetProfile(string id)
+    public async Task<IActionResult> GetProfileById(string id)
     {
         var user = await _service.GetAsync(id);
         var roles = await _roleService.GetRolesAsync(user!.Id);
@@ -68,6 +69,33 @@ public class UserController : ApiControllerBase
 
     [Authorize]
     [HttpGet("profile")]
+    public async Task<IActionResult> GetProfile()
+    {
+        var authUser = HttpContext.User.Identity as ClaimsIdentity;
+
+        if (authUser is null)
+            return Unauthorized();
+
+        var userId = authUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+
+        var user = await _service.GetAsync(userId);
+        var roles = await _roleService.GetRolesAsync(user!.Id);
+
+        if (user is null)
+            return NotFound();
+
+        var UserDTO = new UserDTO
+        {
+            Id = user!.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Username = user.UserName!,
+            Email = user.Email!,
+            Roles = roles.ToArray()
+        };
+
+        return Ok(UserDTO);
+    }
 
 
     [AllowAnonymous]
@@ -103,16 +131,13 @@ public class UserController : ApiControllerBase
 
     public async Task<bool> EditUser([FromBody] UpdateUserDTO updateUser)
     {
-        
-        var authUser = HttpContext.User;
-        Console.WriteLine(authUser);
-        Console.WriteLine(authUser.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
+        var authUser = HttpContext.User;
         var userId = authUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
         Console.WriteLine(userId);
 
-        var user = await _service.UpdateUserAsync(updateUser, userId );
+        var user = await _service.UpdateUserAsync(updateUser, userId);
 
         if (user is null)
         {
@@ -121,4 +146,5 @@ public class UserController : ApiControllerBase
 
         return true;
     }
+
 }
