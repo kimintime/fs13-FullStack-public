@@ -135,9 +135,22 @@ public class UserController : ApiControllerBase
         var authUser = HttpContext.User;
         var userId = authUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
 
-        Console.WriteLine(userId);
-
         var user = await _service.UpdateUserAsync(updateUser, userId);
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    [HttpPut("{id:int}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<bool> AdminEditUser([FromBody] UpdateUserDTO updateUser, [FromRoute] int id)
+    {
+
+        var user = await _service.UpdateUserAsync(updateUser, id.ToString());
 
         if (user is null)
         {
