@@ -8,4 +8,5 @@ public class Category : BaseModel
     [MaxLength(10)]
     public string Name { get; set; } = null!;
     public string? Description { get; set; }
+    public ICollection<Book> Books { get; set; } = null!;
 }

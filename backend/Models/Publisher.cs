@@ -7,4 +7,5 @@ public class Publisher : BaseModel
     [MinLength(3)]
     [MaxLength(25)]
     public string PublisherName { get; set; } = null!;
+    public ICollection<Book> Books { get; set; } = null!;
 }
