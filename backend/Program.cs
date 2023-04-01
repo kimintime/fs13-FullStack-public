@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Backend.Models;
 using Backend.Db;
 using Backend.Services;
+using Backend.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,6 +77,12 @@ builder.Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJWTokenService, JWTokenService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<ICrudService<Author, AuthorDTO>, AuthorService>();
+builder.Services.AddScoped<ICrudService<Category, CategoryDTO>, CategoryService>();
+builder.Services.AddScoped<ICrudService<Publisher, PublisherDTO>, PublisherService>();
+builder.Services.AddScoped<ICrudService<Copy, CopyDTO>, CopyService>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<ILoanService, LoanService>();
 
 //Setup OpenApi and Swagger
 builder.Services.AddEndpointsApiExplorer();
