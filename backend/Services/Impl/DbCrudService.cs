@@ -39,7 +39,7 @@ public class DbCrudService<TModel, TDto> : ICrudService<TModel, TDto>
         return await _dbContext
             .Set<TModel>()
             .AsNoTracking()
-            .Skip(page - 1 * pageSize)
+            .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
     }
