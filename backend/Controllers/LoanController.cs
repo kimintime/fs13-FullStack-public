@@ -20,27 +20,39 @@ public class LoanController : ApiControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpGet]
-    public async Task<ICollection<LoanResponseDTO>> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 50)
+    public async Task<ICollection<LoanResponseDTO>> GetAll([FromQuery] FilterOptions? filter, [FromQuery] int page = 1, [FromQuery] int pageSize = 25)
     {
-        var loans = await _loanService.GetAllAsync(page, pageSize);
+        ICollection<Loan> loans = new List<Loan>();
+
+        if (filter is not null)
+        {
+            loans = filter == FilterOptions.Expired
+                ? await _loanService.GetExpiredLoansAsync(null, page, pageSize)
+                : await _loanService.GetCurrentLoansAsync(null, page, pageSize);
+
+            return loans.Select(loan => LoanResponseDTO.FromLoan(loan)).ToList();
+        }
+
+        loans = await _loanService.GetAllAsync(page, pageSize);
+
         return loans.Select(loan => LoanResponseDTO.FromLoan(loan)).ToList();
     }
 
-    [Authorize(Roles = "Admin")]
-    [HttpGet("current")]
-    public async Task<ICollection<LoanResponseDTO>> GetCurrent([FromQuery] int page = 1, [FromQuery] int pageSize = 50)
-    {
-        var loans = await _loanService.GetCurrentLoansAsync(page, pageSize);
-        return loans.Select(loan => LoanResponseDTO.FromLoan(loan)).ToList();
-    }
+    // [Authorize(Roles = "Admin")]
+    // [HttpGet("current")]
+    // public async Task<ICollection<LoanResponseDTO>> GetCurrent([FromQuery] int page = 1, [FromQuery] int pageSize = 50)
+    // {
+    //     var loans = await _loanService.GetCurrentLoansAsync(page, pageSize);
+    //     return loans.Select(loan => LoanResponseDTO.FromLoan(loan)).ToList();
+    // }
 
-    [Authorize(Roles = "Admin")]
-    [HttpGet("expired")]
-    public async Task<ICollection<LoanResponseDTO>> GetExpired([FromQuery] int page = 1, [FromQuery] int pageSize = 50)
-    {
-        var loans = await _loanService.GetExpiredLoansAsync(page, pageSize);
-        return loans.Select(loan => LoanResponseDTO.FromLoan(loan)).ToList();
-    }
+    // [Authorize(Roles = "Admin")]
+    // [HttpGet("expired")]
+    // public async Task<ICollection<LoanResponseDTO>> GetExpired([FromQuery] int page = 1, [FromQuery] int pageSize = 50)
+    // {
+    //     var loans = await _loanService.GetExpiredLoansAsync(page, pageSize);
+    //     return loans.Select(loan => LoanResponseDTO.FromLoan(loan)).ToList();
+    // }
 
     [Authorize(Roles = "Admin")]
     [HttpGet("{id:int}")]
@@ -51,21 +63,31 @@ public class LoanController : ApiControllerBase
 
     [Authorize]
     [HttpGet("user/loans")]
-    public async Task<ActionResult<LoanResponseDTO>?> GetByUser()
+    public async Task<ICollection<LoanResponseDTO>?> GetByUser([FromQuery] FilterOptions? filter)
     {
         var authUser = HttpContext.User.Identity as ClaimsIdentity;
 
         if (authUser is null)
-            return Unauthorized();
+            return null;
             
         var stringId = authUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
         var userId = Convert.ToInt32(stringId);
-        var loans = await _loanService.GetLoansByUserAsync(userId);
+        
+        ICollection<Loan> loans = new List<Loan>();
 
-        if (!loans.Any())
-            return NotFound();
+        if (filter is not null)
+        {
+            loans = filter == FilterOptions.Expired
+                ? await _loanService.GetExpiredLoansAsync(userId)
+                : await _loanService.GetCurrentLoansAsync(userId);
 
-        return Ok(loans);
+            return loans.Select(loan => LoanResponseDTO.FromLoan(loan)).ToList();
+        }
+
+        loans = await _loanService.GetLoansByUserAsync(userId);
+
+        return loans.Select(loan => LoanResponseDTO.FromLoan(loan)).ToList();
+       
     }
 
     [Authorize]
@@ -105,6 +127,12 @@ public class LoanController : ApiControllerBase
     public async Task<bool> DeleteLoan([FromRoute] int id)
     {
         return await _loanService.DeleteAsync(id);
+    }
+
+    public enum FilterOptions
+    {
+        Expired,
+        OnGoing
     }
 
 }

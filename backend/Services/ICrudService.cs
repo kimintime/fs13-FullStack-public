@@ -1,7 +1,5 @@
 namespace Backend.Services;
 
-using Backend.Models;
-
 public interface ICrudService<TModel, TDto>
 {
     public Task<TModel?> CreateAsync(TDto request);

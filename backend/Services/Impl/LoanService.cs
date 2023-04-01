@@ -117,10 +117,16 @@ public class LoanService : ILoanService
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var loan = await _dbContext.Loans.SingleOrDefaultAsync(loan => loan.Id == id);
+        // var loan = await _dbContext.Loans.SingleOrDefaultAsync(loan => loan.Id == id);
+
+        var loan = await _dbContext.Loans.FindAsync(id);
 
         if (loan is null)
             return false;
+
+        loan.Copy.IsAvailable = true;
+        _dbContext.Loans.Remove(loan);
+        await _dbContext.SaveChangesAsync();
 
         return true;
     }
