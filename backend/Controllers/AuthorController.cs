@@ -10,3 +10,4 @@ public class AuthorController : CrudController<Author, AuthorDTO>
     {
     }
 }
+
