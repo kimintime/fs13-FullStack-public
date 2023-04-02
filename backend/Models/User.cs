@@ -21,8 +21,4 @@ public class User : IdentityUser<int>
 
     [JsonIgnore]
     public ICollection<Loan> Loans { get; set; } = null!;
-
-    [NotMapped]
-    [JsonIgnore]
-    public ICollection<IdentityRole<int>> Roles { get; set; } = null!;
 }

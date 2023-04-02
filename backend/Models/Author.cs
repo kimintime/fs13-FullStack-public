@@ -19,5 +19,6 @@ public class Author : BaseModel
     [JsonIgnore]
     public string FullName => $"{FirstName} {LastName}";
     
+    [JsonIgnore]
     public ICollection<Book> Books { get; set; } = null!;
 }

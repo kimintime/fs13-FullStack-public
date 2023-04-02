@@ -17,12 +17,11 @@ public class UserController : ApiControllerBase
         _roleService = roleService;
     }
 
-    //Only for development mode!
     [Authorize(Roles = "Admin")]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
+    public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 25)
     {
-        var users = await _service.GetAllAsync();
+        var users = await _service.GetAllAsync(page, pageSize);
 
         var userDTOs = new List<UserDTO>();
 
@@ -35,7 +34,7 @@ public class UserController : ApiControllerBase
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Username = user.UserName!,
+                UserName = user.UserName!,
                 Email = user.Email!,
                 Roles = roles.ToArray() // convert IList<string> to string[]
             };
@@ -58,7 +57,7 @@ public class UserController : ApiControllerBase
             Id = user!.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Username = user.UserName!,
+            UserName = user.UserName!,
             Email = user.Email!,
             Roles = roles.ToArray()
         };
@@ -88,7 +87,7 @@ public class UserController : ApiControllerBase
             Id = user!.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Username = user.UserName!,
+            UserName = user.UserName!,
             Email = user.Email!,
             Roles = roles.ToArray()
         };

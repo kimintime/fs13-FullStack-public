@@ -10,8 +10,7 @@ public interface IUserService
     
     Task<User?>GetAsync(string id);
 
-    //Only for development mode!
-    Task<IEnumerable<User>> GetAllAsync();
+    Task<IEnumerable<UserDTO>> GetAllAsync(int page = 1, int pageSize = 25);
     Task<User?> UpdateUserAsync(UpdateUserDTO request, string id);
     Task<bool> UpdatePasswordAsync(UpdatePasswordDTO request, string id);
 }

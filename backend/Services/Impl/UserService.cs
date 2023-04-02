@@ -62,12 +62,38 @@ public class UserService : IUserService
         return user;
     }
 
-    //Only for Development Mode!
-    public async Task<IEnumerable<User>> GetAllAsync()
+    public async Task<IEnumerable<UserDTO>> GetAllAsync(int page = 1, int pageSize = 25)
     {
-        var users = await _context.Users.Include(u => u.Roles).ToListAsync();
-        return users;
+        var users = await _userManager.Users
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+        
+        var userDtos = new List<UserDTO>();
+
+        foreach (var user in users)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            userDtos.Add(new UserDTO
+            {
+                Id = user.Id,
+                UserName = user.UserName!,
+                Email = user.Email!,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Roles = roles
+            });
+        }
+
+        return userDtos;
     }
+
+
+
+
+
+
+
 
     public async Task<User?> GetAsync(string id)
     {
@@ -84,11 +110,11 @@ public class UserService : IUserService
     public async Task<User?> UpdateUserAsync(UpdateUserDTO request, string id)
     {
         var user = await _userManager.FindByIdAsync(id);
-        
+
         //Moving to UserUpdateDTO did.not.work
         if (request.Email is "string" || request.Email is null)
             request.Email = user!.Email!;
-        
+
         if (request.Username is "string" || request.Username is null)
             request.Username = user!.UserName!;
 
@@ -97,7 +123,7 @@ public class UserService : IUserService
 
         if (request.LastName is "string" || request.LastName is null)
             request.LastName = user!.LastName;
-        
+
         request.UpdateUser(user!);
 
         await _userManager.UpdateAsync(user!);
@@ -110,7 +136,7 @@ public class UserService : IUserService
 
         if (user is null)
             return false;
-        
+
         var result = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
 
         return true;
