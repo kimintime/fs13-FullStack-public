@@ -40,6 +40,11 @@ public static class BookConfigExtensions
         modelBuilder.Entity<Author>().HasIndex(author => author.FirstName);
 
         modelBuilder.Entity<Author>().HasIndex(author => author.LastName);
+
+        modelBuilder.Entity<Author>()
+        .HasMany(author => author.Books)
+        .WithMany(book => book.Authors)
+        .UsingEntity(j => j.ToTable("BookAuthor"));
     }
 
     public static void CategoryConfig(this ModelBuilder modelBuilder)

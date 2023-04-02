@@ -10,12 +10,11 @@ public class UserController : ApiControllerBase
 {
     private readonly IUserService _service;
     private readonly IRoleService _roleService;
-    private readonly IJWTokenService _jwTokenService;
-    public UserController(IUserService service, IJWTokenService tokenService, IRoleService roleService)
+
+    public UserController(IUserService service, IRoleService roleService)
     {
         _service = service;
         _roleService = roleService;
-        _jwTokenService = tokenService;
     }
 
     //Only for development mode!

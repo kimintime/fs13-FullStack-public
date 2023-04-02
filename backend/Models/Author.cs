@@ -18,5 +18,6 @@ public class Author : BaseModel
     [NotMapped]
     [JsonIgnore]
     public string FullName => $"{FirstName} {LastName}";
+    
     public ICollection<Book> Books { get; set; } = null!;
 }
