@@ -19,6 +19,7 @@ public class LoanController : ApiControllerBase
     {
         ICollection<Loan> loans = new List<Loan>();
 
+        //This section with thanks to Jeremias Ryttäri
         if (filter is not null)
         {
             loans = filter == FilterOptions.Expired
@@ -66,7 +67,6 @@ public class LoanController : ApiControllerBase
         loans = await _loanService.GetLoansByUserAsync(userId);
 
         return loans.Select(loan => LoanResponseDTO.FromLoan(loan)).ToList();
-       
     }
 
     [Authorize]
@@ -108,6 +108,7 @@ public class LoanController : ApiControllerBase
         return await _loanService.DeleteAsync(id);
     }
 
+    //This section thanks to Jeremias Ryttäri, why have all of the endpoints, when you can have some of the endpoints?
     public enum FilterOptions
     {
         Expired,
