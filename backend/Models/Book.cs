@@ -2,6 +2,7 @@ namespace Backend.Models;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 public class Book : BaseModel
 {
@@ -17,6 +18,7 @@ public class Book : BaseModel
     public ICollection<Copy> Copies { get; set; } = null!;
 
     [NotMapped]
+    [JsonIgnore]
     public ICollection<Publisher>? Publishers 
     { 
         get => Copies?.Select(c => c.Publisher).Distinct().ToList(); 
