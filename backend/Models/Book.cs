@@ -17,8 +17,8 @@ public class Book : BaseModel
     public ICollection<Author> Authors { get; set; } = null!;
     public ICollection<Copy> Copies { get; set; } = null!;
 
-    [NotMapped]
     [JsonIgnore]
+    [NotMapped]
     public ICollection<Publisher>? Publishers 
     { 
         get => Copies?.Select(c => c.Publisher).Distinct().ToList(); 
