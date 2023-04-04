@@ -12,7 +12,51 @@
 * Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
 
 ## About
-This project will be following from the library project from the initial C# backend design projects. Watch this space for more!
+This project is a fullstack implementation of a library, from its database to its website. So far, only the backend is done, but as ever, watch this space for more information.
+
+## Backend
+
+### Features
+As the features of the Api will recommend the features of the website, the Api currently should support the following functionality:
+
+- User
+    - User Authentication and Authorization
+    - User registration
+    - Update profile
+    - Change password
+    - Assigned default role at registration as ´´Customer´´
+    - May view on loans
+    - Admin User:
+        - Get all users (pagination)
+        - Get user by id
+        - Update user
+        - Update and delete loans
+
+- Book
+    - Search book by title, author, publisher, or category
+    - Get all (pagination)
+        - Books
+        - Authors
+        - Categories
+        - Publishers
+        - Copies
+
+    - Get by id:
+        - Book
+        - Category
+        - Author
+        - Copies
+
+    - Admin Role
+        -  Add, update and delete books, authors, categories, and publishers
+
+### Structure
+The database was based on this original model, although there are differences. There is no need for a cart table, and reservations are now known as loans, and reviews have not been implemented.
+
+
+
+
+
 
 ## Setting Up for folder `Backend`
 

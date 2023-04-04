@@ -35,6 +35,8 @@ builder.Services
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
 builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services
@@ -60,7 +62,6 @@ builder.Services
         {
             options.TokenValidationParameters = new TokenValidationParameters()
             {
-                // ValidateIssuer = true,
                 ValidateIssuerSigningKey = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
@@ -84,6 +85,7 @@ builder.Services.AddScoped<ILoanService, LoanService>();
 
 //Setup OpenApi and Swagger
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo() { Title = "Library", Version = "V1" });
@@ -124,6 +126,8 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
     });
 }
+
+app.UseRouting();
 
 app.UseHttpsRedirection();
 
