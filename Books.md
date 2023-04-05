@@ -1,3 +1,5 @@
+[Back Main to Api Documentation Page](./ApiDocumentation.md)  
+
 # Books
 - [Get all books](#get-all-books)
 - [Get book by id](#get-book-by-id)
@@ -8,7 +10,7 @@
 - [Add Category to Book](#add-category-to-book)
 - [Remove Author from Book](#remove-author-from-book)
 - [Remove Category from Book](#remove-category-from-book)
-- [Delete Book](#delete-book)
+- [Delete Book](#delete-book)  
 
 ## Get all books
 `[GET] /api/v1/books?page=1&pageSize=25`

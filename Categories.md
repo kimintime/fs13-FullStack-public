@@ -1,3 +1,5 @@
+[Back Main to Api Documentation Page](./ApiDocumentation.md)  
+
 # Categories
 - [Get all categories](#get-all-categories)
 - [Get categories by id](#get-category-by-id)

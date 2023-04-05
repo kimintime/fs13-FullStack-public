@@ -1,3 +1,5 @@
+[Back Main to Api Documentation Page](./ApiDocumentation.md)  
+
 # Authors
 - [Get all authors](#get-all-authors)
 - [Get authors by id](#get-authors-by-id)
@@ -6,7 +8,7 @@
 - [Delete author](#delete-author)
 
 ## Get All Authors
-`[GET] api/v1/authors?page=1&pageSize=25`
+`[GET] api/v1/authors?page=1&pageSize=25`  
 
 - Response
 ```
@@ -36,7 +38,7 @@
 [Back to top](#authors)  
 
 ## Get Authors By Id
-`[GET] api/v1/authors/3`
+`[GET] api/v1/authors/{id}`  
 
 - Response
 ```
@@ -61,7 +63,7 @@
 [Back to top](#authors)  
 
 ## Update Author
-`[PUT] api/v1/authors/{id}`
+`[PUT] api/v1/authors/{id}`  
 
 - Request
 ```
