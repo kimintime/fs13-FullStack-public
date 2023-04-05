@@ -1,4 +1,4 @@
-[Back Main to Api Documentation Page](./ApiDocumentation.md)  
+[Back to Api Documentation Page](./ApiDocumentation.md)  
 
 # Books
 - [Get all books](#get-all-books)
@@ -264,13 +264,4 @@
 `[DELETE] api/v1/books/{id}`
 
 [Back to top](#books)
-
-
-
-
-
-
-
-
-
 

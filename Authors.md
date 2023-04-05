@@ -1,4 +1,4 @@
-[Back Main to Api Documentation Page](./ApiDocumentation.md)  
+[Back to Api Documentation Page](./ApiDocumentation.md)  
 
 # Authors
 - [Get all authors](#get-all-authors)
@@ -13,21 +13,6 @@
 - Response
 ```
 [
-  {
-    "firstName": "Walter",
-    "lastName": "Farley",
-    "id": 2
-  },
-  {
-    "firstName": "Anna",
-    "lastName": "Sewell",
-    "id": 3
-  },
-  {
-    "firstName": "Gail Carson",
-    "lastName": "Levine",
-    "id": 4
-  },
   {
     "firstName": "Charlotte",
     "lastName": "Brontë",

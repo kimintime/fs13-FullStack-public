@@ -1,8 +1,8 @@
-[Back Main to Api Documentation Page](./ApiDocumentation.md)  
+[Back to Api Documentation Page](./ApiDocumentation.md)  
 
 # Copies
 - [Get all copies](#get-all-copies)
-- [Get copies by id](#get-copies-by-id)
+- [Get copy by id](#get-copy-by-id)
 - [Add new copy](#add-new-copy)
 - [Update copy](#update-copy)
 - [Delete copy](#delete-copy)
@@ -22,38 +22,11 @@
     "title": "The Black Stallion",
     "id": 1
   },
-  {
-    "isAvailable": false,
-    "publisher": {
-      "publisherName": "Scholastic Paperbacks",
-      "id": 2
-    },
-    "title": "Black Beauty",
-    "id": 2
-  },
-  {
-    "isAvailable": true,
-    "publisher": {
-      "publisherName": "Penguin Classics",
-      "id": 3
-    },
-    "title": "Black Beauty",
-    "id": 3
-  },
-  {
-    "isAvailable": true,
-    "publisher": {
-      "publisherName": "Penguin Classics",
-      "id": 3
-    },
-    "title": "Jane Eyre",
-    "id": 4
-  }
 ]
 ```  
 [Back to top](#copies)  
 
-## Get Copies By Id
+## Get Copy By Id
 `[GET] api/v1/copies/{id}`  
 
 - Response  
