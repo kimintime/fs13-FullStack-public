@@ -14,6 +14,13 @@
 ## About
 This project is a fullstack implementation of a library, from its database to its website. So far, only the backend is done, but as ever, watch this space for more information.
 
+This project started as a group effort, planning a database schema and endpoints for a library database, and it would not have been possible without the continuing support of that original project group, who continued to help and support me through our individual projects, as well as our amazing instructor.
+
+### Thanks to
+- Jeremias Ryttäri [JeremiasRy](https://github.com/JeremiasRy)
+- Luan (Nguyen Thanh) Le [ELNAUL99](https://github.com/ELNAUL99)
+- Alia Nguyen [alikiny](https://github.com/alikiny)
+
 ## Backend
 
 ### Features
