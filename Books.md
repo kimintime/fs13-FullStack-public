@@ -1,4 +1,6 @@
 # Books
+[Get all books][#Get-all-books]
+
 ## Get all books
 - Request
 `[GET] /api/v1/books?page=1&pageSize=25`
