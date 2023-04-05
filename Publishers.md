@@ -44,7 +44,7 @@
 ``` 
 [Back to top](#publishers)  
 
-## Update Publiisher
+## Update Publisher
 `[PUT] api/v1/publishers`
 
 - Request  
