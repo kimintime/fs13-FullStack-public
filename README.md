@@ -54,7 +54,74 @@ As the features of the Api will recommend the features of the website, the Api c
 The database was based on this original model, although there are differences. There is no need for a cart table, and reservations are now known as loans, and reviews have not been implemented. Breaking it down into plain English, many users can have one role, admin (or librarian), or customer. The database allows users to have many loans, and those loans are of copies of specific books. It is those specific copies that can be lent out to become loans. When a copy is on loan, it is marked as unavailable, and each user's loans are connected to their own profile. Publishers are connected to copies, rather than the books, as books often have many editions, and also more than one publisher. Books can also have more than one author and more than one category. 
 
 #### Api
-The Api documentation can be found here. 
+The Api documentation can be found [here](./ApiDocumentation.md). 
+
+#### File Structure
+backend
+ ┣ Controllers
+ ┃ ┣ ApiControllerBase.cs
+ ┃ ┣ AuthorController.cs
+ ┃ ┣ BookController.cs
+ ┃ ┣ CategoryController.cs
+ ┃ ┣ CopyController.cs
+ ┃ ┣ CrudController.cs
+ ┃ ┣ LoanController.cs
+ ┃ ┣ PublisherController.cs
+ ┃ ┗ UserController.cs
+ ┣ DTOs
+ ┃ ┣ UserDTOs.cs
+ ┃ ┃ ┣ CredentialsDTO.cs
+ ┃ ┃ ┣ LoginResponseDTO.cs
+ ┃ ┃ ┣ RoleDTO.cs
+ ┃ ┃ ┣ UpdatePasswordDTO.cs
+ ┃ ┃ ┣ UserDTO.cs
+ ┃ ┃ ┣ UserRegResponseDTO.cs
+ ┃ ┃ ┣ UserRegistrationDTO.cs
+ ┃ ┃ ┗ UserUpdateDTO.cs
+ ┃ ┣ AddDTO.cs
+ ┃ ┣ AuthorDTO.cs
+ ┃ ┣ BaseDTO.cs
+ ┃ ┣ BookDTO.cs
+ ┃ ┣ CategoryDTO.cs
+ ┃ ┣ CopyDTO.cs
+ ┃ ┣ LoanDTO.cs
+ ┃ ┣ LoanResponseDTO.cs
+ ┃ ┗ PublisherDTO.cs
+ ┣ Db
+ ┃ ┣ AppDbContext.cs
+ ┃ ┣ AppDbContextSaveChangesInterceptor.cs
+ ┃ ┣ BookConfigExtensions.cs
+ ┃ ┣ LoanConfigExtensions.cs
+ ┃ ┗ UserConfigExtensions.cs
+ ┣ Models
+ ┃ ┣ Author.cs
+ ┃ ┣ BaseModel.cs
+ ┃ ┣ Book.cs
+ ┃ ┣ Category.cs
+ ┃ ┣ Copy.cs
+ ┃ ┣ Loan.cs
+ ┃ ┣ Publisher.cs
+ ┃ ┗ User.cs
+ ┣ Services
+ ┃ ┣ Impl
+ ┃ ┃ ┣ AuthorService.cs
+ ┃ ┃ ┣ BookService.cs
+ ┃ ┃ ┣ CategoryService.cs
+ ┃ ┃ ┣ CopyService.cs
+ ┃ ┃ ┣ DbCrudService.cs
+ ┃ ┃ ┣ JWTokenService.cs
+ ┃ ┃ ┣ LoanService.cs
+ ┃ ┃ ┣ PublisherService.cs
+ ┃ ┃ ┣ RoleService.cs
+ ┃ ┃ ┗ UserService.cs
+ ┃ ┣ IBookService.cs
+ ┃ ┣ ICrudService.cs
+ ┃ ┣ IJWTokenService.cs
+ ┃ ┣ ILoanService.cs
+ ┃ ┣ IRoleService.cs
+ ┃ ┗ IUserService.cs
+ ┣ Program.cs
+ ┣ backend.csproj
 
 
 ### Setting Up the `Backend`

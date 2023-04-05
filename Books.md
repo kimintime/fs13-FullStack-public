@@ -128,19 +128,29 @@
 `[GET] api/v1/books/search`
 
 - By Title
-```[GET] api/v1/books/search?title={string}```
+```
+[GET] api/v1/books/search?title={string}
+```
 
 - By Author
- ```[GET] api/v1/books/search?author={id}```
+```
+[GET] api/v1/books/search?author={id}
+```
 
 - By Category
-```[GET] api/v1/books/search?category={id}```
+```
+[GET] api/v1/books/search?category={id}
+```
 
 - By Publisher
-    ```[GET] api/v1/books/search?publisher={id}```
+```
+[GET] api/v1/books/search?publisher={id}
+```
 
 - By Title, Author, Category, and Publisher
- ```[GET] api/v1/books/search?category={id}&author={id}&title={string}&publisher={id}```
+```
+[GET] api/v1/books/search?category={id}&author={id}&title={string}&publisher={id}
+```
 
 - Response
 ```
