@@ -1,17 +1,16 @@
 # Books
-- [Books](#books)
-  * [Get all books](#get-all-books)
-  * [Get book by id](#get-book-by-id)
-  * [Book search](#book-search)
-  * [Update Book](#update-book)
-  * [Add New Book](#add-new-book)
-  * [Add Author to Book](#add-author-to-book)
-  * [Add Category to Book](#add-category-to-book)
-  * [Remove Author from Book](#remove-author-from-book)
-  * [Remove Category from Book](#remove-category-from-book)
-  * [Delete Book](#delete-book)
+- [Get all books](#get-all-books)
+- [Get book by id](#get-book-by-id)
+- [Book search](#book-search)
+- [Update Book](#update-book)
+- [Add New Book](#add-new-book)
+- [Add Author to Book](#add-author-to-book)
+- [Add Category to Book](#add-category-to-book)
+- [Remove Author from Book](#remove-author-from-book)
+- [Remove Category from Book](#remove-category-from-book)
+- [Delete Book](#delete-book)
 
-## Get all books
+## Get all books [Books](#books)
 - Request
 `[GET] /api/v1/books?page=1&pageSize=25`
 
@@ -62,7 +61,7 @@
 ]
 ```
 
-## Get book by id
+## Get book by id [Books](#books)
 - Request
 `[GET] v1/api/books/{id}`
 
@@ -125,7 +124,7 @@
 }
 ```
 
-## Book search
+## Book search [Books](#books)
 - Request
 `[GET] api/v1/books/search`
 
@@ -196,7 +195,7 @@
 ]
 ´´´
 
-## Update Book
+## Update Book [Books](#books)
 - Request
 `[PUT] api/v1/books/{id}`
 
@@ -207,7 +206,7 @@
 }
 ```
 
-## Add New Book
+## Add New Book [Books](#books)
 - Request
 `[POST] api/v1/books`
 
@@ -218,7 +217,7 @@
 }
 ```
 
-## Add Author to Book
+## Add Author to Book [Books](#books)
 - Request
 `[POST] api/v1/books/{id}/author`
 
@@ -228,7 +227,7 @@
 }
 ```
 
-## Add Category to Book
+## Add Category to Book [Books](#books)
 - Request
 `[POST] api/v1/books/{id}/categories`
 
@@ -238,16 +237,16 @@
 }
 ```
 
-## Remove Author from Book
+## Remove Author from Book [Books](#books)
 - Response
 `[DELETE] api/v1/books/{id}/authors?authorId={id}`
 
 
-## Remove Category from Book
+## Remove Category from Book [Books](#books)
 - Response
 `[DELETE] api/v1/books/{id}/categories?categoryId={id}`
 
-## Delete Book
+## Delete Book [Books](#books)
 `[DELETE] api/v1/books/{id}`
 
 
