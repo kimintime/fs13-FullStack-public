@@ -24,8 +24,8 @@ As the features of the Api will recommend the features of the website, the Api c
     - User registration
     - Update profile
     - Change password
-    - Assigned default role at registration as ´´Customer´´
-    - May view on loans
+    - Assigned default role at registration as `Customer`
+    - May view on loans     
     - Admin User:
         - Get all users (pagination)
         - Get user by id
@@ -51,32 +51,20 @@ As the features of the Api will recommend the features of the website, the Api c
         -  Add, update and delete books, authors, categories, and publishers
 
 ### Structure
-The database was based on this original model, although there are differences. There is no need for a cart table, and reservations are now known as loans, and reviews have not been implemented.
+The database was based on this original model, although there are differences. There is no need for a cart table, and reservations are now known as loans, and reviews have not been implemented. Breaking it down into plain English, many users can have one role, admin (or librarian), or customer. The database allows users to have many loans, and those loans are of copies of specific books. It is those specific copies that can be lent out to become loans. When a copy is on loan, it is marked as unavailable, and each user's loans are connected to their own profile. Publishers are connected to copies, rather than the books, as books often have many editions, and also more than one publisher. Books can also have more than one author and more than one category. 
+
+#### Api
+The Api documentation can be found here. 
 
 
+### Setting Up the `Backend`
 
+1. Create the `appsettings.json` file in the root of folder `Backend`. You can refer to the content of file `example.json`
+2. Required to run the Library backend:
+    * .Net Core (this project is version 7)
+    * PostgresSQL
+   
+3. You can change .NET Core version to be compatible with your local machine in the `backend.csproj´ file
+4. Run the command `dotnet restore` to restore all the required libraries, then `dotnet run` to start the server. 
+5. The project is using Swagger UI to run the Api, so you have the option to navigate to localhost:5001/swagger/index.html to test out the Api. Note that the port depends on your own configuration of the server settings in the Program.cs file. 
 
-
-
-## Setting Up for folder `Backend`
-
-1. Create `appsettings.json` (and `appsettings.*.json` if needed) file in the root of folder `Backend`. You can refer to the content of file `example.json`
-2. Install all the needed packages:
-    * AutoMapper
-    * AutoMapper.Extensions.Microsoft.DependencyInjection
-    * Microsoft.EntityFrameworkCore
-    * Microsoft.EntityFrameworkCore.Design
-    * Npgsql.EntityFrameworkCore.PostgreSQL
-    \
-   *You can add more packages when necessary.*
-3. You can change .NET Core version to be compatible with your local machine
-
-## Requirements
-
-Below are the steps that you need to finish in order to finish this module
-
-1. Your full stack project should have one git repo to manage both frontend and backend. The shared .git in the root directory is used to push commits to the remote repo. In case you need to deploy frontend and backend to different server, you can inittiate another `.git` folder in each repository. Syntax: `cd frontend` -> `git init` (similar to backend folder). Remember to add `.gitignore` for each folder when you intiate `git` repo.
-2. `frontend` folder is for the react frontend. Start with `backend` first before moving on to `frontend`.
-3. `backend` should have proper file structure, naming convention, and comply with Rest API.
-4. Each topic would have different features. However, the main routes should have CRUD operations, authentication and authorization.
-5. You need to deploy the fullstack project, rewrite `README.md` as instructed earlier in the course.
