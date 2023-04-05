@@ -55,10 +55,10 @@ The database was based on this original model, although there are differences. T
 
 ![219979882-b295c08d-2ac5-4a7f-b05f-ceb173f48d28](https://user-images.githubusercontent.com/40215472/230119173-20c8ba29-b823-40e2-8742-0d9f46a10d89.png)
 
-#### Api
+### Api
 The Api documentation can be found [here](./ApiDocumentation.md). 
 
-#### File Structure
+### File Structure
 backend  
  ┣ Controllers  
  ┃ ┣ ApiControllerBase.cs  
@@ -125,7 +125,7 @@ backend
  ┣ Program.cs  
  ┣ backend.csproj  
 
- 
+
 
 
 ### Setting Up the `Backend`
