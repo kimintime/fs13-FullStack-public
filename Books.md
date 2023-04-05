@@ -1,5 +1,15 @@
 # Books
-[Get all books] (#get-all-books)
+- [Books](#books)
+  * [Get all books](#get-all-books)
+  * [Get book by id](#get-book-by-id)
+  * [Book search](#book-search)
+  * [Update Book](#update-book)
+  * [Add New Book](#add-new-book)
+  * [Add Author to Book](#add-author-to-book)
+  * [Add Category to Book](#add-category-to-book)
+  * [Remove Author from Book](#remove-author-from-book)
+  * [Remove Category from Book](#remove-category-from-book)
+  * [Delete Book](#delete-book)
 
 ## Get all books
 - Request
