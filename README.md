@@ -53,6 +53,8 @@ As the features of the Api will recommend the features of the website, the Api c
 ### Structure
 The database was based on this original model, although there are differences. There is no need for a cart table, and reservations are now known as loans, and reviews have not been implemented. Breaking it down into plain English, many users can have one role, admin (or librarian), or customer. The database allows users to have many loans, and those loans are of copies of specific books. It is those specific copies that can be lent out to become loans. When a copy is on loan, it is marked as unavailable, and each user's loans are connected to their own profile. Publishers are connected to copies, rather than the books, as books often have many editions, and also more than one publisher. Books can also have more than one author and more than one category. 
 
+![219979882-b295c08d-2ac5-4a7f-b05f-ceb173f48d28](https://user-images.githubusercontent.com/40215472/230119173-20c8ba29-b823-40e2-8742-0d9f46a10d89.png)
+
 #### Api
 The Api documentation can be found [here](./ApiDocumentation.md). 
 
