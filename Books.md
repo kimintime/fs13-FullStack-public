@@ -127,20 +127,20 @@
 ## Book search
 `[GET] api/v1/books/search`
 
-    * By Title
-    ```[GET] api/v1/books/search?title={string}```
+- By Title
+```[GET] api/v1/books/search?title={string}```
 
-    * By Author
-    ```[GET] api/v1/books/search?author={id}```
+- By Author
+ ```[GET] api/v1/books/search?author={id}```
 
-    * By Category
-    ```[GET] api/v1/books/search?category={id}```
+- By Category
+```[GET] api/v1/books/search?category={id}```
 
-    * By Publisher
+- By Publisher
     ```[GET] api/v1/books/search?publisher={id}```
 
-    * By Title, Author, Category, and Publisher
-    ```[GET] api/v1/books/search?category={id}&author={id}&title={string}&publisher={id}```
+- By Title, Author, Category, and Publisher
+ ```[GET] api/v1/books/search?category={id}&author={id}&title={string}&publisher={id}```
 
 - Response
 ```
@@ -211,7 +211,7 @@
 ## Add New Book
 `[POST] api/v1/books`
 
--Request
+- Request
 ```
 {
   "title": "string",
