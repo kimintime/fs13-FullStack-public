@@ -1,5 +1,5 @@
 # Books
-[Get all books][#Get-all-books]
+[Get all books][#get-all-books]
 
 ## Get all books
 - Request
