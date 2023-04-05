@@ -146,7 +146,7 @@
     `[GET] api/v1/books/search?category={id}&author={id}&title={string}&publisher={id}`
 
 - Response
-´´´
+```
 [
   {
     "title": "Jane Eyre",
@@ -195,7 +195,8 @@
     "id": 5
   }
 ]
-´´´
+```
+
 [Back to top](#books)
 
 ## Update Book
