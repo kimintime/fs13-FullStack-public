@@ -32,7 +32,7 @@ As the features of the Api will recommend the features of the website, the Api c
     - Update profile
     - Change password
     - Assigned default role at registration as `Customer`
-    - May view on loans     
+    - May view own loans     
     - Admin User:
         - Get all users (pagination)
         - Get user by id
@@ -133,16 +133,16 @@ backend
  ┣ backend.csproj  
 
 
-
-
 ### Setting Up the `Backend`
 
 1. Create the `appsettings.json` file in the root of folder `Backend`. You can refer to the content of file `example.json`
 2. Required to run the Library backend:
     * .Net Core (this project is version 7)
+    * dotnet ef commandline tools
     * PostgresSQL
    
 3. You can change .NET Core version to be compatible with your local machine in the `backend.csproj´ file
 4. Run the command `dotnet restore` to restore all the required libraries, then `dotnet run` to start the server. 
-5. The project is using Swagger UI to run the Api, so you have the option to navigate to localhost:5001/swagger/index.html to test out the Api. Note that the port depends on your own configuration of the server settings in the Program.cs file. 
+5. Add a new migration by running `dotnet ef migrations add <InitialMigration>` and then `dotnet ef database update` to create the new database.
+6. The project is using Swagger UI to run the Api, so you have the option to navigate to localhost:5001/swagger/index.html to test out the Api. Note that the port depends on your own configuration of the server settings in the Program.cs file. 
 
