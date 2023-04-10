@@ -10,15 +10,18 @@ export interface User extends Base {
     roles: string[]
 };
 
-export type UserRegister = {
+export interface UserProfileEdit {
     username: string,
     email: string,
     firstName: string,
-    lastName: string,
+    lastName: string
+};
+
+export interface UserRegister extends UserProfileEdit {
     password: string
 };
 
-export type UserLogin = {
+export interface UserLogin  {
     email: string,
     password: string
 };
@@ -27,7 +30,11 @@ export interface FormType {
     type: "Login" | "Register"
 };
 
-export interface UserUpdate extends UserRegister {
+export interface UserUpdatePassword {
     oldPassword: string,
     newPassword: string | null
 };
+
+export interface UserUpdate extends UserRegister {
+    id: number
+}
