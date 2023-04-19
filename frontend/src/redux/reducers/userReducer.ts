@@ -1,18 +1,64 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User, UserLogin, UserProfileEdit, UserRegister, UserUpdate, UserUpdatePassword } from "../../types/user";
 import axios from "axios";
 import { addNotification } from "./notificationReducer";
 import ENV from "../../../env";
 import { RootState } from "../store";
+import { Pagination } from "../../types/pagination";
 
 const initialState: User | null = null as User | null
+
+export const getAllUsers = createAsyncThunk(
+    "getAllUsers",
+    async (pagination: Pagination | null, thunkAPI) => {
+        try {
+            let state: RootState = thunkAPI.getState() as RootState;
+            let response = await axios.get(
+                `${ENV.BACKEND_URL}/api/v1/users`,
+                {
+                    headers: { Authorization: `Bearer ${state.user?.token}`},
+                    params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
+                })
+
+            return response.data as User[]
+
+        } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+            }
+        }
+    }
+)
+
+export const getUserById = createAsyncThunk(
+    "getUserById",
+    async (id: number, thunkAPI) => {
+        try {
+            let state: RootState = thunkAPI.getState() as RootState;
+            let response = await axios.get(
+                `${ENV.BACKEND_URL}/api/v1/users/${id}`,
+                {
+                    headers: { Authorization: `Bearer ${state.user?.token}` }
+                })
+
+            return response.data as User[]
+
+        } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+            }
+        }
+    }
+)
 
 export const login = createAsyncThunk(
     "login",
     async (credentials: UserLogin, thunkAPI) => {
         try {
             thunkAPI.dispatch(addNotification({ message: "Logging in...", timeInSec: 5, type: "normal" }))
-            let result = await axios.post(`${ENV.BACKEND_URL}/api/v1/login`, credentials);
+            let result = await axios.post(`${ENV.BACKEND_URL}/api/v1/users/login`, credentials);
 
             if (result.status === 204) {
                 thunkAPI.dispatch(addNotification({ message: "Wrong username or password", timeInSec: 2, type: "normal" }))
@@ -54,7 +100,7 @@ export const updateOwnAccount = createAsyncThunk(
     async (update: UserProfileEdit, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
-            let result = await axios.put(`${ENV.BACKEND_URL}/api/v1/profile/update`,
+            let result = await axios.put(`${ENV.BACKEND_URL}/api/v1/users/profile/update`,
                 {
                     ...update
                 },
@@ -74,12 +120,12 @@ export const updateOwnAccount = createAsyncThunk(
     }
 )
 
-export const updateUserPassword = createAsyncThunk(
-    "updateUserPassword",
+export const updateOwnPassword = createAsyncThunk(
+    "updateOwnPassword",
     async (update: UserUpdatePassword, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
-            let result = await axios.put(`${ENV.BACKEND_URL}/api/v1/update/password`,
+            let result = await axios.put(`${ENV.BACKEND_URL}/api/v1/users/update/password`,
                 {
                     ...update
                 },
@@ -124,3 +170,21 @@ export const updateUser = createAsyncThunk(
         }
     }
 )
+
+const userReducer = createSlice({
+    name: "userReducer",
+    initialState,
+    reducers: {
+        logout: () => {
+            return null as User | null;
+        }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(login.fulfilled, (_, action) => {
+            return action.payload;
+        });
+    }
+});
+
+export default userReducer.reducer;
+export const { logout } = userReducer.actions;
