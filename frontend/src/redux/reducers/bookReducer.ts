@@ -4,7 +4,7 @@ import { RootState } from "../store";
 import { Pagination } from "../../types/pagination";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ENV from "../../../env";
 
 const initialState: Book[] = [];
@@ -32,7 +32,7 @@ export const getAllBooks = createAsyncThunk(
     }
 )
 
-export const getBookByid = createAsyncThunk(
+export const getBookById = createAsyncThunk(
     "getBookById",
     async (id: number, thunkAPI) => {
         try {
@@ -136,19 +136,33 @@ export const getBooksByPublisher = createAsyncThunk(
 
 export const addBook = createAsyncThunk(
     "addBook",
-    async (form: CreateBook, thunkAPI) => {
+    async (newBook: CreateBook, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.post(
                 `${ENV.BACKEND_URL}/api/v1/books`,
                 {
+                    ...newBook
+                },
+                {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 }
             )
 
-            return result.data;
+            if (result.data) {
+                thunkAPI.dispatch(getBooksByTitle(newBook.title))
+                thunkAPI.dispatch(addNotification({message: "Adding book was successful", timeInSec: 2, type: "normal"}))
+            
+            } else {
+                throw new Error("Adding book failed")
+            }
 
         } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+            }
+
             thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
     }
@@ -167,19 +181,219 @@ export const addAuthorToBook = createAsyncThunk(
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`}
                 }
-
-                //To be continued
             )
-        } catch (e: any) {}
+
+            if (result.data) {
+                thunkAPI.dispatch(getBookById(addToBook.id))
+                thunkAPI.dispatch(addNotification({message: "Adding author was successful", timeInSec: 2, type: "normal"}))
+            
+            } else {
+                throw new Error("Adding author failed")
+            }
+
+        } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+            }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+        }
     }
 )
 
-export const addCategoryToBook = ()
+export const addCategoryToBook = createAsyncThunk(
+    "addCategoryToBook",
+    async (addToBook: AddToBook, thunkAPI) => {
+        try {
+            let state: RootState = thunkAPI.getState() as RootState;
+            let result = await axios.post(
+                `${ENV.BACKEND_URL}/api/v1/books/${addToBook.id}/categories}`,
+                {
+                    addId: addToBook.addId
+                },
+                {
+                    headers: { Authorization: `Bearer ${state.user?.token}`}
+                } 
+            )
 
-export const updateBook = ()
+            if (result.data) {
+                thunkAPI.dispatch(getBookById(addToBook.id))
+                thunkAPI.dispatch(addNotification({message: "Adding category was successful", timeInSec: 2, type: "normal"}))
+            
+            } else {
+                throw new Error("Adding category failed")
+            }
 
-export const removeAuthorFromBook = ()
+        } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+            }
 
-export const removeCategoryFromBook = ()
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+        }
+    }
+)
 
-export const deleteBook = ()
+export const updateBook = createAsyncThunk(
+    "updateBook",
+    async (updateBook: Book, thunkAPI) => {
+        try {
+            let state: RootState = thunkAPI.getState() as RootState;
+            let result = await axios.put(
+                `${ENV.BACKEND_URL}/api/v1/books/${updateBook.id}`,
+                {
+                    ...updateBook
+                },
+                {
+                    headers: { Authorization: `Bearer ${state.user?.token}`}
+                } 
+            )
+
+            if (result.data) {
+                thunkAPI.dispatch(getBookById(updateBook.id))
+                thunkAPI.dispatch(addNotification({message: "Update was successful", timeInSec: 2, type: "normal"}))
+
+            } else {
+                throw new Error("Updating book failed")
+            }
+
+        } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+            }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+        } 
+    }
+)
+
+export const removeAuthorFromBook = createAsyncThunk(
+    "removeAuthorFromBook",
+    async (addToBook: AddToBook, thunkAPI) => {
+        try {
+            let state: RootState = thunkAPI.getState() as RootState;
+            let result = await axios.delete(
+                `${ENV.BACKEND_URL}/api/v1/books/${addToBook.id}/authors`,
+                {
+                    headers: { Authorization: `Bearer ${state.user?.token}`},
+                    params: {authorId: addToBook.addId}
+                }
+            )
+
+            if (result.data) {
+                thunkAPI.dispatch(getBookById(addToBook.id))
+                thunkAPI.dispatch(addNotification({message: "Removing author was successful", timeInSec: 2, type: "normal"}))
+            
+            } else {
+                throw new Error("Removing author failed.")
+            }
+
+        } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+            }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+        }
+    }
+)
+
+export const removeCategoryFromBook = createAsyncThunk(
+    "removeCategoryFromBook",
+    async (addToBook: AddToBook, thunkAPI) => {
+        try {
+            let state: RootState = thunkAPI.getState() as RootState;
+            let result = await axios.delete(
+                `${ENV.BACKEND_URL}/api/v1/books/${addToBook.id}/categories`,
+                {
+                    headers: { Authorization: `Bearer ${state.user?.token}`},
+                    params: {categoryId: addToBook.addId}
+                }
+            )
+
+            if (result.data) {
+                thunkAPI.dispatch(getBookById(addToBook.id));
+                thunkAPI.dispatch(addNotification({message: "Removing category was successful", timeInSec: 2, type: "normal"}))
+            
+            } else {
+                throw new Error("Removing category failed.")
+            }
+
+        } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+            }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+        }
+    }
+)
+
+export const deleteBook = createAsyncThunk(
+    "deleteBook",
+    async (deleteBook: Book, thunkAPI) => {
+        try {
+            let state: RootState = thunkAPI.getState() as RootState;
+            let result = await axios.delete(
+                `${ENV.BACKEND_URL}/api/v1/books/${deleteBook.id}`,
+                {
+                    headers: { Authorization: `Bearer ${state.user?.token}`},
+                }
+            )
+
+            if (result.data) {
+                thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 2, type: "normal"}))
+
+            } else {
+                throw new Error("Deleting book failed")
+            }
+
+        } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+            }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+        }
+    } 
+)
+
+const bookReducer = createSlice({
+    name: "bookReducer",
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(getAllBooks.fulfilled, (_, action) => {
+            return action.payload;
+        });
+        builder.addCase(getBookById.fulfilled, (_, action) => {
+            return action.payload;
+        });
+        builder.addCase(getBooksByTitle.fulfilled, (_, action) => {
+            return action.payload;
+        });
+        builder.addCase(getBooksByAuthor.fulfilled, (_, action) => {
+            return action.payload;
+        });
+        builder.addCase(getBooksByCategory.fulfilled, (_, action) => {
+            return action.payload;
+        });
+        builder.addCase(getBooksByPublisher.fulfilled, (_, action) => {
+            return action.payload;
+        });
+        builder.addCase(addBook.fulfilled, (_, action) => {
+            return action.payload;
+        });
+        builder.addCase(updateBook.fulfilled, (_, action) => {
+            return action.payload;
+        });
+    }
+})
+
+export default bookReducer.reducer;
