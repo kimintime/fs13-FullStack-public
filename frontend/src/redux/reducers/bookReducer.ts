@@ -21,13 +21,15 @@ export const getAllBooks = createAsyncThunk(
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
                 })
 
-            return response.data
+            return response.data as Book[];
 
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
                 thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
             }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
     }
 )
@@ -50,6 +52,8 @@ export const getBookById = createAsyncThunk(
                 thunkAPI.dispatch(logout())
                 thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
             }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
     }
 )
@@ -253,7 +257,7 @@ export const updateBook = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getBookById(updateBook.id))
-                thunkAPI.dispatch(addNotification({message: "Update was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Updating book was successful", timeInSec: 2, type: "normal"}))
 
             } else {
                 throw new Error("Updating book failed")

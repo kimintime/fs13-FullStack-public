@@ -1,27 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Author, CreateAuthor } from "../../types/author";
+import { CreatePublisher, Publisher } from "../../types/publisher";
 import { Pagination } from "../../types/pagination";
 import { RootState } from "../store";
 import axios from "axios";
-import ENV from "../../../env";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
+import ENV from "../../../env";
 
-const initialState: Author[] = [];
+const initialState: Publisher[] = [];
 
-export const getAllAuthors = createAsyncThunk(
-    "getAllAuthors",
+export const getAllPublishers = createAsyncThunk(
+    "getAllPublishers",
     async (pagination: Pagination | null, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/authors`,
+                `${ENV.BACKEND_URL}/api/v1/publishers`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`},
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
                 })
 
-            return response.data as Author[];
+            return response.data as Publisher[];
 
         } catch (e: any) {
             if (e.status === 401) {
@@ -34,18 +34,18 @@ export const getAllAuthors = createAsyncThunk(
     }
 )
 
-export const getAuthorById = createAsyncThunk(
-    "getAuthorById",
+export const getPublisherById = createAsyncThunk(
+    "getPublisherById",
     async (id: number, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/authors/${id}`,
+                `${ENV.BACKEND_URL}/api/v1/publishers/${id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
 
-            return response.data as Author[];
+            return response.data as Publisher[];
 
         } catch (e: any) {
             if (e.status === 401) {
@@ -58,15 +58,15 @@ export const getAuthorById = createAsyncThunk(
     }
 )
 
-export const addAuthor = createAsyncThunk(
-    "addAuthor",
-    async (newAuthor: CreateAuthor, thunkAPI) => {
+export const addPublisher = createAsyncThunk(
+    "addPublisher",
+    async (newPublisher: CreatePublisher, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.post(
-                `${ENV.BACKEND_URL}/api/v1/authors`,
+                `${ENV.BACKEND_URL}/api/v1/publishers`,
                 {
-                    ...newAuthor
+                    ...newPublisher
                 },
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
@@ -74,10 +74,10 @@ export const addAuthor = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({message: "Adding author was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Adding publisher was successful", timeInSec: 2, type: "normal"}))
             
             } else {
-                throw new Error("Adding author failed")
+                throw new Error("Adding publisher failed")
             }
 
         } catch (e: any) {
@@ -91,15 +91,15 @@ export const addAuthor = createAsyncThunk(
     }
 )
 
-export const updateAuthor = createAsyncThunk(
-    "updateAuthor",
-    async (updateAuthor: Author, thunkAPI) => {
+export const updatePublisher = createAsyncThunk(
+    "updatePublisher",
+    async (updatePublisher: Publisher, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.put(
-                `${ENV.BACKEND_URL}/api/v1/authors/${updateAuthor.id}`,
+                `${ENV.BACKEND_URL}/api/v1/publishers/${updatePublisher.id}`,
                 {
-                    ...updateAuthor
+                    ...updatePublisher
                 },
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`}
@@ -107,11 +107,11 @@ export const updateAuthor = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(getAuthorById(updateAuthor.id))
-                thunkAPI.dispatch(addNotification({message: "Updating author was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(getPublisherById(updatePublisher.id))
+                thunkAPI.dispatch(addNotification({message: "Updating publisher was successful", timeInSec: 2, type: "normal"}))
 
             } else {
-                throw new Error("Updating author failed")
+                throw new Error("Updating publisher failed")
             }
 
         } catch (e: any) {
@@ -125,13 +125,13 @@ export const updateAuthor = createAsyncThunk(
     }
 )
 
-export const deleteAuthor = createAsyncThunk(
-    "deleteAuthor",
-    async (deleteAuthor: Author, thunkAPI) => {
+export const deletePublisher = createAsyncThunk(
+    "deletePublisher",
+    async (deletePublisher: Publisher, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.delete(
-                `${ENV.BACKEND_URL}/api/v1/authors/${deleteAuthor.id}`,
+                `${ENV.BACKEND_URL}/api/v1/publishers/${deletePublisher.id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`},
                 }
@@ -141,7 +141,7 @@ export const deleteAuthor = createAsyncThunk(
                 thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 2, type: "normal"}))
 
             } else {
-                throw new Error("Deleting author failed")
+                throw new Error("Deleting publisher failed")
             }
 
         } catch (e: any) {
@@ -155,24 +155,25 @@ export const deleteAuthor = createAsyncThunk(
     } 
 )
 
-const authorReducer = createSlice({
-    name: "authorReducer",
+const publisherReducer = createSlice({
+    name: "publisherReducer",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getAllAuthors.fulfilled, (_, action) => {
+        builder.addCase(getAllPublishers.fulfilled, (_, action) => {
             return action.payload;
         });
-        builder.addCase(getAuthorById.fulfilled, (_, action) => {
+        builder.addCase(getPublisherById.fulfilled, (_, action) => {
             return action.payload;
         });
-        builder.addCase(addAuthor.fulfilled, (_, action) => {
+        builder.addCase(addPublisher.fulfilled, (_, action) => {
             return action.payload;
         });
-        builder.addCase(updateAuthor.fulfilled, (_, action) => {
+        builder.addCase(updatePublisher.fulfilled, (_, action) => {
             return action.payload;
         });
     }
 })
 
-export default authorReducer.reducer;
+export default publisherReducer.reducer;
+

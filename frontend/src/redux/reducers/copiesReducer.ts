@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Author, CreateAuthor } from "../../types/author";
+import { Copy, CreateCopy } from "../../types/copy";
 import { Pagination } from "../../types/pagination";
 import { RootState } from "../store";
 import axios from "axios";
@@ -7,21 +7,22 @@ import ENV from "../../../env";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
 
-const initialState: Author[] = [];
 
-export const getAllAuthors = createAsyncThunk(
-    "getAllAuthors",
+const initialState: Copy[] = [];
+
+export const getAllCopies = createAsyncThunk(
+    "getAllCopies",
     async (pagination: Pagination | null, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/authors`,
+                `${ENV.BACKEND_URL}/api/v1/copies`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`},
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
                 })
 
-            return response.data as Author[];
+            return response.data as Copy[];
 
         } catch (e: any) {
             if (e.status === 401) {
@@ -34,18 +35,18 @@ export const getAllAuthors = createAsyncThunk(
     }
 )
 
-export const getAuthorById = createAsyncThunk(
-    "getAuthorById",
+export const getCopyById = createAsyncThunk(
+    "getCopyById",
     async (id: number, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/authors/${id}`,
+                `${ENV.BACKEND_URL}/api/v1/copies/${id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
 
-            return response.data as Author[];
+            return response.data as Copy[];
 
         } catch (e: any) {
             if (e.status === 401) {
@@ -58,15 +59,15 @@ export const getAuthorById = createAsyncThunk(
     }
 )
 
-export const addAuthor = createAsyncThunk(
-    "addAuthor",
-    async (newAuthor: CreateAuthor, thunkAPI) => {
+export const addCopy = createAsyncThunk(
+    "addCopy",
+    async (newCopy: CreateCopy, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.post(
-                `${ENV.BACKEND_URL}/api/v1/authors`,
+                `${ENV.BACKEND_URL}/api/v1/copies`,
                 {
-                    ...newAuthor
+                    ...newCopy
                 },
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
@@ -74,10 +75,10 @@ export const addAuthor = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({message: "Adding author was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Adding copy was successful", timeInSec: 2, type: "normal"}))
             
             } else {
-                throw new Error("Adding author failed")
+                throw new Error("Adding copy failed")
             }
 
         } catch (e: any) {
@@ -91,15 +92,15 @@ export const addAuthor = createAsyncThunk(
     }
 )
 
-export const updateAuthor = createAsyncThunk(
-    "updateAuthor",
-    async (updateAuthor: Author, thunkAPI) => {
+export const updateCopy = createAsyncThunk(
+    "updateCopy",
+    async (updateCopy: Copy, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.put(
-                `${ENV.BACKEND_URL}/api/v1/authors/${updateAuthor.id}`,
+                `${ENV.BACKEND_URL}/api/v1/copies/${updateCopy.id}`,
                 {
-                    ...updateAuthor
+                    ...updateCopy
                 },
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`}
@@ -107,11 +108,11 @@ export const updateAuthor = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(getAuthorById(updateAuthor.id))
-                thunkAPI.dispatch(addNotification({message: "Updating author was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(getCopyById(updateCopy.id))
+                thunkAPI.dispatch(addNotification({message: "Updating copy was successful", timeInSec: 2, type: "normal"}))
 
             } else {
-                throw new Error("Updating author failed")
+                throw new Error("Updating copy failed")
             }
 
         } catch (e: any) {
@@ -125,13 +126,13 @@ export const updateAuthor = createAsyncThunk(
     }
 )
 
-export const deleteAuthor = createAsyncThunk(
-    "deleteAuthor",
-    async (deleteAuthor: Author, thunkAPI) => {
+export const deleteCopy = createAsyncThunk(
+    "deleteCopy",
+    async (deleteCopy: Copy, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.delete(
-                `${ENV.BACKEND_URL}/api/v1/authors/${deleteAuthor.id}`,
+                `${ENV.BACKEND_URL}/api/v1/copies/${deleteCopy.id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`},
                 }
@@ -141,7 +142,7 @@ export const deleteAuthor = createAsyncThunk(
                 thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 2, type: "normal"}))
 
             } else {
-                throw new Error("Deleting author failed")
+                throw new Error("Deleting copy failed")
             }
 
         } catch (e: any) {
@@ -155,24 +156,25 @@ export const deleteAuthor = createAsyncThunk(
     } 
 )
 
-const authorReducer = createSlice({
-    name: "authorReducer",
+const copyReducer = createSlice({
+    name: "copyReducer",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getAllAuthors.fulfilled, (_, action) => {
+        builder.addCase(getAllCopies.fulfilled, (_, action) => {
             return action.payload;
         });
-        builder.addCase(getAuthorById.fulfilled, (_, action) => {
+        builder.addCase(getCopyById.fulfilled, (_, action) => {
             return action.payload;
         });
-        builder.addCase(addAuthor.fulfilled, (_, action) => {
+        builder.addCase(addCopy.fulfilled, (_, action) => {
             return action.payload;
         });
-        builder.addCase(updateAuthor.fulfilled, (_, action) => {
+        builder.addCase(updateCopy.fulfilled, (_, action) => {
             return action.payload;
         });
     }
 })
 
-export default authorReducer.reducer;
+export default copyReducer.reducer;
+

@@ -21,13 +21,15 @@ export const getAllCategories = createAsyncThunk(
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
                 })
 
-            return response.data
+            return response.data as Category[]
 
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
                 thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
             }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
     }
 )
@@ -50,6 +52,8 @@ export const getCategoryById = createAsyncThunk(
                 thunkAPI.dispatch(logout())
                 thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
             }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
     }
 )
@@ -88,7 +92,7 @@ export const addCategory = createAsyncThunk(
 )
 
 export const updateCategory = createAsyncThunk(
-    "updateAuthor",
+    "updateCategory",
     async (updateCategory: UpdateCategory, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
@@ -104,10 +108,10 @@ export const updateCategory = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getCategoryById(updateCategory.id))
-                thunkAPI.dispatch(addNotification({message: "Update was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Updating category successful", timeInSec: 2, type: "normal"}))
 
             } else {
-                throw new Error("Updating author failed")
+                throw new Error("Updating category failed")
             }
 
         } catch (e: any) {
@@ -122,7 +126,7 @@ export const updateCategory = createAsyncThunk(
 )
 
 export const deleteCategory = createAsyncThunk(
-    "deleteBook",
+    "deleteCategory",
     async (deleteCategory: Category, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;

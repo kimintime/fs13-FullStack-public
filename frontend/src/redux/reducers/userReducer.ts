@@ -27,6 +27,8 @@ export const getAllUsers = createAsyncThunk(
                 thunkAPI.dispatch(logout())
                 thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
             }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
     }
 )
@@ -49,6 +51,8 @@ export const getUserById = createAsyncThunk(
                 thunkAPI.dispatch(logout())
                 thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
             }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
     }
 )
