@@ -77,78 +77,78 @@ The backend now includes error handling and logger middleware. The updated file 
 
 ### File Structure
 
-backend
- ┣ Controllers
- ┃ ┣ ApiControllerBase.cs
- ┃ ┣ AuthorController.cs
- ┃ ┣ BookController.cs
- ┃ ┣ CategoryController.cs
- ┃ ┣ CopyController.cs
- ┃ ┣ CrudController.cs
- ┃ ┣ LoanController.cs
- ┃ ┣ PublisherController.cs
- ┃ ┗ UserController.cs
- ┣ DTOs
- ┃ ┣ UserDTOs.cs
- ┃ ┃ ┣ CredentialsDTO.cs
- ┃ ┃ ┣ LoginResponseDTO.cs
- ┃ ┃ ┣ RoleDTO.cs
- ┃ ┃ ┣ UpdatePasswordDTO.cs
- ┃ ┃ ┣ UserDTO.cs
- ┃ ┃ ┣ UserRegResponseDTO.cs
- ┃ ┃ ┣ UserRegistrationDTO.cs
- ┃ ┃ ┗ UserUpdateDTO.cs
- ┃ ┣ AddDTO.cs
- ┃ ┣ AuthorDTO.cs
- ┃ ┣ BaseDTO.cs
- ┃ ┣ BookDTO.cs
- ┃ ┣ CategoryDTO.cs
- ┃ ┣ CopyDTO.cs
- ┃ ┣ LoanDTO.cs
- ┃ ┣ LoanResponseDTO.cs
- ┃ ┗ PublisherDTO.cs
- ┣ Db
- ┃ ┣ AppDbContext.cs
- ┃ ┣ AppDbContextSaveChangesInterceptor.cs
- ┃ ┣ BookConfigExtensions.cs
- ┃ ┣ LoanConfigExtensions.cs
- ┃ ┗ UserConfigExtensions.cs
- ┣ Helpers
- ┃ ┗ ServiceException.cs
- ┣ Middlewares
- ┃ ┣ ErrorHandlerMiddleware.cs
- ┃ ┗ LoggerMiddleware.cs
- ┣ Models
- ┃ ┣ Author.cs
- ┃ ┣ BaseModel.cs
- ┃ ┣ Book.cs
- ┃ ┣ Category.cs
- ┃ ┣ Copy.cs
- ┃ ┣ Loan.cs
- ┃ ┣ Publisher.cs
- ┃ ┗ User.cs
- ┣ Services
- ┃ ┣ Impl
- ┃ ┃ ┣ AuthorService.cs
- ┃ ┃ ┣ BookService.cs
- ┃ ┃ ┣ CategoryService.cs
- ┃ ┃ ┣ CopyService.cs
- ┃ ┃ ┣ DbCrudService.cs
- ┃ ┃ ┣ JWTokenService.cs
- ┃ ┃ ┣ LoanService.cs
- ┃ ┃ ┣ PublisherService.cs
- ┃ ┃ ┣ RoleService.cs
- ┃ ┃ ┗ UserService.cs
- ┃ ┣ IBookService.cs
- ┃ ┣ ICrudService.cs
- ┃ ┣ IJWTokenService.cs
- ┃ ┣ ILoanService.cs
- ┃ ┣ IRoleService.cs
- ┃ ┗ IUserService.cs
- ┣ Program.cs
- ┣ appsettings.json
- ┣ backend.csproj
- ┗ example.json
+backend  
+ ┣ Controllers  
+ ┃ ┣ ApiControllerBase.cs  
+ ┃ ┣ AuthorController.cs  
+ ┃ ┣ BookController.cs  
+ ┃ ┣ CategoryController.cs  
+ ┃ ┣ CopyController.cs  
+ ┃ ┣ CrudController.cs  
+ ┃ ┣ LoanController.cs  
+ ┃ ┣ PublisherController.cs  
+ ┃ ┗ UserController.cs  
+ ┣ DTOs  
+ ┃ ┣ UserDTOs.cs  
+ ┃ ┃ ┣ CredentialsDTO.cs  
+ ┃ ┃ ┣ LoginResponseDTO.cs  
+ ┃ ┃ ┣ RoleDTO.cs  
+ ┃ ┃ ┣ UpdatePasswordDTO.cs  
+ ┃ ┃ ┣ UserDTO.cs  
+ ┃ ┃ ┣ UserRegResponseDTO.cs  
+ ┃ ┃ ┣ UserRegistrationDTO.cs  
+ ┃ ┃ ┗ UserUpdateDTO.cs  
+ ┃ ┣ AddDTO.cs  
+ ┃ ┣ AuthorDTO.cs  
+ ┃ ┣ BaseDTO.cs  
+ ┃ ┣ BookDTO.cs  
+ ┃ ┣ CategoryDTO.cs  
+ ┃ ┣ CopyDTO.cs  
+ ┃ ┣ LoanDTO.cs  
+ ┃ ┣ LoanResponseDTO.cs  
+ ┃ ┗ PublisherDTO.cs  
+ ┣ Db  
+ ┃ ┣ AppDbContext.cs  
+ ┃ ┣ AppDbContextSaveChangesInterceptor.cs  
+ ┃ ┣ BookConfigExtensions.cs  
+ ┃ ┣ LoanConfigExtensions.cs  
+ ┃ ┗ UserConfigExtensions.cs  
+ ┣ Helpers  
+ ┃ ┗ ServiceException.cs  
+ ┣ Middlewares  
+ ┃ ┣ ErrorHandlerMiddleware.cs  
+ ┃ ┗ LoggerMiddleware.cs  
+ ┣ Models  
+ ┃ ┣ Author.cs  
+ ┃ ┣ BaseModel.cs  
+ ┃ ┣ Book.cs  
+ ┃ ┣ Category.cs  
+ ┃ ┣ Copy.cs  
+ ┃ ┣ Loan.cs  
+ ┃ ┣ Publisher.cs  
+ ┃ ┗ User.cs  
+ ┣ Services  
+ ┃ ┣ Impl  
+ ┃ ┃ ┣ AuthorService.cs  
+ ┃ ┃ ┣ BookService.cs  
+ ┃ ┃ ┣ CategoryService.cs  
+ ┃ ┃ ┣ CopyService.cs  
+ ┃ ┃ ┣ DbCrudService.cs  
+ ┃ ┃ ┣ JWTokenService.cs  
+ ┃ ┃ ┣ LoanService.cs  
+ ┃ ┃ ┣ PublisherService.cs  
+ ┃ ┃ ┣ RoleService.cs  
+ ┃ ┃ ┗ UserService.cs  
+ ┃ ┣ IBookService.cs  
+ ┃ ┣ ICrudService.cs  
+ ┃ ┣ IJWTokenService.cs  
+ ┃ ┣ ILoanService.cs  
+ ┃ ┣ IRoleService.cs  
+ ┃ ┗ IUserService.cs  
+ ┣ Program.cs  
+ ┣ appsettings.json  
+ ┣ backend.csproj  
+ ┗ example.json  
 
 ---
 
