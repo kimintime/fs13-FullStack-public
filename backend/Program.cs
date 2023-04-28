@@ -8,6 +8,7 @@ using Backend.Models;
 using Backend.Db;
 using Backend.Services;
 using Backend.DTOs;
+using Backend.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,6 +83,8 @@ builder.Services.AddScoped<ICrudService<Publisher, PublisherDTO>, PublisherServi
 builder.Services.AddScoped<ICrudService<Copy, CopyDTO>, CopyService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<ILoanService, LoanService>();
+
+builder.Services.AddTransient<ErrorHandlerMiddleware>().AddTransient<LoggerMiddleware>();
 
 //Setup OpenApi and Swagger
 builder.Services.AddEndpointsApiExplorer();
