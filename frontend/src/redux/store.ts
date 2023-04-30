@@ -7,6 +7,7 @@ import publisherReducer from './reducers/publisherReducer';
 import copiesReducer from './reducers/copiesReducer';
 import loanReducer from './reducers/loanReducer';
 import notificationReducer from './reducers/notificationReducer';
+import cartReducer from './reducers/cartReducer';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     publisher: publisherReducer,
     copy: copiesReducer,
     loan: loanReducer,
+    cart: cartReducer,
     notifcation: notificationReducer
   },
 });

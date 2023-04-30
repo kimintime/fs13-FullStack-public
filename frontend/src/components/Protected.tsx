@@ -8,14 +8,14 @@ type propsType = {
 }
 
 const Protected = (props: propsType) => {
-    const user = useAppSelector(state => state.user)
+    // const user = useAppSelector(state => state.user)
 
-    if (!user || user?.id)
-    {
-        return (
-            <Navigate to='/login' />
-        )
-    }
+    // if (!user || user?.id)
+    // {
+    //     return (
+    //         <Navigate to='/login' />
+    //     )
+    // }
 
     return (
         props.children ? props.children : <Navigate to='/login' />

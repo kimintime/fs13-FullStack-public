@@ -6,6 +6,7 @@ import Protected from './components/Protected'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Cart from './pages/Cart'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -44,6 +45,14 @@ const App = () => {
         {
           path: "register",
           element: <Register/>
+        },
+        {
+          path: "cart",
+          element: (
+            <Protected>
+              <Cart />
+            </Protected>
+          )
         }
       ]
     }
