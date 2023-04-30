@@ -3,7 +3,7 @@ import { Copy, CreateCopy } from "../../types/copy";
 import { Pagination } from "../../types/pagination";
 import { RootState } from "../store";
 import axios from "axios";
-import ENV from "../../../env";
+import ENV from "../../env";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
 

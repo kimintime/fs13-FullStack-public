@@ -5,7 +5,7 @@ import { Pagination } from "../../types/pagination";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import ENV from "../../../env";
+import ENV from "../../env";
 
 const initialState: Book[] = [];
 

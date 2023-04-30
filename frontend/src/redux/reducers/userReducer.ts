@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User, UserLogin, UserProfileEdit, UserRegister, UserUpdate, UserUpdatePassword } from "../../types/user";
 import axios from "axios";
 import { addNotification } from "./notificationReducer";
-import ENV from "../../../env";
+import ENV from "../../env";
 import { RootState } from "../store";
 import { Pagination } from "../../types/pagination";
 
@@ -119,7 +119,7 @@ export const updateOwnAccount = createAsyncThunk(
                 thunkAPI.dispatch(addNotification({ message: "Failed to update user profile", timeInSec: 2, type: "normal" }))
             }
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({ message: "Something went wrong: ${e.message}", timeInSec: 2, type: "error" }));
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
     }
 )

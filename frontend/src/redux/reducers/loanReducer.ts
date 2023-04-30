@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreateLoan, Loan, LoanFilter, UpdateLoan } from "../../types/loan";
 import axios from "axios";
-import ENV from "../../../env";
+import ENV from "../../env";
 import { RootState } from "../store";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";

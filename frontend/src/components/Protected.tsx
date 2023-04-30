@@ -7,10 +7,10 @@ type propsType = {
     children?: ReactElement<any | any>
 }
 
-const ProtectedProfile = (props: propsType) => {
+const Protected = (props: propsType) => {
     const user = useAppSelector(state => state.user)
 
-    if (user?.id === null)
+    if (!user || user?.id)
     {
         return (
             <Navigate to='/login' />
@@ -22,4 +22,4 @@ const ProtectedProfile = (props: propsType) => {
     )
 }
 
-export default ProtectedProfile;
+export default Protected;

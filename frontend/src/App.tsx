@@ -1,10 +1,11 @@
-import React from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Root from './pages/Root'
 import Home from './pages/Home'
 import Book from './pages/Book'
-import ProtectedProfile from './components/ProtectedProfile'
+import Protected from './components/Protected'
 import Profile from './pages/Profile'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -14,31 +15,41 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <Home />
+          element: (
+            <Protected>
+              <Home />
+            </Protected>
+          )
         },
         {
           path: "books/:id",
-          element: <Book />
+          element: (
+            <Protected>
+              <Book />
+            </Protected>
+          )
         },
         {
           path: "profile",
           element: (
-            <ProtectedProfile>
+            <Protected>
               <Profile />
-            </ProtectedProfile>
+            </Protected>
           )
         },
         {
           path: "login",
-          element:
+          element: <Login />
+        },
+        {
+          path: "register",
+          element: <Register/>
         }
-        
-
       ]
     }
   ])
   return (
-    <div>App</div>
+   <RouterProvider router={router} />
   )
 }
 

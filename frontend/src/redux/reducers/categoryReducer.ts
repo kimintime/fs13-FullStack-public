@@ -5,7 +5,7 @@ import { RootState } from "../store";
 import axios from "axios";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
-import ENV from "../../../env";
+import ENV from "../../env";
 
 const initialState: Category[] = [];
 
