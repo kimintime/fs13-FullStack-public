@@ -57,6 +57,30 @@ export const getUserById = createAsyncThunk(
     }
 )
 
+export const getOwnProfile = createAsyncThunk(
+    "getOwnProfile",
+    async (user: User, thunkAPI) => {
+        try {
+            let state: RootState = thunkAPI.getState() as RootState;
+            let response = await axios.get(
+                `${ENV.BACKEND_URL}/api/v1/users/profile`,
+                {
+                    headers: { Authorization: `Bearer ${state.user?.token}` }
+                })
+
+            return response.data as User[]
+
+        } catch (e: any) {
+            if (e.status === 401) {
+                thunkAPI.dispatch(logout())
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+            }
+
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+        }
+    }
+)
+
 export const login = createAsyncThunk(
     "login",
     async (credentials: UserLogin, thunkAPI) => {
@@ -71,7 +95,7 @@ export const login = createAsyncThunk(
 
             let user: User = result.data;
 
-            thunkAPI.dispatch(addNotification({ message: `Logged in as ${user.username}`, timeInSec: 2, type: "normal" }))
+            thunkAPI.dispatch(addNotification({ message: `Logged in as ${credentials.email}`, timeInSec: 2, type: "normal" }))
             return user;
 
         } catch (e: any) {

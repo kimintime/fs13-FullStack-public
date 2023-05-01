@@ -19,7 +19,7 @@ export const store = configureStore({
     copy: copiesReducer,
     loan: loanReducer,
     cart: cartReducer,
-    notifcation: notificationReducer
+    notifications: notificationReducer
   },
 });
 

@@ -38,3 +38,4 @@ export interface UserUpdatePassword {
 export interface UserUpdate extends UserRegister {
     id: number
 }
+
