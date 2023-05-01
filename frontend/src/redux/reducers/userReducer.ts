@@ -16,7 +16,7 @@ export const getAllUsers = createAsyncThunk(
             let response = await axios.get(
                 `${ENV.BACKEND_URL}/api/v1/users`,
                 {
-                    headers: { Authorization: `Bearer ${state.user?.token}`},
+                    headers: { Authorization: `Bearer ${state.user?.token}` },
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
                 })
 
@@ -25,7 +25,7 @@ export const getAllUsers = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
             }
 
             thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
@@ -49,7 +49,7 @@ export const getUserById = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
             }
 
             thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
@@ -162,15 +162,15 @@ export const updateUser = createAsyncThunk(
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 });
-            
+
             if (result.data) {
-                thunkAPI.dispatch(addNotification({message: "Successfully edited user profile.", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Successfully edited user profile.", timeInSec: 2, type: "normal" }))
 
             } else {
-                thunkAPI.dispatch(addNotification({message: "Failed to update user", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Failed to update user", timeInSec: 2, type: "normal" }))
             }
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error"}))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
     }
 )
