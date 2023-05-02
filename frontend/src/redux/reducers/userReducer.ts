@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User, UserLogin, UserProfileEdit, UserRegister, UserUpdate, UserUpdatePassword } from "../../types/user";
 import axios from "axios";
 import { addNotification } from "./notificationReducer";
@@ -6,7 +6,7 @@ import ENV from "../../env";
 import { RootState } from "../store";
 import { Pagination } from "../../types/pagination";
 
-const initialState: User | null = null as User | null
+const initialState: User | null = null
 
 export const getAllUsers = createAsyncThunk(
     "getAllUsers",
@@ -67,8 +67,10 @@ export const getOwnProfile = createAsyncThunk(
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
+            console.log(ENV.BACKEND_URL);
 
-            return response.data as User[]
+
+            return response.data as User
 
         } catch (e: any) {
             if (e.status === 401) {
@@ -153,7 +155,7 @@ export const updateOwnPassword = createAsyncThunk(
     async (update: UserUpdatePassword, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
-            let result = await axios.put(`${ENV.BACKEND_URL}/api/v1/users/update/password`,
+            let result = await axios.put(`${ENV.BACKEND_URL}/api/v1/users/profile/update/password`,
                 {
                     ...update
                 },
@@ -162,14 +164,14 @@ export const updateOwnPassword = createAsyncThunk(
                 });
 
             if (result.data) {
-                thunkAPI.dispatch({ message: "Updated password successfully", timeInSec: 2, type: "normal" })
+                thunkAPI.dispatch({ message: "Updated password successfully", timeInSec: 2, type: "normal", priority: 1 })
 
             } else {
-                thunkAPI.dispatch(addNotification({ message: "Failed to update password.", timeInSec: 2, type: "normal" }))
+                thunkAPI.dispatch(addNotification({ message: "Failed to update password.", timeInSec: 2, type: "normal", priority: 1 }))
             }
 
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error", priority: 1 }))
         }
     }
 )
@@ -188,31 +190,47 @@ export const updateUser = createAsyncThunk(
                 });
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({ message: "Successfully edited user profile.", timeInSec: 2, type: "normal" }))
+                thunkAPI.dispatch(addNotification({ message: "Successfully edited user profile.", timeInSec: 2, type: "normal", priority: 2 }))
+
+                return result.data;
 
             } else {
-                thunkAPI.dispatch(addNotification({ message: "Failed to update user", timeInSec: 2, type: "normal" }))
+                thunkAPI.dispatch(addNotification({ message: "Failed to update user", timeInSec: 2, type: "normal", priority: 2 }))
             }
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error", priority: 2 }))
         }
     }
 )
 
 const userReducer = createSlice({
     name: "userReducer",
-    initialState,
+    initialState: null as User | null,
     reducers: {
+        setUser: (state, action: PayloadAction<Partial<User>>) => {
+            if (state) {
+                return { ...state, ...action.payload };
+            } else {
+                return action.payload as User;
+            }
+        },
         logout: () => {
-            return null as User | null;
+            return null
         }
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (_, action) => {
             return action.payload;
         });
+        builder.addCase(updateUser.fulfilled, (state, action) => {
+            if (action.payload) {
+                if (state) {
+                    state = { ...state, ...action.payload };
+                } 
+            }
+        });
     }
 });
 
 export default userReducer.reducer;
-export const { logout } = userReducer.actions;
+export const { setUser, logout } = userReducer.actions;

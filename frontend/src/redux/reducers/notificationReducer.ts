@@ -23,7 +23,7 @@ export default notificationReducer.reducer;
 
 export const {notify, clear} = notificationReducer.actions;
 
-export const addNotification = createAsyncThunk(
+export const addNotification = createAsyncThunk<void, Notification>(
     "addNotification",
     (notification: Notification, thunkAPI) => {
         if (timer !== null) {

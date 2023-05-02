@@ -1,7 +1,7 @@
 import { Base } from "./base";
 
 export interface User extends Base {
-    username: string,
+    userName: string,
     email: string,
     firstName: string,
     lastName: string,
@@ -11,7 +11,7 @@ export interface User extends Base {
 };
 
 export interface UserProfileEdit {
-    username: string,
+    userName: string,
     email: string,
     firstName: string,
     lastName: string
