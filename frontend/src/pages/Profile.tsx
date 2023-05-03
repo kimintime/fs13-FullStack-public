@@ -73,19 +73,6 @@ const Profile = () => {
         newUser.firstName = firstName
         newUser.lastName = lastName
 
-        // dispatch(updateOwnAccount(newUser)).then(() => {
-        //     setChange(false);
-        //     dispatch(getOwnProfile(user!)).then((response) => {
-        //         const userProfile = response.payload as User;
-        //         dispatch(setUser(userProfile));
-        //         setFirstName(userProfile.firstName);
-        //         setLastName(userProfile.lastName);
-        //         setUsername(userProfile.userName);
-        //         setEmail(userProfile.email);
-        //     });
-
-        // });
-
         let passwordUpdatePromise: Promise<void> = Promise.resolve();
         if (oldPassword && newPassword) {
             const updatePassword: UserUpdatePassword = {
