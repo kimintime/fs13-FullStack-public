@@ -14,11 +14,11 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
-import { addToCart, removeFromCart, emptyCart } from "../redux/reducers/cartReducer";
+import { removeFromCart, emptyCart } from "../redux/reducers/cartReducer";
+
 
 const Cart = () => {
     const cart = useAppSelector(state => state.cart)
@@ -55,23 +55,24 @@ const Cart = () => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Book</TableCell>
+                                    <TableCell align="center">Author</TableCell>
                                     <TableCell align="center">Publisher</TableCell>
                                     <TableCell align="center">Quantity</TableCell>
-                                    <TableCell align="center">Edit Items</TableCell>
+                                    <TableCell align="center">Remove Items</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {cart.map(item =>
                                     <TableRow key={item.id}>
                                         <TableCell align="left">{item.title}</TableCell>
+                                        <TableCell align="left">
+                                            {item.author.join(", ")}
+                                        </TableCell>
                                         <TableCell align="center">{item.publisher.publisherName.toString()}</TableCell>
                                         <TableCell align="center">{item.amount}</TableCell>
                                         <TableCell align="center">
-                                            <IconButton onClick={() => dispatch(addToCart(item))}>
-                                                <AddIcon fontSize="small" />
-                                            </IconButton>
                                             <IconButton onClick={() => dispatch(removeFromCart(item))}>
-                                                <RemoveIcon fontSize="small" />
+                                                <RemoveCircleOutlineIcon />
                                             </IconButton>
                                         </TableCell>
                                     </TableRow>
