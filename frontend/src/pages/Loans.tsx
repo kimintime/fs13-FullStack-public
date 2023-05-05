@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Box,
     Button,
@@ -18,15 +18,10 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { removeFromCart, emptyCart } from "../redux/reducers/cartReducer";
-import { CreateLoan } from "../types/loan";
-import { CartItem } from "../types/cart";
-import { User } from "../types/user";
-import { addLoan } from "../redux/reducers/loanReducer";
 
 
-const Cart = () => {
+const Loans = () => {
     const cart = useAppSelector(state => state.cart)
-    const user = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const [show, setShow] = useState(false)
 
@@ -39,24 +34,6 @@ const Cart = () => {
             }
         })
     }
-
-    const handleLoan = (cart: CartItem[], user: User) => {
-
-        cart.forEach(item => {
-            const newLoan: CreateLoan = {
-                copyId: item.id,
-                userId: user.id
-            }
-
-            dispatch(addLoan(newLoan))
-                .then(() => {
-                    dispatch(removeFromCart(item));
-                    setShow(false);
-                })
-        });
-    }
-
-    console.log(user?.id)
 
     useEffect(() => {
         handleShow()
@@ -79,6 +56,7 @@ const Cart = () => {
                                 <TableRow>
                                     <TableCell>Book</TableCell>
                                     <TableCell align="center">Author</TableCell>
+                                    <TableCell align="center">Publisher</TableCell>
                                     <TableCell align="center">Quantity</TableCell>
                                     <TableCell align="center">Remove Items</TableCell>
                                 </TableRow>
@@ -90,6 +68,7 @@ const Cart = () => {
                                         <TableCell align="left">
                                             {item.author.join(", ")}
                                         </TableCell>
+                                        <TableCell align="center">{item.publisher.publisherName.toString()}</TableCell>
                                         <TableCell align="center">{item.amount}</TableCell>
                                         <TableCell align="center">
                                             <IconButton onClick={() => dispatch(removeFromCart(item))}>
@@ -106,15 +85,7 @@ const Cart = () => {
                                     <TableCell align="center">{total} items</TableCell>
                                     <TableCell align="center">
                                         {show ?
-                                            <Button color="success" onClick={() => {
-                                                if (user) {
-                                                    handleLoan(cart, user);
-                                                }
-                                            }}
-                                            >
-                                                Place order
-                                            </Button>
-
+                                            <Button color="success">Place order</Button>
                                             : null
                                         }
                                     </TableCell>
@@ -133,4 +104,4 @@ const Cart = () => {
     )
 }
 
-export default Cart
+export default Loans
