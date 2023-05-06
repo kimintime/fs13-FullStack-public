@@ -16,7 +16,7 @@ const Books = () => {
     const navigate = useNavigate()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
-    const [addedToCart, setAddedToCart] = useState<number[]>([]);
+    const [addedToCart, setAddedToCart] = useState<string[]>([])
 
     useEffect(() => {
         dispatch(getAllBooks({ page: page, pageSize: pageSize }))
@@ -24,6 +24,15 @@ const Books = () => {
 
     const handleAddToCart = (book: Book) => {
         const availableCopy = book?.copies?.find((copy) => copy.isAvailable);
+
+        const cartItems: CartItem[] = JSON.parse(localStorage.getItem("cartItems") || "[]");
+
+        const isAlreadyAdded = cartItems.some((item) => item.id === availableCopy?.id);
+
+        if (isAlreadyAdded) {
+            alert("This book is already in your cart.");
+            return;
+        }
 
         if (availableCopy) {
             const cartItem: CartItem = {
@@ -35,67 +44,71 @@ const Books = () => {
                 amount: 1,
             }
 
+
             dispatch(addToCart(cartItem))
-            setAddedToCart([...addedToCart, book.id])
+            setAddedToCart(prevState => [...prevState, book.id.toString()]);
+            localStorage.setItem('cartItems', JSON.stringify([cartItem]));
 
         } else {
+
             alert("No available copies of this book")
         }
     }
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
-                <Grid item md={8}>
-                    <Typography variant="h6" textAlign="center">Books</Typography>
-                    <TableContainer>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Book</TableCell>
-                                    <TableCell align="left">Author</TableCell>
-                                    <TableCell align="center">Copies</TableCell>
-                                    <TableCell align="right">Reserve</TableCell>
+            <Grid item md={8}>
+                <Typography variant="h6" textAlign="center">Books</Typography>
+                <TableContainer>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Book</TableCell>
+                                <TableCell align="left">Author</TableCell>
+                                <TableCell align="center">Copies</TableCell>
+                                <TableCell align="right">Reserve</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {books.map(book =>
+                                <TableRow key={book.id}>
+                                    <TableCell align="left">
+                                        {book.title}
+                                    </TableCell>
+                                    <TableCell>
+                                        {book.authors?.map(author => (
+                                            <Typography component="span" key={author.id} variant="subtitle2" color="text.secondary">
+                                                {author.firstName} {" "} {author.lastName}
+                                            </Typography>
+                                        ))
+                                        }
+                                    </TableCell>
+                                    <TableCell align="center">{book.copiesAvailable}</TableCell>
+                                    <TableCell align="right">
+                                        {(book.copiesAvailable !== null && book.copiesAvailable >= 1) && (!addedToCart.includes(book.id.toString())) ?
+
+                                            <IconButton
+                                                aria-label="Add to cart"
+                                                onClick={() => handleAddToCart(book)}
+                                            >
+                                                <AddShoppingCartIcon />
+                                            </IconButton>
+                                            :
+                                            <IconButton
+                                                aria-label="Not available"
+                                            >
+                                                <DoNotDisturbIcon />
+                                            </IconButton>
+                                        }
+                                    </TableCell>
                                 </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {books.map(book =>
-                                    <TableRow key={book.id}>
-                                        <TableCell align="left">
-                                            {book.title}
-                                        </TableCell>
-                                        <TableCell>
-                                            {book.authors?.map(author => (
-                                                <Typography component="span" key={author.id} variant="subtitle2" color="text.secondary">
-                                                    {author.firstName} {" "} {author.lastName}
-                                                </Typography>
-                                                ))
-                                            }
-                                        </TableCell>
-                                        <TableCell align="center">{book.copiesAvailable}</TableCell>
-                                        <TableCell align="right">
-                                            {(book.copiesAvailable !== null && book.copiesAvailable >= 1) && (!addedToCart.includes(book.id)) ?
-                                                <IconButton
-                                                    aria-label="Add to cart"
-                                                    onClick={() => handleAddToCart(book)}
-                                                >
-                                                    <AddShoppingCartIcon />
-                                                </IconButton>
-                                                :
-                                                <IconButton
-                                                    aria-label="Not available"
-                                                >
-                                                    <DoNotDisturbIcon />
-                                                </IconButton>
-                                            }
-                                        </TableCell>
-                                    </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <Divider variant="middle" />
-                </Grid>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <Divider variant="middle" />
             </Grid>
+        </Grid>
     )
 }
 
