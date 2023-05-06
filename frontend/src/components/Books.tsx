@@ -17,10 +17,13 @@ const Books = () => {
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
     const [addedToCart, setAddedToCart] = useState<string[]>([])
+   
+
 
     useEffect(() => {
         dispatch(getAllBooks({ page: page, pageSize: pageSize }))
     }, [dispatch, page, pageSize])
+
 
     const handleAddToCart = (book: Book) => {
         const availableCopy = book?.copies?.find((copy) => copy.isAvailable);
