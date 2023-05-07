@@ -7,14 +7,13 @@ export interface Loan extends Base {
     user: User,
     copy: Copy,
     dateLoaned: Date,
-    dueDate: Date,
+    dateDue: Date,
     returned: boolean
 }
 
 export type LoanFilter = {
     filter: "Ongoing" | "Expired" | null,
     pagination: Pagination | null,
-    userId: number | null
 }
 
 export type CreateLoan = {

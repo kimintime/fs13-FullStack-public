@@ -21,7 +21,8 @@ import { removeFromCart, emptyCart } from "../redux/reducers/cartReducer";
 import { CreateLoan } from "../types/loan";
 import { CartItem } from "../types/cart";
 import { User } from "../types/user";
-import { addLoan } from "../redux/reducers/loanReducer";
+import { addLoan, getOwnLoans } from "../redux/reducers/loanReducer";
+import { NavLink } from "react-router-dom";
 
 
 const Cart = () => {
@@ -52,11 +53,16 @@ const Cart = () => {
                 .then(() => {
                     dispatch(removeFromCart(item));
                     setShow(false);
+                    dispatch(getOwnLoans({
+                        pagination: {
+                            page: 1,
+                            pageSize: 25
+                        },
+                        filter: null
+                    }))
                 })
         });
     }
-
-    console.log(user?.id)
 
     useEffect(() => {
         handleShow()
@@ -106,15 +112,16 @@ const Cart = () => {
                                     <TableCell align="center">{total} items</TableCell>
                                     <TableCell align="center">
                                         {show ?
-                                            <Button color="success" onClick={() => {
-                                                if (user) {
-                                                    handleLoan(cart, user);
-                                                }
-                                            }}
-                                            >
-                                                Place order
-                                            </Button>
-
+                                            <NavLink to={"/loans"}>
+                                                <Button color="success" onClick={() => {
+                                                    if (user) {
+                                                        handleLoan(cart, user);
+                                                    }
+                                                }}
+                                                >
+                                                    Place order
+                                                </Button>
+                                            </NavLink>
                                             : null
                                         }
                                     </TableCell>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import {
     Box,
-    Button,
     Divider,
     Grid,
     IconButton,
@@ -9,35 +8,29 @@ import {
     TableBody,
     TableCell,
     TableContainer,
-    TableFooter,
     TableHead,
     TableRow,
     Typography
 } from "@mui/material";
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import CheckIcon from '@mui/icons-material/Check';
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
-import { removeFromCart, emptyCart } from "../redux/reducers/cartReducer";
-
+import { getOwnLoans } from "../redux/reducers/loanReducer";
 
 const Loans = () => {
-    const cart = useAppSelector(state => state.cart)
+    const loans = useAppSelector(state => state.loan)
+    const user = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
-    const [show, setShow] = useState(false)
+    const [filter, setFilter] = useState<"Ongoing" | "Expired" | null>(null);
+    const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(25)
 
-    const total = cart.reduce((a, b) => a + b.amount, 0)
-
-    const handleShow = () => {
-        cart.forEach(item => {
-            if (item.amount > 0) {
-                setShow(true)
-            }
-        })
-    }
+    const currentDate = new Date();
 
     useEffect(() => {
-        handleShow()
-    })
+        dispatch(getOwnLoans({ pagination: { page: page, pageSize: pageSize }, filter: filter }))
+
+    }, [dispatch, page, pageSize, filter])
 
     return (
         <Box style={{
@@ -49,57 +42,54 @@ const Loans = () => {
         >
             <Grid container justifyContent="center" alignItems="center">
                 <Grid item md={8}>
-                    <Typography textAlign="center">Checkout</Typography>
-                    <TableContainer>
+                    <Typography textAlign="center" variant="h6" marginBottom={5}>Loans for {user?.userName}</Typography>
+                    <Divider flexItem />
+                    <TableContainer sx={{mt: 5 }}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Book</TableCell>
-                                    <TableCell align="center">Author</TableCell>
-                                    <TableCell align="center">Publisher</TableCell>
-                                    <TableCell align="center">Quantity</TableCell>
-                                    <TableCell align="center">Remove Items</TableCell>
+                                    <TableCell>Date Loaned</TableCell>
+                                    <TableCell align="center">Book</TableCell>
+                                    <TableCell align="center">Due Date</TableCell>
+                                    <TableCell align="center">Returned</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {cart.map(item =>
-                                    <TableRow key={item.id}>
-                                        <TableCell align="left">{item.title}</TableCell>
-                                        <TableCell align="left">
-                                            {item.author.join(", ")}
-                                        </TableCell>
-                                        <TableCell align="center">{item.publisher.publisherName.toString()}</TableCell>
-                                        <TableCell align="center">{item.amount}</TableCell>
+                                {loans.map(item =>
+                                    <TableRow key={item.id}
+                                        sx={{ "&:hover": { backgroundColor: 'lightgray' } }}>
+                                        <TableCell align="left">{new Date(item.dateLoaned).toLocaleDateString('en-GB')}</TableCell>
                                         <TableCell align="center">
-                                            <IconButton onClick={() => dispatch(removeFromCart(item))}>
-                                                <RemoveCircleOutlineIcon />
-                                            </IconButton>
+                                            {item.copy.title}
+                                        </TableCell>
+                                        <TableCell align="center"
+                                            sx={{
+                                                color: new Date(item.dateDue).getTime() <= new Date(currentDate).getTime() && !item.returned ? 'red' : 'inherit',
+                                              }}
+                                              >
+                                                {new Date(item.dateDue).toLocaleDateString('en-GB')}</TableCell>
+                                        <TableCell align="center">
+                                            {
+                                                item.returned === true ?
+                                                    <IconButton
+                                                    sx={{
+                                                        '&:hover': {
+                                                          backgroundColor: 'lightblue',
+                                                        },
+                                                      }}>
+                                                        <CheckIcon />
+                                                    </IconButton>
+                                                    : null
+                                            }
                                         </TableCell>
                                     </TableRow>
                                 )}
                             </TableBody>
-                            <TableFooter>
-                                <TableRow>
-                                    <TableCell />
-                                    <TableCell />
-                                    <TableCell align="center">{total} items</TableCell>
-                                    <TableCell align="center">
-                                        {show ?
-                                            <Button color="success">Place order</Button>
-                                            : null
-                                        }
-                                    </TableCell>
-                                </TableRow>
-                            </TableFooter>
                         </Table>
                     </TableContainer>
                     <Divider variant="middle" />
                 </Grid>
             </Grid>
-            {show ?
-                <Button color="warning" onClick={() => dispatch(emptyCart())}>Empty Cart</Button>
-                : null
-            }
         </Box>
     )
 }

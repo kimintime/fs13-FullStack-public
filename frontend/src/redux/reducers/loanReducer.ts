@@ -20,7 +20,7 @@ export const getAllLoans = createAsyncThunk(
                     params: filters === null
                         ? {}
                         : {
-                            userId: filters?.userId,
+                            //userId: filters?.userId,
                             filter: filters?.filter,
                             page: filters?.pagination?.page,
                             pageSize: filters?.pagination?.pageSize
@@ -72,7 +72,7 @@ export const getOwnLoans = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/user/loans`,
+                `${ENV.BACKEND_URL}/api/v1/loans/user/loans`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` },
                     params: loanFilter === null

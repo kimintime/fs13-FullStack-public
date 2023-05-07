@@ -22,6 +22,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { getOwnProfile, logout, setUser, updateOwnAccount, updateOwnPassword } from "../redux/reducers/userReducer"
 import { User, UserProfileEdit, UserUpdatePassword } from "../types/user"
 import { Visibility, VisibilityOff } from "@mui/icons-material"
+import { NavLink } from "react-router-dom"
 
 const Profile = () => {
     const user = useAppSelector(state => state.user)
@@ -258,10 +259,20 @@ const Profile = () => {
                     </Table>
                 </TableContainer>
             </Paper>
-            {!user?.roles?.includes("Admin") ?
+            {!user?.roles?.includes("Admin") && change ?
                 <Button onClick={editUser}>Update Profile</Button>
                 : null
             }
+            <NavLink to={"/loans"}>
+                <Button
+                    variant="contained"
+                    color="success"
+                    sx={{ marginTop: 5 }}
+                >
+                    Loans
+                </Button>
+            </NavLink>
+
             <Button
                 variant="contained"
                 color="error"
