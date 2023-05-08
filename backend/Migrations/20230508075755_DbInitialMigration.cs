@@ -7,25 +7,56 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace backend.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateUser : Migration
+    public partial class DbInitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "books",
+                name: "authors",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    title = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
-                    description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2170)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2310))
+                    first_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(5730)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(5930))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_books", x => x.id);
+                    table.PrimaryKey("pk_authors", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "categories",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6310)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6480))
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_categories", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "publishers",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    publisher_name = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(7290)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(7410))
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_publishers", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,8 +68,8 @@ namespace backend.Migrations
                     name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     normalized_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     concurrency_stamp = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(6530)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(6940))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(1990)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(2470))
                 },
                 constraints: table =>
                 {
@@ -53,8 +84,8 @@ namespace backend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     first_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(5270)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(6020)),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(8410)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(9160)),
                     user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     normalized_user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -76,67 +107,24 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "authors",
+                name: "books",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    first_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    book_id = table.Column<int>(type: "integer", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(1660)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2000))
+                    title = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
+                    description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    publisher_id = table.Column<int>(type: "integer", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6040)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6180))
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_authors", x => x.id);
+                    table.PrimaryKey("pk_books", x => x.id);
                     table.ForeignKey(
-                        name: "fk_authors_books_book_id",
-                        column: x => x.book_id,
-                        principalTable: "books",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "categories",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    name = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
-                    description = table.Column<string>(type: "text", nullable: true),
-                    book_id = table.Column<int>(type: "integer", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2430)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2750))
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_categories", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_categories_books_book_id",
-                        column: x => x.book_id,
-                        principalTable: "books",
-                        principalColumn: "id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "publishers",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    publisher_name = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
-                    book_id = table.Column<int>(type: "integer", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3600)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3830))
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_publishers", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_publishers_books_book_id",
-                        column: x => x.book_id,
-                        principalTable: "books",
+                        name: "fk_books_publishers_publisher_id",
+                        column: x => x.publisher_id,
+                        principalTable: "publishers",
                         principalColumn: "id");
                 });
 
@@ -149,8 +137,8 @@ namespace backend.Migrations
                     role_id = table.Column<int>(type: "integer", nullable: false),
                     claim_type = table.Column<string>(type: "text", nullable: true),
                     claim_value = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(7560)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(8200))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(3090)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(3740))
                 },
                 constraints: table =>
                 {
@@ -172,8 +160,8 @@ namespace backend.Migrations
                     user_id = table.Column<int>(type: "integer", nullable: false),
                     claim_type = table.Column<string>(type: "text", nullable: true),
                     claim_value = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(8830)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(9460))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(4390)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(4970))
                 },
                 constraints: table =>
                 {
@@ -194,8 +182,8 @@ namespace backend.Migrations
                     provider_key = table.Column<string>(type: "text", nullable: false),
                     provider_display_name = table.Column<string>(type: "text", nullable: true),
                     user_id = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(90)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(680))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(5610)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(6310))
                 },
                 constraints: table =>
                 {
@@ -214,8 +202,8 @@ namespace backend.Migrations
                 {
                     user_id = table.Column<int>(type: "integer", nullable: false),
                     role_id = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(1350)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(2030))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(7000)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(7710))
                 },
                 constraints: table =>
                 {
@@ -242,8 +230,8 @@ namespace backend.Migrations
                     login_provider = table.Column<string>(type: "text", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
                     value = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(2810)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 495, DateTimeKind.Utc).AddTicks(3500))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(8370)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(9030))
                 },
                 constraints: table =>
                 {
@@ -257,6 +245,58 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "author_book",
+                columns: table => new
+                {
+                    authors_id = table.Column<int>(type: "integer", nullable: false),
+                    books_id = table.Column<int>(type: "integer", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(4410)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(5510))
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_author_book", x => new { x.authors_id, x.books_id });
+                    table.ForeignKey(
+                        name: "fk_author_book_authors_authors_id",
+                        column: x => x.authors_id,
+                        principalTable: "authors",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_author_book_books_books_id",
+                        column: x => x.books_id,
+                        principalTable: "books",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "book_category",
+                columns: table => new
+                {
+                    books_id = table.Column<int>(type: "integer", nullable: false),
+                    categories_id = table.Column<int>(type: "integer", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(160)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(1130))
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_book_category", x => new { x.books_id, x.categories_id });
+                    table.ForeignKey(
+                        name: "fk_book_category_books_books_id",
+                        column: x => x.books_id,
+                        principalTable: "books",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_book_category_categories_categories_id",
+                        column: x => x.categories_id,
+                        principalTable: "categories",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "copies",
                 columns: table => new
                 {
@@ -265,8 +305,8 @@ namespace backend.Migrations
                     is_available = table.Column<bool>(type: "boolean", nullable: false),
                     publisher_id = table.Column<int>(type: "integer", nullable: false),
                     book_id = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(2920)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3090))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6590)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6730))
                 },
                 constraints: table =>
                 {
@@ -296,8 +336,8 @@ namespace backend.Migrations
                     copy_id = table.Column<int>(type: "integer", nullable: false),
                     date_loaned = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     date_due = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3260)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 3, 23, 12, 28, 3, 494, DateTimeKind.Utc).AddTicks(3420))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6990)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(7150))
                 },
                 constraints: table =>
                 {
@@ -317,9 +357,9 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_authors_book_id",
-                table: "authors",
-                column: "book_id");
+                name: "ix_author_book_books_id",
+                table: "author_book",
+                column: "books_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_authors_first_name",
@@ -338,15 +378,20 @@ namespace backend.Migrations
                 column: "last_name");
 
             migrationBuilder.CreateIndex(
+                name: "ix_book_category_categories_id",
+                table: "book_category",
+                column: "categories_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_books_publisher_id",
+                table: "books",
+                column: "publisher_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_books_title",
                 table: "books",
                 column: "title",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "ix_categories_book_id",
-                table: "categories",
-                column: "book_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_copies_book_id",
@@ -367,11 +412,6 @@ namespace backend.Migrations
                 name: "ix_loans_user_id",
                 table: "loans",
                 column: "user_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_publishers_book_id",
-                table: "publishers",
-                column: "book_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_publishers_publisher_name",
@@ -437,10 +477,10 @@ namespace backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "authors");
+                name: "author_book");
 
             migrationBuilder.DropTable(
-                name: "categories");
+                name: "book_category");
 
             migrationBuilder.DropTable(
                 name: "loans");
@@ -461,6 +501,12 @@ namespace backend.Migrations
                 name: "user_tokens");
 
             migrationBuilder.DropTable(
+                name: "authors");
+
+            migrationBuilder.DropTable(
+                name: "categories");
+
+            migrationBuilder.DropTable(
                 name: "copies");
 
             migrationBuilder.DropTable(
@@ -470,10 +516,10 @@ namespace backend.Migrations
                 name: "users");
 
             migrationBuilder.DropTable(
-                name: "publishers");
+                name: "books");
 
             migrationBuilder.DropTable(
-                name: "books");
+                name: "publishers");
         }
     }
 }

@@ -34,10 +34,11 @@ const Profile = () => {
     const [email, setEmail] = useState(user?.email || '')
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
-
+    //const [passwordsMatch, setPasswordsMatch] = useState(false);
     const [change, setChange] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
+
 
     useEffect(() => {
         if (!isUserDataLoaded && user) {
@@ -60,60 +61,62 @@ const Profile = () => {
     }
 
     const editUser = () => {
-
         const newUser: UserProfileEdit = {
-            ...user,
-            userName: user?.userName ?? '',
-            email: user?.email ?? '',
-            firstName: user?.firstName ?? '',
-            lastName: user?.lastName ?? ''
-        }
-
-        newUser.userName = username
-        newUser.email = email
-        newUser.firstName = firstName
-        newUser.lastName = lastName
-
-        let passwordUpdatePromise: Promise<void> = Promise.resolve();
-        if (oldPassword && newPassword) {
+          ...user,
+          userName: username,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+        };
+      
+        if (oldPassword || newPassword) {
+          if (!oldPassword || !newPassword) {
+            alert("Both fields must be filled out");
+            return;
+          } else if (oldPassword === newPassword) {
+            alert("Old password and new password cannot be the same");
+            return;
+          } else {
             const updatePassword: UserUpdatePassword = {
-                oldPassword: oldPassword,
-                newPassword: newPassword
+              oldPassword: oldPassword,
+              newPassword: newPassword,
             };
-            passwordUpdatePromise = dispatch(updateOwnPassword(updatePassword))
-                .then(() => {
-                    // Password updated successfully, continue with account update
-                    dispatch(updateOwnAccount(newUser)).then(() => {
-                        setChange(false);
-                        dispatch(getOwnProfile(user!)).then((response) => {
-                            const userProfile = response.payload as User;
-                            dispatch(setUser(userProfile));
-                            setFirstName(userProfile.firstName);
-                            setLastName(userProfile.lastName);
-                            setUsername(userProfile.userName);
-                            setEmail(userProfile.email);
-                            setOldPassword('')
-                            setNewPassword('')
-                        });
-                    });
-                })
-        } else {
-            // No password update, continue with account update
-            dispatch(updateOwnAccount(newUser)).then(() => {
-                setChange(false);
-                dispatch(getOwnProfile(user!)).then((response) => {
+            dispatch(updateOwnPassword(updatePassword))
+              .then(() => {
+                dispatch(updateOwnAccount(newUser)).then(() => {
+                  setChange(false);
+                  dispatch(getOwnProfile(user!)).then((response) => {
                     const userProfile = response.payload as User;
                     dispatch(setUser(userProfile));
                     setFirstName(userProfile.firstName);
                     setLastName(userProfile.lastName);
                     setUsername(userProfile.userName);
                     setEmail(userProfile.email);
-                    setOldPassword('')
-                    setNewPassword('')
+                    setOldPassword("");
+                    setNewPassword("");
+                  });
                 });
+              })
+              .catch(() => {
+                alert("Incorrect old password");
+              });
+          }
+        } else {
+          dispatch(updateOwnAccount(newUser)).then(() => {
+            setChange(false);
+            dispatch(getOwnProfile(user!)).then((response) => {
+              const userProfile = response.payload as User;
+              dispatch(setUser(userProfile));
+              setFirstName(userProfile.firstName);
+              setLastName(userProfile.lastName);
+              setUsername(userProfile.userName);
+              setEmail(userProfile.email);
             });
+          });
         }
-    }
+      };
+      
+
 
     const userLogout = () => {
         dispatch(logout())

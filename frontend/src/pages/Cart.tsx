@@ -23,6 +23,7 @@ import { CartItem } from "../types/cart";
 import { User } from "../types/user";
 import { addLoan, getOwnLoans } from "../redux/reducers/loanReducer";
 import { NavLink } from "react-router-dom";
+import { getOwnProfile, setUser } from "../redux/reducers/userReducer";
 
 
 const Cart = () => {
@@ -30,8 +31,20 @@ const Cart = () => {
     const user = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const [show, setShow] = useState(false)
+    const [isUserDataLoaded, setIsUserDataLoaded] = useState(false)
+    //const [username, setUsername] = useState(user?.userName || '')
 
     const total = cart.reduce((a, b) => a + b.amount, 0)
+
+    useEffect(() => {
+        if (!isUserDataLoaded && user) {
+            dispatch(getOwnProfile(user)).then((response) => {
+                const userProfile = response.payload as User;
+                dispatch(setUser(userProfile));
+                setIsUserDataLoaded(true);
+            });
+        }
+    }, [dispatch, user, isUserDataLoaded]);
 
     const handleShow = () => {
         cart.forEach(item => {
