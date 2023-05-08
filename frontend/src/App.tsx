@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Root from './pages/Root'
 import Home from './pages/Home'
-import Book from './pages/Book'
+import BookItem from './pages/BookItem'
 import Protected from './components/Protected'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
@@ -27,7 +27,7 @@ const App = () => {
           path: "books/:id",
           element: (
             <Protected>
-              <Book />
+              <BookItem />
             </Protected>
           )
         },

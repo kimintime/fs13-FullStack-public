@@ -17,13 +17,12 @@ const Books = () => {
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
     const [addedToCart, setAddedToCart] = useState<string[]>([])
-   
-
 
     useEffect(() => {
         dispatch(getAllBooks({ page: page, pageSize: pageSize }))
     }, [dispatch, page, pageSize])
 
+    const bookList = Array.isArray(books) ? books : [];
 
     const handleAddToCart = (book: Book) => {
         const availableCopy = book?.copies?.find((copy) => copy.isAvailable);
@@ -73,8 +72,8 @@ const Books = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {books.map(book =>
-                                <TableRow key={book.id}>
+                            {bookList.map((book: Book) =>
+                                <TableRow key={book.id} onClick={() => navigate(`/books/${book.id}`)}>
                                     <TableCell align="left">
                                         {book.title}
                                     </TableCell>
