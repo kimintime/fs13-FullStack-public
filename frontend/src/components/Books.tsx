@@ -46,10 +46,9 @@ const Books = () => {
                 amount: 1,
             }
 
-
             dispatch(addToCart(cartItem))
             setAddedToCart(prevState => [...prevState, book.id.toString()]);
-            localStorage.setItem('cartItems', JSON.stringify([cartItem]));
+            localStorage.setItem('cartItems', JSON.stringify([...cartItems, cartItem]));
 
         } else {
 
@@ -73,11 +72,11 @@ const Books = () => {
                         </TableHead>
                         <TableBody>
                             {bookList.map((book: Book) =>
-                                <TableRow key={book.id} onClick={() => navigate(`/books/${book.id}`)}>
-                                    <TableCell align="left">
+                                <TableRow key={book.id} sx={{ "cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' } }}>
+                                    <TableCell align="left" onClick={() => navigate(`/books/${book.id}`)}>
                                         {book.title}
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell onClick={() => navigate(`/books/${book.id}`)}>
                                         {book.authors?.map(author => (
                                             <Typography component="span" key={author.id} variant="subtitle2" color="text.secondary">
                                                 {author.firstName} {" "} {author.lastName}
@@ -85,11 +84,16 @@ const Books = () => {
                                         ))
                                         }
                                     </TableCell>
-                                    <TableCell align="center">{book.copiesAvailable}</TableCell>
+                                    <TableCell align="center" onClick={() => navigate(`/books/${book.id}`)}>{book.copiesAvailable}</TableCell>
                                     <TableCell align="right">
                                         {(book.copiesAvailable !== null && book.copiesAvailable >= 1) && (!addedToCart.includes(book.id.toString())) ?
 
                                             <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: 'lightblue',
+                                                    },
+                                                }}
                                                 aria-label="Add to cart"
                                                 onClick={() => handleAddToCart(book)}
                                             >
@@ -97,6 +101,11 @@ const Books = () => {
                                             </IconButton>
                                             :
                                             <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: 'lightblue',
+                                                    },
+                                                }}
                                                 aria-label="Not available"
                                             >
                                                 <DoNotDisturbIcon />

@@ -52,7 +52,7 @@ const BookItem = () => {
 
             dispatch(addToCart(cartItem))
             setAddedToCart(prevState => [...prevState, bookItem.id.toString()]);
-            localStorage.setItem('cartItems', JSON.stringify([cartItem]));
+            localStorage.setItem('cartItems', JSON.stringify([...cartItems, cartItem]));
 
         } else {
 

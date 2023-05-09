@@ -34,8 +34,6 @@ const Cart = () => {
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false)
     //const [username, setUsername] = useState(user?.userName || '')
 
-    const total = cart.reduce((a, b) => a + b.amount, 0)
-
     useEffect(() => {
         if (!isUserDataLoaded && user) {
             dispatch(getOwnProfile(user)).then((response) => {
@@ -46,8 +44,12 @@ const Cart = () => {
         }
     }, [dispatch, user, isUserDataLoaded]);
 
+    const cartList = Array.isArray(cart) ? cart : [];
+
+    const total = cart.reduce((a, b) => a + b.amount, 0)
+
     const handleShow = () => {
-        cart.forEach(item => {
+        cartList.forEach(item => {
             if (item.amount > 0) {
                 setShow(true)
             }
@@ -56,7 +58,7 @@ const Cart = () => {
 
     const handleLoan = (cart: CartItem[], user: User) => {
 
-        cart.forEach(item => {
+        cartList.forEach(item => {
             const newLoan: CreateLoan = {
                 copyId: item.id,
                 userId: user.id
@@ -98,18 +100,18 @@ const Cart = () => {
                                 <TableRow>
                                     <TableCell>Book</TableCell>
                                     <TableCell align="center">Author</TableCell>
-                                    <TableCell align="center">Quantity</TableCell>
+                                    <TableCell align="center">Publisher</TableCell>
                                     <TableCell align="center">Remove Items</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {cart.map(item =>
+                                {cartList.map(item =>
                                     <TableRow key={item.id}>
                                         <TableCell align="left">{item.title}</TableCell>
                                         <TableCell align="left">
                                             {item.author.join(", ")}
                                         </TableCell>
-                                        <TableCell align="center">{item.amount}</TableCell>
+                                        <TableCell align="center">{item.publisher.publisherName}</TableCell>
                                         <TableCell align="center">
                                             <IconButton onClick={() => dispatch(removeFromCart(item))}>
                                                 <RemoveCircleOutlineIcon />
