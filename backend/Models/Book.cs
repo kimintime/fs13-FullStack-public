@@ -17,7 +17,7 @@ public class Book : BaseModel
     public ICollection<Author> Authors { get; set; } = null!;
     public ICollection<Copy> Copies { get; set; } = null!;
 
-    [JsonIgnore]
+    //[JsonIgnore]
     [NotMapped]
     public ICollection<Publisher>? Publishers 
     { 
