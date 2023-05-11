@@ -8,6 +8,9 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Cart from './pages/Cart'
 import Loans from './pages/Loans'
+import Authors from './pages/Authors'
+import Categories from './pages/Categories'
+import Publishers from './pages/Publishers'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -20,6 +23,30 @@ const App = () => {
           element: (
             <Protected>
               <Home />
+            </Protected>
+          )
+        },
+        {
+          path: "authors",
+          element: (
+            <Protected>
+              <Authors />
+            </Protected>
+          )
+        },
+        {
+          path: "categories",
+          element: (
+            <Protected>
+              <Categories />
+            </Protected>
+          )
+        },
+        {
+          path: "publishers",
+          element: (
+            <Protected>
+              <Publishers />
             </Protected>
           )
         },
