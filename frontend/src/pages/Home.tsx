@@ -1,6 +1,7 @@
 
 import { Typography, Box, Divider } from "@mui/material"
 import Books from "../components/Books";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
 
@@ -16,6 +17,7 @@ const Home = () => {
             <Typography variant="h2">Welcome to the Fake Library</Typography>
             <Typography variant="subtitle1">Where you can checkout anytime you like, but you can never read.</Typography>
             <Divider flexItem />
+            <Navbar/>
             <Books />
         </Box>
     )
