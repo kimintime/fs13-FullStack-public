@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace backend.Migrations
 {
     /// <inheritdoc />
-    public partial class DbInitialMigration : Migration
+    public partial class DBFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,8 +20,8 @@ namespace backend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     first_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(5730)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(5930))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(3930)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(4120))
                 },
                 constraints: table =>
                 {
@@ -36,8 +36,8 @@ namespace backend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
                     description = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6310)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6480))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(4490)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(4670))
                 },
                 constraints: table =>
                 {
@@ -51,8 +51,8 @@ namespace backend.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     publisher_name = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(7290)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(7410))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(5600)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(5720))
                 },
                 constraints: table =>
                 {
@@ -68,8 +68,8 @@ namespace backend.Migrations
                     name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     normalized_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     concurrency_stamp = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(1990)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(2470))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(1310)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(1780))
                 },
                 constraints: table =>
                 {
@@ -84,8 +84,8 @@ namespace backend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     first_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     last_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(8410)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(9160)),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(7330)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(8420)),
                     user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     normalized_user_name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -115,8 +115,8 @@ namespace backend.Migrations
                     title = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     publisher_id = table.Column<int>(type: "integer", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6040)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6180))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(4230)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(4360))
                 },
                 constraints: table =>
                 {
@@ -137,8 +137,8 @@ namespace backend.Migrations
                     role_id = table.Column<int>(type: "integer", nullable: false),
                     claim_type = table.Column<string>(type: "text", nullable: true),
                     claim_value = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(3090)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(3740))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(2380)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(2990))
                 },
                 constraints: table =>
                 {
@@ -160,8 +160,8 @@ namespace backend.Migrations
                     user_id = table.Column<int>(type: "integer", nullable: false),
                     claim_type = table.Column<string>(type: "text", nullable: true),
                     claim_value = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(4390)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(4970))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(3600)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(4150))
                 },
                 constraints: table =>
                 {
@@ -182,8 +182,8 @@ namespace backend.Migrations
                     provider_key = table.Column<string>(type: "text", nullable: false),
                     provider_display_name = table.Column<string>(type: "text", nullable: true),
                     user_id = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(5610)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(6310))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(4820)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(5720))
                 },
                 constraints: table =>
                 {
@@ -202,8 +202,8 @@ namespace backend.Migrations
                 {
                     user_id = table.Column<int>(type: "integer", nullable: false),
                     role_id = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(7000)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(7710))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(6820)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(8200))
                 },
                 constraints: table =>
                 {
@@ -230,8 +230,8 @@ namespace backend.Migrations
                     login_provider = table.Column<string>(type: "text", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
                     value = table.Column<string>(type: "text", nullable: true),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(8370)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(9030))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(8930)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(9560))
                 },
                 constraints: table =>
                 {
@@ -250,8 +250,8 @@ namespace backend.Migrations
                 {
                     authors_id = table.Column<int>(type: "integer", nullable: false),
                     books_id = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(4410)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(5510))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(2640)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(3700))
                 },
                 constraints: table =>
                 {
@@ -276,8 +276,8 @@ namespace backend.Migrations
                 {
                     books_id = table.Column<int>(type: "integer", nullable: false),
                     categories_id = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(160)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 233, DateTimeKind.Utc).AddTicks(1130))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(9510)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 635, DateTimeKind.Utc).AddTicks(540))
                 },
                 constraints: table =>
                 {
@@ -305,8 +305,8 @@ namespace backend.Migrations
                     is_available = table.Column<bool>(type: "boolean", nullable: false),
                     publisher_id = table.Column<int>(type: "integer", nullable: false),
                     book_id = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6590)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6730))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(4780)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(4930))
                 },
                 constraints: table =>
                 {
@@ -336,8 +336,8 @@ namespace backend.Migrations
                     copy_id = table.Column<int>(type: "integer", nullable: false),
                     date_loaned = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     date_due = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(6990)),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 8, 7, 57, 55, 232, DateTimeKind.Utc).AddTicks(7150))
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(5070)),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2023, 5, 12, 9, 24, 57, 634, DateTimeKind.Utc).AddTicks(5270))
                 },
                 constraints: table =>
                 {
