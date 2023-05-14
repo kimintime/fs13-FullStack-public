@@ -69,7 +69,7 @@ const BookItem = () => {
                     <Typography variant="subtitle1" mt={2} textAlign="center">{bookItem.publishers?.map(publisher => publisher.publisherName).join(", ")}</Typography>
                     <Divider variant="middle" />
                     <Typography variant="body1" mt={5}>{bookItem.description}</Typography>
-                    <Typography variant="subtitle1" mt={5} textAlign="center">Categories: {bookItem.categories?.map(category => category.name).join(", ")}</Typography>
+                    <Typography variant="subtitle1" mt={5} textAlign="center">Categories: {bookItem.categories?.map(category => category.name.charAt(0).toUpperCase() + category.name.slice(1)).join(", ")}</Typography>
                     <Typography variant="subtitle2" mt={2} textAlign="center">
                         Copies Available: {bookItem.copiesAvailable}
                         {(bookItem.copiesAvailable !== null && bookItem.copiesAvailable >= 1) && (!addedToCart.includes(bookItem.id.toString())) ?
@@ -89,7 +89,7 @@ const BookItem = () => {
                                 endIcon={<DoNotDisturbIcon />}
                                 style={{ marginLeft: "10px" }}
                             >
-                                Added to Cart
+                                Unavailable
                             </Button>
                         }
                     </Typography>

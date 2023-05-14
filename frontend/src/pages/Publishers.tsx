@@ -1,4 +1,5 @@
 import { Box } from "@mui/material"
+import PublisherList from "../components/PublisherList"
 
 const Publishers = () => {
 
@@ -10,8 +11,9 @@ const Publishers = () => {
             alignItems: "center",
             marginTop: "15px",
 
-        }}>
-            Publishers
+        }}
+        >
+           <PublisherList />
         </Box>
     )
 }

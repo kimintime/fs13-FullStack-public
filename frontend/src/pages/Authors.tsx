@@ -1,4 +1,5 @@
 import { Box } from "@mui/material"
+import AuthorList from "../components/AuthorList"
 
 const Authors = () => {
 
@@ -10,8 +11,9 @@ const Authors = () => {
             alignItems: "center",
             marginTop: "15px",
 
-        }}>
-            Authors
+        }}
+        >
+          <AuthorList />
         </Box>
     )
 }

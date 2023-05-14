@@ -1,4 +1,5 @@
 import { Box } from "@mui/material"
+import CategoryList from "../components/CategoryList"
 
 const Categories = () => {
 
@@ -10,8 +11,9 @@ const Categories = () => {
             alignItems: "center",
             marginTop: "15px",
 
-        }}>
-            Categories
+        }}
+        >
+            <CategoryList />
         </Box>
     )
 }

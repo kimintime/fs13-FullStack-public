@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom"
-import { AppBar, IconButton, Toolbar, Typography, Button, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Divider, Box } from "@mui/material"
+import { AppBar, IconButton, Toolbar, Typography, Button, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Box } from "@mui/material"
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import HomeIcon from '@mui/icons-material/Home';
@@ -101,9 +101,8 @@ const Header = () => {
                         onClick={handleClick}
                         startIcon={<MenuBookIcon />}
                         sx={{ml: 2}}
-                        
                     >
-                        Menu
+                        Books
                     </Button>
                 </Box>
                 <Menu
