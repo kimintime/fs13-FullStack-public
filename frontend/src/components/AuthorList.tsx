@@ -4,6 +4,7 @@ import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { getAllAuthors } from "../redux/reducers/authorReducer"
 import { Author } from "../types/author";
+import SitePagination from "./SitePagination"
 
 const AuthorList = () => {
     const authors = useAppSelector(state => state.author)
@@ -11,7 +12,7 @@ const AuthorList = () => {
     const navigate = useNavigate()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
-    
+
 
     useEffect(() => {
         dispatch(getAllAuthors({ page: page, pageSize: pageSize }))
@@ -33,7 +34,7 @@ const AuthorList = () => {
                         </TableHead>
                         <TableBody>
                             {authorList.map((author: Author) =>
-                                <TableRow key={author.id} sx={{"cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' } }}>
+                                <TableRow key={author.id} sx={{ "cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' } }}>
                                     <TableCell align="center" onClick={() => navigate(`/authors/${author.id}/books`)}>
                                         {author.firstName}{" "}{author.lastName}
                                     </TableCell>
@@ -44,6 +45,18 @@ const AuthorList = () => {
                 </TableContainer>
                 <Divider variant="middle" />
             </Grid>
+            <Grid container justifyContent="center" alignItems="center" marginTop={5}>
+                <Grid item md={3} textAlign={"center"}>
+                    <SitePagination
+                        total={authorList.length}
+                        page={page}
+                        pageSize={pageSize}
+                        setPage={setPage}
+                        setPageSize={setPageSize}
+                    />
+                </Grid>
+            </Grid>
+
         </Grid>
     )
 }
