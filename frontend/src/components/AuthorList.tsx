@@ -55,7 +55,6 @@ const AuthorList = () => {
                     />
                 </Grid>
             </Grid>
-
         </Grid>
     )
 }

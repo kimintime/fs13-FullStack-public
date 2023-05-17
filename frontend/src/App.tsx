@@ -14,6 +14,7 @@ import Publishers from './pages/Publishers'
 import BooksByAuthor from './pages/BooksByAuthor'
 import BooksByCategory from './pages/BooksByCategory'
 import BooksByPublisher from './pages/BooksByPublisher'
+import Copies from './pages/Copies'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -50,6 +51,14 @@ const App = () => {
           element: (
             <Protected>
               <Publishers />
+            </Protected>
+          )
+        },
+        {
+          path: "copies",
+          element: (
+            <Protected>
+              <Copies />
             </Protected>
           )
         },

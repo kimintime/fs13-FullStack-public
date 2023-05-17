@@ -9,6 +9,7 @@ import { getAllBooks } from "../redux/reducers/bookReducer"
 import { CartItem } from "../types/cart"
 import { addToCart } from "../redux/reducers/cartReducer"
 import { Book } from "../types/book";
+import SitePagination from "./SitePagination";
 
 const Books = () => {
     const books = useAppSelector(state => state.book)
@@ -87,7 +88,6 @@ const Books = () => {
                                     <TableCell align="center" onClick={() => navigate(`/books/${book.id}`)}>{book.copiesAvailable}</TableCell>
                                     <TableCell align="right">
                                         {(book.copiesAvailable !== null && book.copiesAvailable >= 1) && (!addedToCart.includes(book.id.toString())) ?
-
                                             <IconButton
                                                 sx={{
                                                     '&:hover': {
@@ -118,6 +118,17 @@ const Books = () => {
                     </Table>
                 </TableContainer>
                 <Divider variant="middle" />
+            </Grid>
+            <Grid container justifyContent="center" alignItems="center" marginTop={5}>
+                <Grid item md={3}>
+                    <SitePagination
+                        total={bookList.length}
+                        page={page}
+                        pageSize={pageSize}
+                        setPage={setPage}
+                        setPageSize={setPageSize}
+                    />
+                </Grid>
             </Grid>
         </Grid>
     )

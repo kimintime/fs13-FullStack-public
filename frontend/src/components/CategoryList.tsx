@@ -4,6 +4,7 @@ import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { Category } from "../types/category";
 import { getAllCategories } from "../redux/reducers/categoryReducer"
+import SitePagination from "./SitePagination";
 
 const CategoryList = () => {
     const categories = useAppSelector(state => state.category)
@@ -49,6 +50,17 @@ const CategoryList = () => {
                     </Table>
                 </TableContainer>
                 <Divider variant="middle" />
+            </Grid>
+            <Grid container justifyContent="center" alignItems="center" marginTop={5}>
+                <Grid item md={3}>
+                    <SitePagination
+                        total={categoryList.length}
+                        page={page}
+                        pageSize={pageSize}
+                        setPage={setPage}
+                        setPageSize={setPageSize}
+                    />
+                </Grid>
             </Grid>
         </Grid>
     )

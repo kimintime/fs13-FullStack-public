@@ -4,6 +4,7 @@ import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { Publisher } from "../types/publisher";
 import { getAllPublishers } from "../redux/reducers/publisherReducer"
+import SitePagination from "./SitePagination";
 
 const PublisherList = () => {
     const publishers = useAppSelector(state => state.publisher)
@@ -43,6 +44,17 @@ const PublisherList = () => {
                     </Table>
                 </TableContainer>
                 <Divider variant="middle" />
+            </Grid>
+            <Grid container justifyContent="center" alignItems="center" marginTop={5}>
+                <Grid item md={3}>
+                    <SitePagination
+                        total={publisherList.length}
+                        page={page}
+                        pageSize={pageSize}
+                        setPage={setPage}
+                        setPageSize={setPageSize}
+                    />
+                </Grid>
             </Grid>
         </Grid>
     )

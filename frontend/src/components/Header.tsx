@@ -8,6 +8,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import StyleIcon from '@mui/icons-material/Style';
 import BusinessIcon from '@mui/icons-material/Business';
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 import { useAppSelector } from "../hooks/reduxHooks";
 import React from "react";
@@ -56,6 +57,10 @@ const Header = () => {
         {
             nav: 'publishers',
             name: "Browse Publishers",
+        },
+        {
+            nav: 'copies',
+            name: "Browse Copies",
         },
     ]
 
@@ -121,7 +126,8 @@ const Header = () => {
                                         {
                                             (page.nav === "categories" && <StyleIcon fontSize="small" />) ||
                                             (page.nav === "authors" && <LocalLibraryIcon fontSize="small" />) ||
-                                            (page.nav === "publishers" && <BusinessIcon fontSize="small" />)
+                                            (page.nav === "publishers" && <BusinessIcon fontSize="small" />) ||
+                                            (page.nav === "copies" && <InventoryIcon fontSize="small" />)
                                         }
                                     </ListItemIcon>
                                     <ListItemText>{page.name}</ListItemText>
