@@ -1,41 +1,43 @@
-import { Box, IconButton, Pagination } from "@mui/material";
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Box, FormControl, MenuItem, Pagination, Select, SelectChangeEvent } from "@mui/material";
 
 const SitePagination = (props: {
-    total: number, 
-    page: number, 
-    pageSize: number, 
-    setPage: React.Dispatch<React.SetStateAction<number>>, 
+    total: number,
+    page: number,
+    pageSize: number,
+    setPage: React.Dispatch<React.SetStateAction<number>>,
     setPageSize: React.Dispatch<React.SetStateAction<number>>
 }) => {
 
-    const pageCount  = Math.ceil(props.total / props.pageSize);
+    const handlePageSizeChange = (event: SelectChangeEvent<number>) => {
+        const pageSize = Number(event.target.value);
+        props.setPageSize(pageSize);
+    };
 
-    // const handleDown = () => {
-    //     if (props.page > 1)
-    //         props.setPage(props.page - 1)
-    // }
-
-    // const handleUp = () => {
-    //     if (props.page < props.pageCount)
-    //         props.setPage(props.page + 1)
-    // }
+    //console.log(props.pageSize, props.total)
 
     return (
-        <Box display="flex" justifyContent="center" marginTop={2}>
-            {/* <IconButton onClick={handleDown}>
-                <ChevronLeftIcon />
-            </IconButton> */}
-            <Pagination
-                count={pageCount}
-                page={props.page}
-                onChange={(event, value) => props.setPage(value)}
-                disabled={pageCount <= 1 || props.page === 1 || props.page === pageCount}
-            />
-            {/* <IconButton onClick={handleUp}>
-                <ChevronRightIcon />
-            </IconButton> */}
+        <Box display="flex" flexDirection="column" alignItems="center" marginTop={2}>
+
+            <FormControl sx={{ display: "flex", alignItems: "center" }}>
+                <Select
+                    sx={{ marginBottom: 5, disableUnderline: "true" }}
+                    value={props.pageSize}
+                    onChange={handlePageSizeChange}
+                    variant="standard"
+                >   
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={15}>15</MenuItem>
+                    <MenuItem value={20}>20</MenuItem>
+                    <MenuItem value={25}>25</MenuItem>
+                </Select>
+            </FormControl>
+            
+                <Pagination
+                    count={props.total}
+                    page={props.page}
+                    onChange={(event, value) => props.setPage(value)}
+                    disabled={(props.total < props.pageSize) && props.page === 1}
+                />
         </Box>
     )
 }

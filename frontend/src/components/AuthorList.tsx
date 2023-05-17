@@ -12,14 +12,13 @@ const AuthorList = () => {
     const navigate = useNavigate()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
-
+    //const [authorList, setAuthorList] = useState<Author[]>([]);
 
     useEffect(() => {
         dispatch(getAllAuthors({ page: page, pageSize: pageSize }))
     }, [dispatch, page, pageSize])
 
     const authorList = Array.isArray(authors) ? authors : [];
-
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
@@ -46,7 +45,7 @@ const AuthorList = () => {
                 <Divider variant="middle" />
             </Grid>
             <Grid container justifyContent="center" alignItems="center" marginTop={5}>
-                <Grid item md={3} textAlign={"center"}>
+                <Grid item md={3}>
                     <SitePagination
                         total={authorList.length}
                         page={page}
