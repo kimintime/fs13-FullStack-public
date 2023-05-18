@@ -9,7 +9,6 @@ import { addToCart } from "../redux/reducers/cartReducer"
 import { Book } from "../types/book";
 import { getBooksByAuthor } from "../redux/reducers/bookReducer";
 
-
 const BooksByAuthor = () => {
     const books = useAppSelector(state => state.book)
     const dispatch = useAppDispatch()

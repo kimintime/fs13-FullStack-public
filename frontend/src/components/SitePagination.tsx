@@ -39,7 +39,7 @@ const SitePagination = (props: {
                 <Pagination
                     count={pageCount}
                     page={props.page}
-                    onChange={(event, value) => props.setPage(value)}
+                    onChange={(event, value) => props.setPage(value)} 
                 />
         </Box>
     )

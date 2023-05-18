@@ -4,7 +4,7 @@ import { RootState } from "../store";
 import { Pagination } from "../../types/pagination";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import ENV from "../../env";
 
 const initialState: Book[] = [];
@@ -371,7 +371,38 @@ export const deleteBook = createAsyncThunk(
 const bookReducer = createSlice({
     name: "bookReducer",
     initialState,
-    reducers: {},
+    reducers: {
+        sortByTitle: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+                state.sort((a, b) => a.title.localeCompare(b.title))
+
+            } else {
+                state.sort((a, b) => b.title.localeCompare(a.title))
+            }
+        },
+        sortByName: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+              state.sort((a, b) => {
+                const authorA = a.authors && a.authors[0]?.lastName ? a.authors[0]?.lastName : "";
+                const authorB = b.authors && b.authors[0]?.lastName ? b.authors[0]?.lastName : "";
+                return authorA.localeCompare(authorB);
+              });
+            } else {
+              state.sort((a, b) => {
+                const authorA = a.authors && a.authors[0]?.lastName ? a.authors[0]?.lastName : "";
+                const authorB = b.authors && b.authors[0]?.lastName ? b.authors[0]?.lastName : "";
+                return authorB.localeCompare(authorA);
+              });
+            }
+          },
+          sortByCopies: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+              state.sort((a, b) => (a.copiesAvailable ?? 0) - (b.copiesAvailable ?? 0));
+            } else {
+              state.sort((a, b) => (b.copiesAvailable ?? 0) - (a.copiesAvailable ?? 0));
+            }
+          },          
+    },
     extraReducers: (builder) => {
         builder.addCase(getAllBooks.fulfilled, (_, action) => {
             return action.payload;
@@ -401,3 +432,4 @@ const bookReducer = createSlice({
 })
 
 export default bookReducer.reducer;
+export const { sortByTitle, sortByName, sortByCopies } = bookReducer.actions
