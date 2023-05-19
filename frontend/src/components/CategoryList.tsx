@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material"
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel } from "@mui/material"
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { Category } from "../types/category";
-import { getAllCategories } from "../redux/reducers/categoryReducer"
+import { getAllCategories, sortByName } from "../redux/reducers/categoryReducer"
 import SitePagination from "./SitePagination";
 
 const CategoryList = () => {
@@ -12,7 +12,7 @@ const CategoryList = () => {
     const navigate = useNavigate()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
-
+    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
     useEffect(() => {
         dispatch(getAllCategories({ page: page, pageSize: pageSize }))
@@ -20,6 +20,11 @@ const CategoryList = () => {
 
     const categoryList = Array.isArray(categories) ? categories : [];
 
+    const handleSortByName = () => {
+        const actionType = sortOrder === "asc" ? "asc" : "desc";
+        dispatch(sortByName(actionType));
+        setSortOrder(actionType === "asc" ? "desc" : "asc");
+    };
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
@@ -29,7 +34,11 @@ const CategoryList = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center">Name</TableCell>
+                                <TableCell align="center" onClick={handleSortByName} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortOrder}>
+                                        Name
+                                    </TableSortLabel>
+                                </TableCell>
                                 <TableCell align="center">Description</TableCell>
                             </TableRow>
                         </TableHead>

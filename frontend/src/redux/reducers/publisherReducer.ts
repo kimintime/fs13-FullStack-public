@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreatePublisher, Publisher } from "../../types/publisher";
 import { Pagination } from "../../types/pagination";
 import { RootState } from "../store";
@@ -158,7 +158,16 @@ export const deletePublisher = createAsyncThunk(
 const publisherReducer = createSlice({
     name: "publisherReducer",
     initialState,
-    reducers: {},
+    reducers: {
+        sortByName: (state, action: PayloadAction<"asc" | "desc">) => { 
+            if (action.payload === "asc") {
+                state.sort((a, b) => a.publisherName.localeCompare(b.publisherName))
+
+            } else {
+                state.sort((a, b) => b.publisherName.localeCompare(a.publisherName))
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getAllPublishers.fulfilled, (_, action) => {
             return action.payload;
@@ -176,4 +185,5 @@ const publisherReducer = createSlice({
 })
 
 export default publisherReducer.reducer;
+export const { sortByName } = publisherReducer.actions
 

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material"
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton, TableSortLabel } from "@mui/material"
 import CheckIcon from '@mui/icons-material/Check';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { Copy } from "../types/copy";
 import SitePagination from "./SitePagination";
-import { getAllCopies } from "../redux/reducers/copiesReducer";
+import { getAllCopies, sortByAvailable, sortByPublisher, sortByTitle } from "../redux/reducers/copiesReducer";
 
 const CopiesList = () => {
     const copies = useAppSelector(state => state.copy)
@@ -14,6 +14,9 @@ const CopiesList = () => {
     const navigate = useNavigate()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
+    const [sortOrderTitle, setSortOrderTitle] = useState<"asc" | "desc">("asc")
+    const [sortOrderName, setSortOrderName] = useState<"asc" | "desc">("asc")
+    const [sortOrderAvailable, setSortOrderAvailable] = useState<"asc" | "desc">("asc")
 
     useEffect(() => {
         dispatch(getAllCopies({ page: page, pageSize: pageSize }))
@@ -21,6 +24,23 @@ const CopiesList = () => {
 
     const copyList = Array.isArray(copies) ? copies : [];
 
+    const handleSortByTitle = () => {
+        const actionType = sortOrderTitle === "asc" ? "asc" : "desc";
+        dispatch(sortByTitle(actionType));
+        setSortOrderTitle(actionType === "asc" ? "desc" : "asc");
+    };
+
+    const handleSortByPublisher = () => {
+        const actionType = sortOrderName === "asc" ? "asc" : "desc";
+        dispatch(sortByPublisher(actionType));
+        setSortOrderName(actionType === "asc" ? "desc" : "asc");
+    };
+
+    const handleSortByAvailable = () => {
+        const actionType = sortOrderAvailable === "asc" ? "asc" : "desc";
+        dispatch(sortByAvailable(actionType));
+        setSortOrderAvailable(actionType === "asc" ? "desc" : "asc");
+    };
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
@@ -30,9 +50,21 @@ const CopiesList = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left">Title</TableCell>
-                                <TableCell align="left">Publisher</TableCell>
-                                <TableCell align="right">Available</TableCell>
+                                <TableCell align="center" onClick={handleSortByTitle} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortOrderTitle}>
+                                        Title
+                                    </TableSortLabel>
+                                </TableCell>
+                                <TableCell align="center" onClick={handleSortByPublisher} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortOrderName}>
+                                        Publisher
+                                    </TableSortLabel>
+                                </TableCell>
+                                <TableCell align="center" onClick={handleSortByAvailable} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortOrderAvailable}>
+                                        Available
+                                    </TableSortLabel>
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

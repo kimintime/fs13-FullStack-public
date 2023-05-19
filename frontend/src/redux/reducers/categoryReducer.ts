@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Category, CreateCategory, UpdateCategory } from "../../types/category";
 import { Pagination } from "../../types/pagination";
 import { RootState } from "../store";
@@ -158,7 +158,16 @@ export const deleteCategory = createAsyncThunk(
 const categoryReducer = createSlice({
     name: "categoryReducer",
     initialState,
-    reducers: {},
+    reducers: {
+        sortByName: (state, action: PayloadAction<"asc" | "desc">) => { 
+            if (action.payload === "asc") {
+                state.sort((a, b) => a.name.localeCompare(b.name))
+
+            } else {
+                state.sort((a, b) => b.name.localeCompare(a.name))
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getAllCategories.fulfilled, (_, action) => {
             return action.payload;
@@ -176,3 +185,4 @@ const categoryReducer = createSlice({
 })
 
 export default categoryReducer.reducer;
+export const { sortByName } = categoryReducer.actions

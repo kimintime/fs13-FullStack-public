@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material"
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel } from "@mui/material"
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
-import { getAllAuthors } from "../redux/reducers/authorReducer"
+import { getAllAuthors, sortByLastName } from "../redux/reducers/authorReducer"
 import { Author } from "../types/author";
 import SitePagination from "./SitePagination"
 
@@ -12,13 +12,19 @@ const AuthorList = () => {
     const navigate = useNavigate()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
-    //const [authorList, setAuthorList] = useState<Author[]>([]);
-
+    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+    
     useEffect(() => {
         dispatch(getAllAuthors({ page: page, pageSize: pageSize }))
     }, [dispatch, page, pageSize])
 
     const authorList = Array.isArray(authors) ? authors : [];
+
+    const handleSortByName = () => {
+        const actionType = sortOrder === "asc" ? "asc" : "desc";
+        dispatch(sortByLastName(actionType));
+        setSortOrder(actionType === "asc" ? "desc" : "asc");
+    };
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
@@ -28,7 +34,11 @@ const AuthorList = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center">Name</TableCell>
+                            <TableCell align="center" onClick={handleSortByName} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortOrder}>
+                                        Name
+                                    </TableSortLabel>
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

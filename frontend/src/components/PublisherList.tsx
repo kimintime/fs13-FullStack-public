@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material"
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel } from "@mui/material"
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { Publisher } from "../types/publisher";
-import { getAllPublishers } from "../redux/reducers/publisherReducer"
+import { getAllPublishers, sortByName } from "../redux/reducers/publisherReducer"
 import SitePagination from "./SitePagination";
 
 const PublisherList = () => {
@@ -12,7 +12,7 @@ const PublisherList = () => {
     const navigate = useNavigate()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
-    
+    const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
 
     useEffect(() => {
         dispatch(getAllPublishers({ page: page, pageSize: pageSize }))
@@ -20,6 +20,11 @@ const PublisherList = () => {
 
     const publisherList = Array.isArray(publishers) ? publishers : [];
 
+    const handleSortByName = () => {
+        const actionType = sortOrder === "asc" ? "asc" : "desc";
+        dispatch(sortByName(actionType));
+        setSortOrder(actionType === "asc" ? "desc" : "asc");
+    };
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
@@ -29,12 +34,16 @@ const PublisherList = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center">Name</TableCell>
+                                <TableCell align="center" onClick={handleSortByName} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortOrder}>
+                                        Name
+                                    </TableSortLabel>
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {publisherList.map((publisher: Publisher) =>
-                                <TableRow key={publisher.id} sx={{"cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' } }}>
+                                <TableRow key={publisher.id} sx={{ "cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' } }}>
                                     <TableCell align="center" onClick={() => navigate(`/publishers/${publisher.id}/books`)}>
                                         {publisher.publisherName}
                                     </TableCell>

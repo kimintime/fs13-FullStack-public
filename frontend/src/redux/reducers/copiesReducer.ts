@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Copy, CreateCopy } from "../../types/copy";
 import { Pagination } from "../../types/pagination";
 import { RootState } from "../store";
@@ -18,7 +18,7 @@ export const getAllCopies = createAsyncThunk(
             let response = await axios.get(
                 `${ENV.BACKEND_URL}/api/v1/copies`,
                 {
-                    headers: { Authorization: `Bearer ${state.user?.token}`},
+                    headers: { Authorization: `Bearer ${state.user?.token}` },
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
                 })
 
@@ -27,7 +27,7 @@ export const getAllCopies = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
             }
 
             thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
@@ -51,7 +51,7 @@ export const getCopyById = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
             }
 
             thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
@@ -75,8 +75,8 @@ export const addCopy = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({message: "Adding copy was successful", timeInSec: 2, type: "normal"}))
-            
+                thunkAPI.dispatch(addNotification({ message: "Adding copy was successful", timeInSec: 2, type: "normal" }))
+
             } else {
                 throw new Error("Adding copy failed")
             }
@@ -84,7 +84,7 @@ export const addCopy = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
             }
 
             thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
@@ -103,13 +103,13 @@ export const updateCopy = createAsyncThunk(
                     ...updateCopy
                 },
                 {
-                    headers: { Authorization: `Bearer ${state.user?.token}`}
-                } 
+                    headers: { Authorization: `Bearer ${state.user?.token}` }
+                }
             )
 
             if (result.data) {
                 thunkAPI.dispatch(getCopyById(updateCopy.id))
-                thunkAPI.dispatch(addNotification({message: "Updating copy was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Updating copy was successful", timeInSec: 2, type: "normal" }))
 
             } else {
                 throw new Error("Updating copy failed")
@@ -118,11 +118,11 @@ export const updateCopy = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
             }
 
             thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
-        } 
+        }
     }
 )
 
@@ -134,12 +134,12 @@ export const deleteCopy = createAsyncThunk(
             let result = await axios.delete(
                 `${ENV.BACKEND_URL}/api/v1/copies/${deleteCopy.id}`,
                 {
-                    headers: { Authorization: `Bearer ${state.user?.token}`},
+                    headers: { Authorization: `Bearer ${state.user?.token}` },
                 }
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Deletion was successful", timeInSec: 2, type: "normal" }))
 
             } else {
                 throw new Error("Deleting copy failed")
@@ -148,18 +148,51 @@ export const deleteCopy = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
             }
 
             thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
         }
-    } 
+    }
 )
 
 const copyReducer = createSlice({
     name: "copyReducer",
     initialState,
-    reducers: {},
+    reducers: {
+        sortByTitle: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+                state.sort((a, b) => a.title.localeCompare(b.title))
+
+            } else {
+                state.sort((a, b) => b.title.localeCompare(a.title))
+            }
+        },
+        sortByPublisher: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+                state.sort((a, b) => a.publisher.publisherName.localeCompare(b.publisher.publisherName))
+
+            } else {
+                state.sort((a, b) => b.publisher.publisherName.localeCompare(a.publisher.publisherName))
+            }
+        },
+        sortByAvailable: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+                state.sort((a, b) => {
+                    const aAvailable = a.isAvailable ? 1 : 0;
+                    const bAvailable = b.isAvailable ? 1 : 0;
+                    return aAvailable - bAvailable;
+                })
+
+            } else {
+                state.sort((a, b) => {
+                    const aAvailable = a.isAvailable ? 1 : 0;
+                    const bAvailable = b.isAvailable ? 1 : 0;
+                    return bAvailable - aAvailable;
+                  });
+            }
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(getAllCopies.fulfilled, (_, action) => {
             return action.payload;
@@ -177,4 +210,5 @@ const copyReducer = createSlice({
 })
 
 export default copyReducer.reducer;
+export const { sortByTitle, sortByPublisher, sortByAvailable } = copyReducer.actions
 
