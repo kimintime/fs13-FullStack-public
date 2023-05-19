@@ -137,7 +137,7 @@ const SearchBar = () => {
             >
                 <InputBase
                     sx={{ ml: 1, flex: 1 }}
-                    placeholder="Search products"
+                    placeholder="Search titles"
                     inputProps={{ 'aria-label': 'search' }}
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}

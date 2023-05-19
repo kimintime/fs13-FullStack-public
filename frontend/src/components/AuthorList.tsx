@@ -13,7 +13,7 @@ const AuthorList = () => {
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-    
+
     useEffect(() => {
         dispatch(getAllAuthors({ page: page, pageSize: pageSize }))
     }, [dispatch, page, pageSize])
@@ -34,7 +34,7 @@ const AuthorList = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                            <TableCell align="center" onClick={handleSortByName} style={{ cursor: "pointer" }}>
+                                <TableCell align="center" onClick={handleSortByName} style={{ cursor: "pointer" }}>
                                     <TableSortLabel active={true} direction={sortOrder}>
                                         Name
                                     </TableSortLabel>

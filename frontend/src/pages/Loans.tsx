@@ -16,6 +16,8 @@ import CheckIcon from '@mui/icons-material/Check';
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { getOwnLoans } from "../redux/reducers/loanReducer";
+import SitePagination from "../components/SitePagination";
+import LoanFilter from "../components/LoanFilter";
 
 const Loans = () => {
     const loans = useAppSelector(state => state.loan)
@@ -40,11 +42,15 @@ const Loans = () => {
             marginTop: "15px"
         }}
         >
+            <LoanFilter
+                filter={filter}
+                setFilter={setFilter} 
+            />
             <Grid container justifyContent="center" alignItems="center">
                 <Grid item md={8}>
                     <Typography textAlign="center" variant="h6" marginBottom={5}>Loans for {user?.userName}</Typography>
                     <Divider flexItem />
-                    <TableContainer sx={{mt: 5 }}>
+                    <TableContainer sx={{ mt: 5 }}>
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -65,18 +71,18 @@ const Loans = () => {
                                         <TableCell align="center"
                                             sx={{
                                                 color: new Date(item.dateDue).getTime() <= new Date(currentDate).getTime() && !item.returned ? 'red' : 'inherit',
-                                              }}
-                                              >
-                                                {new Date(item.dateDue).toLocaleDateString('en-GB')}</TableCell>
+                                            }}
+                                        >
+                                            {new Date(item.dateDue).toLocaleDateString('en-GB')}</TableCell>
                                         <TableCell align="center">
                                             {
                                                 item.returned === true ?
                                                     <IconButton
-                                                    sx={{
-                                                        '&:hover': {
-                                                          backgroundColor: 'lightblue',
-                                                        },
-                                                      }}>
+                                                        sx={{
+                                                            '&:hover': {
+                                                                backgroundColor: 'lightblue',
+                                                            },
+                                                        }}>
                                                         <CheckIcon />
                                                     </IconButton>
                                                     : null
@@ -88,6 +94,17 @@ const Loans = () => {
                         </Table>
                     </TableContainer>
                     <Divider variant="middle" />
+                </Grid>
+                <Grid container justifyContent="center" alignItems="center" marginTop={5}>
+                    <Grid item md={3}>
+                        <SitePagination
+                            total={loans.length}
+                            page={page}
+                            pageSize={pageSize}
+                            setPage={setPage}
+                            setPageSize={setPageSize}
+                        />
+                    </Grid>
                 </Grid>
             </Grid>
         </Box>

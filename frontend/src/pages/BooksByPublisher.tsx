@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material"
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton, TableSortLabel } from "@mui/material"
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { CartItem } from "../types/cart"
 import { addToCart } from "../redux/reducers/cartReducer"
 import { Book } from "../types/book";
-import { getBooksByPublisher } from "../redux/reducers/bookReducer";
+import { getBooksByPublisher, sortByCopies, sortByName, sortByTitle } from "../redux/reducers/bookReducer";
 
 
 const BooksByPublisher = () => {
@@ -16,6 +16,9 @@ const BooksByPublisher = () => {
     const navigate = useNavigate()
     const { id } = useParams()
     const [addedToCart, setAddedToCart] = useState<string[]>([])
+    const [sortOrderTitle, setSortOrderTitle] = useState<"asc" | "desc">("asc")
+    const [sortOrderName, setSortOrderName] = useState<"asc" | "desc">("asc")
+    const [sortOrderAvailable, setSortOrderAvailable] = useState<"asc" | "desc">("asc")
 
     useEffect(() => {
         if (id) {
@@ -58,6 +61,24 @@ const BooksByPublisher = () => {
         }
     }
 
+    const handleSortByTitle = () => {
+        const actionType = sortOrderTitle === "asc" ? "asc" : "desc";
+        dispatch(sortByTitle(actionType));
+        setSortOrderTitle(actionType === "asc" ? "desc" : "asc");
+    };
+
+    const handleSortByName = () => {
+        const actionType = sortOrderName === "asc" ? "asc" : "desc";
+        dispatch(sortByName(actionType));
+        setSortOrderName(actionType === "asc" ? "desc" : "asc");
+    };
+
+    const handleSortByAvailable = () => {
+        const actionType = sortOrderAvailable === "asc" ? "asc" : "desc";
+        dispatch(sortByCopies(actionType));
+        setSortOrderAvailable(actionType === "asc" ? "desc" : "asc");
+    };
+
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
             <Grid item md={8}>
@@ -66,9 +87,21 @@ const BooksByPublisher = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Book</TableCell>
-                                <TableCell align="left">Author</TableCell>
-                                <TableCell align="center">Copies</TableCell>
+                                <TableCell onClick={handleSortByTitle} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortOrderTitle}>
+                                        Title
+                                    </TableSortLabel>
+                                </TableCell>
+                                <TableCell align="left" onClick={handleSortByName} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortOrderName}>
+                                        Author
+                                    </TableSortLabel>
+                                </TableCell>
+                                <TableCell align="center" onClick={handleSortByAvailable} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortOrderAvailable}>
+                                        Copies
+                                    </TableSortLabel>
+                                </TableCell>
                                 <TableCell align="right">Reserve</TableCell>
                             </TableRow>
                         </TableHead>
