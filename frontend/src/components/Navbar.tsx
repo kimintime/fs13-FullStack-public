@@ -15,10 +15,6 @@ const Navbar = () => {
             nav: 'publishers',
             name: "Publishers",
         },
-        {
-            nav: 'copies',
-            name: "Copies",
-        },
     ]
 
     return (

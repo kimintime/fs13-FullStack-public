@@ -26,8 +26,6 @@ const BookItem = () => {
 
     }, [dispatch, id])
 
-    console.log(bookItem.copies)
-
     const handleAddToCart = (bookItem: Book) => {
         const availableCopy = bookItem?.copies?.find((copy) => copy.isAvailable);
 
