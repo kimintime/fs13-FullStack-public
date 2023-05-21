@@ -20,7 +20,7 @@ const SitePagination = (props: {
     };
 
     return (
-        <Box display="flex" flexDirection="column" alignItems="center" marginTop={2} marginBottom={5}>
+        <Box display="flex" flexDirection="column" alignItems="center" marginTop={2} marginBottom={2}>
             <FormControl sx={{ display: "flex", alignItems: "center" }}>
                 <Select
                     sx={{ marginBottom: 5, disableUnderline: "true" }}

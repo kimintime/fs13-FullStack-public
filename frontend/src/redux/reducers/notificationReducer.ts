@@ -27,6 +27,7 @@ export const addNotification = createAsyncThunk(
     (notification:Notification, thunkAPI) => {
         if (timer !== null) {
             clearTimeout(timer)
+            
             timer = setTimeout(() => {
                 thunkAPI.dispatch(clear())
             }, notification.timeInSec * 1000);

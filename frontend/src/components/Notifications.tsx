@@ -1,6 +1,7 @@
-import { Alert } from "@mui/material";
+import { Alert, IconButton } from "@mui/material";
 import { useAppSelector } from "../hooks/reduxHooks"
 import { useEffect, useState } from "react";
+import CloseIcon from '@mui/icons-material/Close';
 
 const Notification = () => {
     const notification = useAppSelector(state => state.notifications);
@@ -17,9 +18,36 @@ const Notification = () => {
     }
 
     return (
-        <div>
+        <div
+            style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: 10
+            }}>
             {showAlert && (
-                <Alert variant="filled" severity={notification.type} sx={{ width: "100%" }}>
+                <Alert
+                    variant="filled" severity={notification.type}
+                    sx={{
+
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginTop: 5
+                    }}
+                    action={
+                        <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                                setShowAlert(false);
+                            }}
+                        >
+                            <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                    }
+                >
                     {notification.message}
                 </Alert>
             )}
