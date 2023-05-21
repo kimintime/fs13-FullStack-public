@@ -1,6 +1,6 @@
 export type Notification = {
-    message: String,
-    type: "error" | "normal",
+    message: string,
+    type: "error" | "warning" | "info" | "success",
     timeInSec: number,
     priority?: number
 }

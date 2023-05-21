@@ -1,11 +1,28 @@
+import { Alert } from "@mui/material";
 import { useAppSelector } from "../hooks/reduxHooks"
+import { useEffect, useState } from "react";
 
 const Notification = () => {
     const notification = useAppSelector(state => state.notifications);
-    
+    const [showAlert, setShowAlert] = useState(false);
+
+    useEffect(() => {
+        if (notification) {
+            setShowAlert(true);
+        }
+    }, [notification]);
+
+    if (!notification) {
+        return null;
+    }
+
     return (
         <div>
-            <p>{notification?.message}</p>
+            {showAlert && (
+                <Alert variant="filled" severity={notification.type} sx={{ width: "100%" }}>
+                    {notification.message}
+                </Alert>
+            )}
         </div>
     )
 }

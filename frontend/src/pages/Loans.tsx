@@ -46,9 +46,10 @@ const Loans = () => {
                 filter={filter}
                 setFilter={setFilter} 
             />
+            <Divider style={{width:'67%'}} />
             <Grid container justifyContent="center" alignItems="center">
                 <Grid item md={8}>
-                    <Typography textAlign="center" variant="h6" marginBottom={5}>Loans for {user?.userName}</Typography>
+                    <Typography textAlign="center" variant="h6" marginBottom={5} marginTop={5}>Loans for {user?.userName}</Typography>
                     <Divider flexItem />
                     <TableContainer sx={{ mt: 5 }}>
                         <Table>

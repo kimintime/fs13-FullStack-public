@@ -26,10 +26,10 @@ export const getAllCategories = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -50,10 +50,10 @@ export const getCategoryById = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -74,7 +74,7 @@ export const addCategory = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({message: "Adding category was successful", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Adding category was successful", timeInSec: 5, type: "success"}))
             
             } else {
                 throw new Error("Adding category failed")
@@ -83,10 +83,10 @@ export const addCategory = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "info"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -108,7 +108,7 @@ export const updateCategory = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getCategoryById(updateCategory.id))
-                thunkAPI.dispatch(addNotification({message: "Updating category successful", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Updating category successful", timeInSec: 5, type: "success"}))
 
             } else {
                 throw new Error("Updating category failed")
@@ -117,10 +117,10 @@ export const updateCategory = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         } 
     }
 )
@@ -138,7 +138,7 @@ export const deleteCategory = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 5, type: "success"}))
 
             } else {
                 throw new Error("Deleting category failed")
@@ -147,10 +147,10 @@ export const deleteCategory = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     } 
 )

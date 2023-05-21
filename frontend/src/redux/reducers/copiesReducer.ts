@@ -7,7 +7,6 @@ import ENV from "../../env";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
 
-
 const initialState: Copy[] = [];
 
 export const getAllCopies = createAsyncThunk(
@@ -27,10 +26,10 @@ export const getAllCopies = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "warning" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -51,10 +50,10 @@ export const getCopyById = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "warning" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -75,7 +74,7 @@ export const addCopy = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({ message: "Adding copy was successful", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Adding copy was successful", timeInSec: 5, type: "success" }))
 
             } else {
                 throw new Error("Adding copy failed")
@@ -84,10 +83,10 @@ export const addCopy = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "warning" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -109,7 +108,7 @@ export const updateCopy = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getCopyById(updateCopy.id))
-                thunkAPI.dispatch(addNotification({ message: "Updating copy was successful", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Updating copy was successful", timeInSec: 5, type: "success" }))
 
             } else {
                 throw new Error("Updating copy failed")
@@ -118,10 +117,10 @@ export const updateCopy = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "warning" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -139,7 +138,7 @@ export const deleteCopy = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({ message: "Deletion was successful", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Deletion was successful", timeInSec: 5, type: "success" }))
 
             } else {
                 throw new Error("Deleting copy failed")
@@ -148,10 +147,10 @@ export const deleteCopy = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "warning" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )

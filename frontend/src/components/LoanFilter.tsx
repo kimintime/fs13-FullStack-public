@@ -4,6 +4,7 @@ import {
     InputLabel,
     Select,
     MenuItem,
+    Typography,
 } from "@mui/material"
 
 type LoanFilterProps = {
@@ -21,10 +22,12 @@ const LoanFilter: React.FC<LoanFilterProps> = ({ filter, setFilter }) => {
                 justifyContent: "center",
                 width: "100%",
                 padding: "10px",
+                marginTop: 5,
                 boxSizing: "border-box",
                 marginBottom: 5
             }}>
-            <FormControl variant="standard" sx={{ marginRight: 1, minWidth: 120 }}>
+            <Typography variant="h6" mr={2}>Sort Loans:</Typography>
+            <FormControl variant="standard" sx={{ marginRight: 1, minWidth: 120, marginTop: "-20px" }}>
                 <InputLabel>Sort by:</InputLabel>
                 <Select
                     value={filter}

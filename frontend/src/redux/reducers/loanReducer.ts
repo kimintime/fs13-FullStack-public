@@ -33,10 +33,10 @@ export const getAllLoans = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "info" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -58,10 +58,10 @@ export const getLoanById = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "info" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -86,10 +86,10 @@ export const getOwnLoans = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "info" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -110,7 +110,7 @@ export const addLoan = createAsyncThunk(
             )
 
             if (response.data) {
-                thunkAPI.dispatch(addNotification({message: "Adding loan was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Adding loan was successful", timeInSec: 5, type: "info"}))
             
             } else {
                 throw new Error("Adding loan failed")
@@ -119,10 +119,10 @@ export const addLoan = createAsyncThunk(
         } catch (e: any) { 
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "info"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -147,7 +147,7 @@ export const updateLoan = createAsyncThunk(
 
             if (response.data) {
                 thunkAPI.dispatch(getLoanById(updateLoan.id))
-                thunkAPI.dispatch(addNotification({message: "Updating loan was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Updating loan was successful", timeInSec: 5, type: "info"}))
 
             } else {
                 throw new Error("Updating loan failed")
@@ -156,10 +156,10 @@ export const updateLoan = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "info"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -177,7 +177,7 @@ export const deleteLoan = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 5, type: "info"}))
 
             } else {
                 throw new Error("Deleting loan failed")
@@ -186,10 +186,10 @@ export const deleteLoan = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "info"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     } 
 )

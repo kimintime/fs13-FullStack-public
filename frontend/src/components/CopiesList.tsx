@@ -70,10 +70,10 @@ const CopiesList = () => {
                         <TableBody>
                             {copyList.map((copy: Copy) =>
                                 <TableRow key={copy.id} sx={{ "cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' } }}>
-                                    <TableCell align="left" onClick={() => navigate(`/`)}>
+                                    <TableCell align="left" onClick={() => navigate(`/publishers/${copy.publisher.id}/books`)}>
                                         {copy.title}
                                     </TableCell>
-                                    <TableCell onClick={() => navigate(`/`)}>
+                                    <TableCell onClick={() => navigate(`/publishers/${copy.publisher.id}/books`)}>
                                         {copy.publisher.publisherName}
                                     </TableCell>
                                     <TableCell align="right">

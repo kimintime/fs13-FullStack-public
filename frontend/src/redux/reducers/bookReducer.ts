@@ -26,10 +26,10 @@ export const getAllBooks = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -50,10 +50,10 @@ export const getBookById = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -73,7 +73,7 @@ export const getBooksByTitle = createAsyncThunk(
             return result.data as Book[];
 
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error"}))
+            await thunkAPI.dispatch(addNotification({message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error"}))
         }
     }
 )
@@ -93,7 +93,7 @@ export const getBooksByAuthor = createAsyncThunk(
             return result.data as Book[];
 
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error"}))
+            await thunkAPI.dispatch(addNotification({message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error"}))
         }
     }
 )
@@ -113,7 +113,7 @@ export const getBooksByCategory = createAsyncThunk(
             return result.data as Book[];
 
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error"}))
+            await thunkAPI.dispatch(addNotification({message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error"}))
         }
     }
 )
@@ -133,7 +133,7 @@ export const getBooksByPublisher = createAsyncThunk(
             return result.data as Book[];
 
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error"}))
+            await thunkAPI.dispatch(addNotification({message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error"}))
         }
     }
 )
@@ -155,7 +155,7 @@ export const addBook = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getBooksByTitle(newBook.title))
-                thunkAPI.dispatch(addNotification({message: "Adding book was successful", timeInSec: 2, type: "normal"}))
+                thunkAPI.dispatch(addNotification({message: "Adding book was successful", timeInSec: 5, type: "info"}))
             
             } else {
                 throw new Error("Adding book failed")
@@ -164,10 +164,10 @@ export const addBook = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -189,7 +189,7 @@ export const addAuthorToBook = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getBookById(addToBook.id))
-                thunkAPI.dispatch(addNotification({message: "Adding author was successful", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Adding author was successful", timeInSec: 5, type: "success"}))
             
             } else {
                 throw new Error("Adding author failed")
@@ -198,10 +198,10 @@ export const addAuthorToBook = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -223,7 +223,7 @@ export const addCategoryToBook = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getBookById(addToBook.id))
-                thunkAPI.dispatch(addNotification({message: "Adding category was successful", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Adding category was successful", timeInSec: 5, type: "success"}))
             
             } else {
                 throw new Error("Adding category failed")
@@ -232,10 +232,10 @@ export const addCategoryToBook = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -257,7 +257,7 @@ export const updateBook = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getBookById(updateBook.id))
-                thunkAPI.dispatch(addNotification({message: "Updating book was successful", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Updating book was successful", timeInSec: 5, type: "success"}))
 
             } else {
                 throw new Error("Updating book failed")
@@ -266,10 +266,10 @@ export const updateBook = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         } 
     }
 )
@@ -289,7 +289,7 @@ export const removeAuthorFromBook = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getBookById(addToBook.id))
-                thunkAPI.dispatch(addNotification({message: "Removing author was successful", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Removing author was successful", timeInSec: 5, type: "success"}))
             
             } else {
                 throw new Error("Removing author failed.")
@@ -298,10 +298,10 @@ export const removeAuthorFromBook = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -321,7 +321,7 @@ export const removeCategoryFromBook = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getBookById(addToBook.id));
-                thunkAPI.dispatch(addNotification({message: "Removing category was successful", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Removing category was successful", timeInSec: 5, type: "success"}))
             
             } else {
                 throw new Error("Removing category failed.")
@@ -330,10 +330,10 @@ export const removeCategoryFromBook = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -351,7 +351,7 @@ export const deleteBook = createAsyncThunk(
             )
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Deletion was successful", timeInSec: 5, type: "success"}))
 
             } else {
                 throw new Error("Deleting book failed")
@@ -360,10 +360,10 @@ export const deleteBook = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 2, type: "normal"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     } 
 )

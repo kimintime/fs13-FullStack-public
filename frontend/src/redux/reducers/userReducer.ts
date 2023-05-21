@@ -6,7 +6,7 @@ import ENV from "../../env";
 import { RootState } from "../store";
 import { Pagination } from "../../types/pagination";
 
-const initialState: User | null = null
+//const initialState: User | null = null
 
 export const getAllUsers = createAsyncThunk(
     "getAllUsers",
@@ -25,10 +25,10 @@ export const getAllUsers = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "warning" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -49,10 +49,10 @@ export const getUserById = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "warning" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -75,10 +75,10 @@ export const getOwnProfile = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Session timed out", timeInSec: 5, type: "warning" }))
             }
 
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -87,21 +87,21 @@ export const login = createAsyncThunk(
     "login",
     async (credentials: UserLogin, thunkAPI) => {
         try {
-            thunkAPI.dispatch(addNotification({ message: "Logging in...", timeInSec: 5, type: "normal" }))
+            thunkAPI.dispatch(addNotification({ message: "Logging in...", timeInSec: 5, type: "info" }))
             let result = await axios.post(`${ENV.BACKEND_URL}/api/v1/users/login`, credentials);
 
             if (result.status === 204) {
-                thunkAPI.dispatch(addNotification({ message: "Wrong username or password", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Wrong username or password", timeInSec: 5, type: "warning" }))
                 return;
             }
 
             let user: User = result.data;
 
-            thunkAPI.dispatch(addNotification({ message: `Logged in as ${credentials.email}`, timeInSec: 2, type: "normal" }))
+            await thunkAPI.dispatch(addNotification({ message: `Logged in as ${credentials.email}`, timeInSec: 5, type: "success", priority: 1 }))
             return user;
 
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -113,14 +113,14 @@ export const register = createAsyncThunk(
             let result = await axios.post(`${ENV.BACKEND_URL}/api/v1/users/register`, form);
 
             if (result.status === 204) {
-                thunkAPI.dispatch(addNotification({ message: "Registration failed", timeInSec: 2, type: "normal" }))
+                thunkAPI.dispatch(addNotification({ message: "Registration failed", timeInSec: 5, type: "warning" }))
                 return;
             }
 
-            thunkAPI.dispatch(addNotification({ message: "Registration successful, please login", timeInSec: 2, type: "normal" }))
+            await thunkAPI.dispatch(addNotification({ message: "Registration successful, please login", timeInSec: 5, type: "success" }))
 
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -139,13 +139,13 @@ export const updateOwnAccount = createAsyncThunk(
                 });
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({ message: "Updated user profile", timeInSec: 2, type: "normal" }));
+                await thunkAPI.dispatch(addNotification({ message: "Updated user profile", timeInSec: 5, type: "success" }));
 
             } else {
-                thunkAPI.dispatch(addNotification({ message: "Failed to update user profile", timeInSec: 2, type: "normal" }))
+                await thunkAPI.dispatch(addNotification({ message: "Failed to update user profile", timeInSec: 5, type: "warning" }))
             }
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error" }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))
         }
     }
 )
@@ -164,14 +164,14 @@ export const updateOwnPassword = createAsyncThunk(
                 });
 
             if (result.data) {
-                thunkAPI.dispatch({ message: "Updated password successfully", timeInSec: 2, type: "normal", priority: 1 })
+                thunkAPI.dispatch({ message: "Updated password successfully", timeInSec: 5, type: "success", priority: 1 })
 
             } else {
-                thunkAPI.dispatch(addNotification({ message: "Failed to update password.", timeInSec: 2, type: "normal", priority: 1 }))
+                await thunkAPI.dispatch(addNotification({ message: "Failed to update password.", timeInSec: 5, type: "warning", priority: 1 }))
             }
 
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error", priority: 1 }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error", priority: 1 }))
         }
     }
 )
@@ -190,15 +190,15 @@ export const updateUser = createAsyncThunk(
                 });
 
             if (result.data) {
-                thunkAPI.dispatch(addNotification({ message: "Successfully edited user profile.", timeInSec: 2, type: "normal", priority: 2 }))
+                await thunkAPI.dispatch(addNotification({ message: "Successfully edited user profile.", timeInSec: 5, type: "success", priority: 2 }))
 
                 return result.data;
 
             } else {
-                thunkAPI.dispatch(addNotification({ message: "Failed to update user", timeInSec: 2, type: "normal", priority: 2 }))
+                await thunkAPI.dispatch(addNotification({ message: "Failed to update user", timeInSec: 5, type: "warning", priority: 2 }))
             }
         } catch (e: any) {
-            thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 2, type: "error", priority: 2 }))
+            await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error", priority: 2 }))
         }
     }
 )
@@ -226,7 +226,7 @@ const userReducer = createSlice({
             if (action.payload) {
                 if (state) {
                     state = { ...state, ...action.payload };
-                } 
+                }
             }
         });
     }
