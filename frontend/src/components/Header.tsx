@@ -11,10 +11,9 @@ import BusinessIcon from '@mui/icons-material/Business';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import React from "react";
-import AdminDrawer from "./AdminDrawer";
+import AdminDrawer from "./admin/AdminDrawer";
 import { getOwnProfile, setUser } from "../redux/reducers/userReducer";
 import { User } from "../types/user";
 
