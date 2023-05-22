@@ -9,19 +9,43 @@ import LocalLibraryIcon from '@mui/icons-material/LocalLibrary';
 import StyleIcon from '@mui/icons-material/Style';
 import BusinessIcon from '@mui/icons-material/Business';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 
-import { useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import React from "react";
 import AdminDrawer from "./AdminDrawer";
-
+import { getOwnProfile, setUser } from "../redux/reducers/userReducer";
+import { User } from "../types/user";
 
 const Header = () => {
     //const navigate = useNavigate()
-    //const user = useAppSelector(state => state.user)
+    const user = useAppSelector(state => state.user)
+    const dispatch = useAppDispatch()
+    const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
+    const [isUserAdmin, setIsUserAdmin] = useState(false)
     const cart = useAppSelector(state => state.cart)
     const [badge, setBadge] = useState(0)
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    useEffect(() => {
+        if (!isUserDataLoaded && user) {
+            dispatch(getOwnProfile(user)).then((response) => {
+                const userProfile = response.payload as User;
+                dispatch(setUser(userProfile));
+
+                setIsUserDataLoaded(true);
+            });
+
+            if (user?.roles && user.roles.includes("Admin")) {
+                setIsUserAdmin(true)
+    
+            }
+        } 
+
+    }, [dispatch, user, isUserDataLoaded]);
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -30,6 +54,15 @@ const Header = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleOpenDrawer = () => {
+        setIsDrawerOpen(true);
+    };
+
+    const handleToggleDrawer = () => {
+        setIsDrawerOpen((prevState) => !prevState);
+    };
+
 
     const pages = [
         {
@@ -82,14 +115,21 @@ const Header = () => {
         <AppBar position="sticky">
             <Toolbar>
                 <Box display='flex' flexGrow={1}>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                    </IconButton>
+                    {isUserAdmin && (
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                            onClick={handleOpenDrawer}
+                        >
+                            {isDrawerOpen ? <MenuOpenIcon /> : <MenuIcon />}
+                        </IconButton>
+                    )}
+                    {isUserAdmin && (
+                        <AdminDrawer open={isDrawerOpen} onClose={handleToggleDrawer} />
+                    )}
                     <Typography
                         variant="h4"
                         component="div"
@@ -106,7 +146,7 @@ const Header = () => {
                         aria-expanded={open ? 'true' : undefined}
                         onClick={handleClick}
                         startIcon={<MenuBookIcon />}
-                        sx={{ml: 2}}
+                        sx={{ ml: 2 }}
                     >
                         Books
                     </Button>

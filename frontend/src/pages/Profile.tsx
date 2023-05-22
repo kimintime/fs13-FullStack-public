@@ -116,10 +116,11 @@ const Profile = () => {
         }
       };
       
-
-
     const userLogout = () => {
         dispatch(logout())
+        
+        if (user?.roles.includes("Admin"))
+            window.location.reload();
     }
 
     console.log(user)
