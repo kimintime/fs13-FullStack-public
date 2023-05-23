@@ -1,4 +1,4 @@
-import { Box, Divider, Drawer, IconButton, ListItem, ListItemIcon, ListItemText, ListSubheader, MenuItem, MenuList } from "@mui/material";
+import { Box, Divider, Drawer, IconButton, ListItemIcon, ListItemText, MenuItem, MenuList } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { NavLink } from "react-router-dom";
@@ -7,40 +7,21 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import StyleIcon from '@mui/icons-material/Style';
 import BusinessIcon from '@mui/icons-material/Business';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import AddIcon from '@mui/icons-material/Add';
+import { useState } from "react";
+import AddBookModal from "./AddBookModal";
+import { AdminProps } from "../../types/adminProps";
 
-type AdminDrawerProps = {
-  open: boolean;
-  onClose: () => void;
-};
+const AdminDrawer = ({ open, onClose }: AdminProps) => {
+  const [addBookModalOpen, setAddBookModalOpen] = useState(false)
 
-const AdminDrawer = ({ open, onClose }: AdminDrawerProps) => {
-  const addItems = [
-    {
-      nav: '/',
-      type: 'book',
-      name: "Add Book"
-    },
-    {
-      nav: '/',
-      type: 'author',
-      name: "Add Author",
-    },
-    {
-      nav: '/',
-      type: 'category',
-      name: "Add Category",
-    },
-    {
-      nav: '/',
-      type: 'publisher',
-      name: "Add Publisher",
-    },
-    {
-      nav: '/',
-      name: "Add Copy",
-      type: 'copy'
-    },
-  ]
+  const handleOpenAddBookModal = () => {
+    setAddBookModalOpen(true);
+  };
+
+  const handleCloseAddBookModal = () => {
+    setAddBookModalOpen(false);
+  };
 
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>
@@ -61,23 +42,56 @@ const AdminDrawer = ({ open, onClose }: AdminDrawerProps) => {
         </Box>
         <MenuList>
           <Divider />
-          {addItems.map(addItem => (
-            <MenuItem>
-              <ListItemIcon>
-                {
-                  (addItem.type === "book" &&  <BookIcon fontSize="small" />) ||
-                  (addItem.type === "author" &&  <PersonAddIcon fontSize="small" />) ||
-                  (addItem.type === "category" && <StyleIcon fontSize="small" /> ) ||
-                  (addItem.type === "publisher" && <BusinessIcon fontSize="small" /> ) ||
-                  (addItem.type === "copy" && <InventoryIcon fontSize="small" /> )
-                }
-              </ListItemIcon>
-              <ListItemText primary={addItem.name} />
-            </MenuItem>
-          ))}
+          <ListItemText sx={{ marginLeft: 2 }} primary="Add:" />
+          <MenuItem onClick={handleOpenAddBookModal}>
+            <ListItemIcon>
+              <AddIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Book" />
+            <ListItemIcon sx={{ml: 2}}>
+              <BookIcon fontSize="small" />
+            </ListItemIcon>
+          </MenuItem>
+          <MenuItem>
+            <ListItemIcon>
+              <AddIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Author" />
+            <ListItemIcon sx={{ml: 2}}>
+              <PersonAddIcon fontSize="small" />
+            </ListItemIcon>
+          </MenuItem>
+          <MenuItem>
+            <ListItemIcon>
+              <AddIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Category" />
+            <ListItemIcon sx={{ml: 2}}>
+              <StyleIcon fontSize="small" />
+            </ListItemIcon>
+          </MenuItem>
+          <MenuItem>
+            <ListItemIcon>
+              <AddIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Publisher" />
+            <ListItemIcon sx={{ml: 2}}>
+              <BusinessIcon fontSize="small" />
+            </ListItemIcon>
+          </MenuItem>
+          <MenuItem>
+            <ListItemIcon>
+              <AddIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary="Copy" />
+            <ListItemIcon sx={{ml: 2}}>
+              <InventoryIcon fontSize="small" />
+            </ListItemIcon>
+          </MenuItem>
           <Divider />
         </MenuList>
       </Box>
+      <AddBookModal open={addBookModalOpen} onClose={handleCloseAddBookModal} />
     </Drawer>
 
   );
