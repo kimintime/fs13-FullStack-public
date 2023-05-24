@@ -5,7 +5,6 @@ import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
 import { addBook } from "../../redux/reducers/bookReducer"
 import { User } from "../../types/user"
 import { AdminProps } from "../../types/adminProps"
-import Notifications from "../Notifications"
 
 const AddBookModal: React.FC<AdminProps> = ({open, onClose}) => {
     const user = useAppSelector(state => state.user)
@@ -34,6 +33,8 @@ const AddBookModal: React.FC<AdminProps> = ({open, onClose}) => {
 
     const handleClose = () => {
         onClose()
+        setTitle("")
+        setDescription("")
     }
 
     const createBook = () => {
@@ -43,6 +44,9 @@ const AddBookModal: React.FC<AdminProps> = ({open, onClose}) => {
         }))
 
         onClose()
+
+        setTitle("")
+        setDescription("")
     }
 
     return (
@@ -118,7 +122,6 @@ const AddBookModal: React.FC<AdminProps> = ({open, onClose}) => {
                 </Modal >
                 : <p>Access denied</p>
             }
-            <Notifications />
         </Box >
     )
 }

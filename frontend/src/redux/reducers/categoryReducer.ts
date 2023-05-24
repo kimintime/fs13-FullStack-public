@@ -83,7 +83,7 @@ export const addCategory = createAsyncThunk(
         } catch (e: any) {
             if (e.status === 401) {
                 thunkAPI.dispatch(logout())
-                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "info"}))
+                await thunkAPI.dispatch(addNotification({message: "Session timed out", timeInSec: 5, type: "warning"}))
             }
 
             await thunkAPI.dispatch(addNotification({ message: `Something went wrong: ${e.message}`, timeInSec: 5, type: "error" }))

@@ -4,15 +4,14 @@ import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
 import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
 import { User } from "../../types/user"
 import { AdminProps } from "../../types/adminProps"
-import { addAuthor } from "../../redux/reducers/authorReducer"
 import { useNavigate } from "react-router-dom"
+import { addPublisher } from "../../redux/reducers/publisherReducer"
 
-const AddAuthorModal: React.FC<AdminProps> = ({open, onClose}) => {
+const AddPublisherModal: React.FC<AdminProps> = ({open, onClose}) => {
     const user = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
+    const [name, setName] = useState("")
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false)
 
@@ -35,22 +34,19 @@ const AddAuthorModal: React.FC<AdminProps> = ({open, onClose}) => {
 
     const handleClose = () => {
         onClose()
-        setFirstName("")
-        setLastName("")
+        setName("")
     }
 
-    const createAuthor = () => {
-        dispatch(addAuthor({
-            firstName: firstName,
-            lastName: lastName,
+    const createPublisher = () => {
+        dispatch(addPublisher({
+            publisherName: name,
         }))
 
         onClose()
 
-        navigate(`/authors`)
+        navigate(`/publishers`)
 
-        setFirstName("")
-        setLastName("")
+        setName("")
     }
 
     return (
@@ -82,35 +78,25 @@ const AddAuthorModal: React.FC<AdminProps> = ({open, onClose}) => {
                             borderRadius: 5,
                         }}>
                         <Typography variant="h5" sx={{ textDecoration: "underline" }}>
-                            Add Author
+                            Add Publisher
                         </Typography>
                         <TextField
                             sx={{ marginTop: 1, minWidth: 300 }}
                             required
-                            label="First name"
-                            type="firstName"
-                            value={firstName}
-                            placeholder="Enter first name"
+                            label="Name"
+                            type="name"
+                            value={name}
+                            placeholder="Enter publisher name"
                             variant="standard"
-                            onChange={(event) => setFirstName(event.target.value)}
-                        />
-                        <TextField
-                            sx={{ marginTop: 1, minWidth: 300 }}
-                            required
-                            label="Last name"
-                            type="lastName"
-                            value={lastName}
-                            placeholder="Enter last name"
-                            variant="standard"
-                            onChange={(event) => setLastName(event.target.value)}
+                            onChange={(event) => setName(event.target.value)}
                         />
                         <Button
                             variant="contained"
                             color="success"
                             sx={{ marginTop: 2 }}
-                            onClick={createAuthor}
+                            onClick={createPublisher}
                         >
-                            Add Author
+                            Add Publisher
                         </Button>
                         <Button
                             variant="contained"
@@ -128,4 +114,4 @@ const AddAuthorModal: React.FC<AdminProps> = ({open, onClose}) => {
     )
 }
 
-export default AddAuthorModal
+export default AddPublisherModal

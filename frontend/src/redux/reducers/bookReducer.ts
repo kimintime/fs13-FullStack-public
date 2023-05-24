@@ -155,7 +155,7 @@ export const addBook = createAsyncThunk(
 
             if (result.data) {
                 thunkAPI.dispatch(getBooksByTitle(newBook.title))
-                thunkAPI.dispatch(addNotification({message: "Adding book was successful", timeInSec: 5, type: "info"}))
+                thunkAPI.dispatch(addNotification({message: "Adding book was successful", timeInSec: 5, type: "success"}))
             
             } else {
                 throw new Error("Adding book failed")
