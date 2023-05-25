@@ -123,7 +123,7 @@ const Profile = () => {
             window.location.reload();
     }
 
-    console.log(user)
+    //console.log(user)
 
     return (
         <Box
@@ -267,7 +267,7 @@ const Profile = () => {
                 <Button onClick={editUser}>Update Profile</Button>
                 : null
             }
-            <NavLink to={"/loans"}>
+            <NavLink to={"/user/loans"}>
                 <Button
                     variant="contained"
                     color="success"

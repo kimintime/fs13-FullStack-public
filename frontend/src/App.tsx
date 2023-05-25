@@ -15,6 +15,7 @@ import BooksByAuthor from './pages/BooksByAuthor'
 import BooksByCategory from './pages/BooksByCategory'
 import BooksByPublisher from './pages/BooksByPublisher'
 import Copies from './pages/Copies'
+import AddCopy from './pages/AddCopy'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -95,7 +96,7 @@ const App = () => {
           )
         },
         {
-          path: "profile",
+          path: "user/profile",
           element: (
             <Protected>
               <Profile />
@@ -119,10 +120,18 @@ const App = () => {
           )
         },
         {
-          path: "loans",
+          path: "user/loans",
           element: (
             <Protected>
               <Loans/>
+            </Protected>
+          )
+        },
+        {
+          path: "admin/addcopy",
+          element: (
+            <Protected>
+              <AddCopy/>
             </Protected>
           )
         }

@@ -73,7 +73,7 @@ const Header = () => {
             name: 'Cart',
         },
         {
-            nav: 'profile',
+            nav: 'user/profile',
             name: "Profile"
         }
     ]
@@ -187,7 +187,7 @@ const Header = () => {
                                 {
                                     (page.nav === "/" && <HomeIcon fontSize="small" />) ||
                                     (page.nav === "cart" && <Badge badgeContent={badge} color="success"><ShoppingCartOutlinedIcon /></Badge>) ||
-                                    (page.nav === "profile" && <AccountCircleOutlinedIcon />)
+                                    (page.nav === "user/profile" && <AccountCircleOutlinedIcon />)
                                 }
                             >
                                 {page.name}
