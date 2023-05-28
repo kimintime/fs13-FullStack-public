@@ -10,6 +10,7 @@ import AddBookModal from "./AddBookModal";
 import AddAuthorModal from "./AddAuthorModal";
 import AddCategoryModal from "./AddCategoryModal";
 import AddPublisherModal from "./AddPublisherModal";
+import { NavLink } from "react-router-dom";
 
 const AddMenu = () => {
     const [addBookModalOpen, setAddBookModalOpen] = useState(false)
@@ -88,15 +89,17 @@ const AddMenu = () => {
                     <BusinessIcon fontSize="small" />
                 </ListItemIcon>
             </MenuItem>
-            <MenuItem>
-                <ListItemIcon>
-                    <AddIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary="Copy" />
-                <ListItemIcon sx={{ ml: 2 }}>
-                    <InventoryIcon fontSize="small" />
-                </ListItemIcon>
-            </MenuItem>
+            <NavLink to={`/admin/addcopy`}>
+                <MenuItem>
+                    <ListItemIcon>
+                        <AddIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Copy" />
+                    <ListItemIcon sx={{ ml: 2 }}>
+                        <InventoryIcon fontSize="small" />
+                    </ListItemIcon>
+                </MenuItem>
+            </NavLink>
             <Divider />
             <AddBookModal open={addBookModalOpen} onClose={handleCloseAddBookModal} />
             <AddAuthorModal open={addAuthorModalOpen} onClose={handleCloseAddAuthorModal} />

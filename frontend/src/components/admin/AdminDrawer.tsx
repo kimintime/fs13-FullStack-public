@@ -1,8 +1,6 @@
-import { Box, Divider, Drawer, IconButton, ListItemIcon, ListItemText, MenuItem, MenuList } from "@mui/material";
+import { Box, Drawer, IconButton } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
 import { AdminProps } from "../../types/adminProps";
 import Notifications from "../Notifications";
 import AddMenu from "./AddMenu";

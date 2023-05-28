@@ -1,4 +1,5 @@
 import { Box } from "@mui/material"
+import AddCopyForm from "../components/admin/AddCopyForm"
 
 const AddCopy = () => {
 
@@ -10,8 +11,7 @@ const AddCopy = () => {
             alignItems: "center",
             marginTop: "15px",
         }}>
-            Add Copy
-            
+            <AddCopyForm />
         </Box>
     )
 }
