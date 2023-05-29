@@ -89,7 +89,7 @@ const AddMenu = () => {
                     <BusinessIcon fontSize="small" />
                 </ListItemIcon>
             </MenuItem>
-            <NavLink to={`/admin/addcopy`}>
+            <NavLink to={`/admin/addcopy`} style={{ textDecoration: 'none', color: 'black' }}>
                 <MenuItem>
                     <ListItemIcon>
                         <AddIcon fontSize="small" />

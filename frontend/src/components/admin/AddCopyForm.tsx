@@ -2,8 +2,7 @@ import { useState, useEffect } from "react"
 import {
     Box,
     Button,
-    IconButton,
-    InputAdornment,
+    Divider,
     Paper,
     Table,
     TableBody,
@@ -12,19 +11,53 @@ import {
     TableFooter,
     TableHead,
     TableRow,
-    TextField,
     Typography
 } from "@mui/material"
 
-import { NavLink } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
-import { CreateCopy } from "../../types/copy"
+import { useAppDispatch } from "../../hooks/reduxHooks"
+import { getBookById } from "../../redux/reducers/bookReducer"
+import { Book } from "../../types/book"
+import { Publisher } from "../../types/publisher"
+import { AddCopyFormProps } from "../../types/adminProps"
+import { getPublisherById } from "../../redux/reducers/publisherReducer"
+import { addCopy } from "../../redux/reducers/copiesReducer"
 
-const AddCopyForm = () => {
-    const publisher = useAppSelector(state => state.publisher)
-    const book = useAppSelector(state => state.book)
-    const copy = useAppSelector(state => state.copy)
+const AddCopyForm = ({ selectedBook, selectedPublisher }: AddCopyFormProps) => {
     const dispatch = useAppDispatch()
+    const [book, setBook] = useState({} as Book)
+    const [publisher, setPublisher] = useState({} as Publisher)
+    
+    useEffect(() => {
+        if (selectedBook)
+            dispatch(getBookById(selectedBook.id)).then((data) => {
+                const bookItemData = data.payload
+                setBook(bookItemData as Book)
+            })
+
+        if (selectedPublisher)
+            dispatch(getPublisherById(selectedPublisher.id)).then((data) => {
+                const publisherData = data.payload
+                setPublisher(publisherData as Publisher)
+            })
+    }, [dispatch, selectedBook, selectedPublisher])
+
+    const createCopy = () => {
+        if (book && publisher)
+        {
+            dispatch(addCopy({
+                bookId: book.id,
+                publisherId: publisher.id
+            }))
+
+        } else {
+            alert("Please select both book and publisher.")
+        }
+    }
+
+    const clearForm = () => {
+        setBook({} as Book)
+        setPublisher({} as Publisher)
+    }
 
     return (
         <Box
@@ -40,7 +73,6 @@ const AddCopyForm = () => {
             <Paper
                 sx={{ marginTop: 5, p: 2 }}
                 component="form"
-            // onSubmit={editUser}
             >
                 <TableContainer>
                     <Table>
@@ -51,11 +83,9 @@ const AddCopyForm = () => {
                                     <Typography variant="subtitle2">Book: </Typography>
                                 </TableCell>
                                 <TableCell>
-                                    <TextField
-                                        variant="standard"
-                                        // value={username}
-                                        // onChange={(event) => setUsername(event.target.value)}
-                                    />
+                                    {book &&
+                                        <Typography>{book.title}</Typography>
+                                    }
                                 </TableCell>
                             </TableRow>
                             <TableRow>
@@ -63,12 +93,9 @@ const AddCopyForm = () => {
                                     <Typography variant="subtitle2">Publisher Name:</Typography>
                                 </TableCell>
                                 <TableCell>
-
-                                    <TextField
-                                        variant="standard"
-                                        // value={firstName}
-                                        // onChange={(event) => setFirstName(event.target.value)}
-                                    />
+                                    {publisher &&
+                                    <Typography>{publisher.publisherName}</Typography>
+                                    }
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -76,7 +103,9 @@ const AddCopyForm = () => {
                     </Table>
                 </TableContainer>
             </Paper>
-            <Button>Add Copy</Button>
+            <Button onClick={createCopy}>Add Copy</Button>
+            <Button color="error" onClick={clearForm}>Clear</Button>
+            <Divider flexItem />
         </Box>
     )
 }
