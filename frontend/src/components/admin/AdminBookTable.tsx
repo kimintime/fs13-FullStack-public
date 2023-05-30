@@ -20,7 +20,7 @@ const AdminBookTable = ({ onBookSelection }: AdminBookTableProps) => {
 
     const handleBookSelection = (book: Book) => {
         setSelectedBook(book);
-        onBookSelection(book);
+        onBookSelection(book)
     };
 
     const bookList = Array.isArray(books) ? books : [];
