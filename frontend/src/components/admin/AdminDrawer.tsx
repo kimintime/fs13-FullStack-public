@@ -26,7 +26,7 @@ const AdminDrawer = ({ open, onClose }: AdminProps) => {
           </IconButton>
         </Box>
         <AddMenu open={open} onClose={onClose} />
-        <AddToBookMenu />
+        <AddToBookMenu open={open} onClose={onClose} />
       </Box>
       <Notifications />
     </Drawer>

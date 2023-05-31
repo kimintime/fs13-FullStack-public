@@ -178,7 +178,7 @@ export const addAuthorToBook = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.post(
-                `${ENV.BACKEND_URL}/api/v1/books/${addToBook.id}/author`,
+                `${ENV.BACKEND_URL}/api/v1/books/${addToBook.id}/authors`,
                 {
                     addId: addToBook.addId
                 },

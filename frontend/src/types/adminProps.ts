@@ -1,3 +1,4 @@
+import { Author } from "./author";
 import { Book } from "./book";
 import { Publisher } from "./publisher";
 
@@ -11,6 +12,11 @@ export interface AddCopyFormProps {
   selectedPublisher: Publisher | null;
 }
 
+export interface AddAuthorFormProps {
+  selectedBook: Book | null;
+  selectedAuthor: Author | null;
+}
+
 export interface AdminBookTableProps {
   onBookSelection: (book: Book) => void;
   setShowBooks: (value: boolean) => void;
@@ -19,5 +25,10 @@ export interface AdminBookTableProps {
 export interface AdminPublisherTableProps {
   onPublisherSelection: (publisher: Publisher) => void;
   setShowPublishers: (value: boolean) => void;
+}
+
+export interface AdminAuthorTableProps {
+  onAuthorSelection: (author: Author) => void;
+  setShowAuthors: (value: boolean) => void;
 }
 

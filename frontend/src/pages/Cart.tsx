@@ -127,7 +127,7 @@ const Cart = () => {
                                     <TableCell align="center">{total} items</TableCell>
                                     <TableCell align="center">
                                         {show ?
-                                            <NavLink to={"/loans"}>
+                                            <NavLink to={"/user/loans"}>
                                                 <Button color="success" onClick={() => {
                                                     if (user) {
                                                         handleLoan(cart, user);

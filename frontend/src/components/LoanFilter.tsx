@@ -30,7 +30,7 @@ const LoanFilter: React.FC<LoanFilterProps> = ({ filter, setFilter }) => {
             <FormControl variant="standard" sx={{ marginRight: 1, minWidth: 120, marginTop: "-20px" }}>
                 <InputLabel>Sort by:</InputLabel>
                 <Select
-                    value={filter}
+                    value={filter || ''}
                     label="Sort"
                     onChange={(event) => setFilter(event.target.value as "Ongoing" | "Expired" | null)}
                 >

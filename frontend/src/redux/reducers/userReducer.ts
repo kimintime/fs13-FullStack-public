@@ -67,9 +67,7 @@ export const getOwnProfile = createAsyncThunk(
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
-            console.log(ENV.BACKEND_URL);
-
-
+                
             return response.data as User
 
         } catch (e: any) {

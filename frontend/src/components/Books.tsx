@@ -78,12 +78,9 @@ const Books = () => {
                                         {book.title}
                                     </TableCell>
                                     <TableCell onClick={() => navigate(`/books/${book.id}`)}>
-                                        {book.authors?.map(author => (
-                                            <Typography component="span" key={author.id} variant="subtitle2" color="text.secondary">
-                                                {author.firstName} {" "} {author.lastName}
+                                            <Typography component="span" variant="subtitle2" color="text.secondary">
+                                            {book.authors?.map(author => `${author.firstName} ${author.lastName}`).join(", ")}
                                             </Typography>
-                                        ))
-                                        }
                                     </TableCell>
                                     <TableCell align="center" onClick={() => navigate(`/books/${book.id}`)}>{book.copiesAvailable}</TableCell>
                                     <TableCell align="right">
