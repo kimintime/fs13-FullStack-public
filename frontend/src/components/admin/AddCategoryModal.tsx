@@ -91,6 +91,9 @@ const AddCategoryModal: React.FC<AdminProps> = ({open, onClose}) => {
                             value={name}
                             placeholder="Enter name"
                             variant="standard"
+                            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                                event.stopPropagation();
+                            }}
                             onChange={(event) => setName(event.target.value)}
                         />
                         <TextField
@@ -103,6 +106,9 @@ const AddCategoryModal: React.FC<AdminProps> = ({open, onClose}) => {
                             variant="standard"
                             multiline
                             rows={4}
+                            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                                event.stopPropagation();
+                            }}
                             onChange={(event) => setDescription(event.target.value)}
                         />
                         <Button

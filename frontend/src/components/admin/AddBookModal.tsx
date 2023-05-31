@@ -88,6 +88,9 @@ const AddBookModal: React.FC<AdminProps> = ({open, onClose}) => {
                             value={title}
                             placeholder="Enter title"
                             variant="standard"
+                            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                                event.stopPropagation();
+                            }}
                             onChange={(event) => setTitle(event.target.value)}
                         />
                         <TextField
@@ -100,6 +103,9 @@ const AddBookModal: React.FC<AdminProps> = ({open, onClose}) => {
                             variant="standard"
                             multiline
                             rows={4}
+                            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                                event.stopPropagation();
+                            }}
                             onChange={(event) => setDescription(event.target.value)}
                         />
                         <Button

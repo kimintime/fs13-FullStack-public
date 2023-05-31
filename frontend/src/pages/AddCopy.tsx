@@ -70,7 +70,6 @@ const AddCopy = () => {
                         <Button onClick={handleShowBooks}>Select Book</Button>
                         <Button onClick={handleShowPublishers}>Select Publisher</Button>
                     </Toolbar>
-
                     <AddCopyForm
                         selectedBook={selectedBook}
                         selectedPublisher={selectedPublisher}

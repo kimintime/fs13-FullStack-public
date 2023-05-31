@@ -92,6 +92,9 @@ const AddAuthorModal: React.FC<AdminProps> = ({open, onClose}) => {
                             value={firstName}
                             placeholder="Enter first name"
                             variant="standard"
+                            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                                event.stopPropagation();
+                            }}
                             onChange={(event) => setFirstName(event.target.value)}
                         />
                         <TextField
@@ -102,6 +105,9 @@ const AddAuthorModal: React.FC<AdminProps> = ({open, onClose}) => {
                             value={lastName}
                             placeholder="Enter last name"
                             variant="standard"
+                            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                                event.stopPropagation();
+                            }}
                             onChange={(event) => setLastName(event.target.value)}
                         />
                         <Button

@@ -49,6 +49,8 @@ const AddCopyForm = ({ selectedBook, selectedPublisher }: AddCopyFormProps) => {
                 publisherId: publisher.id
             }))
 
+            clearForm()
+
         } else {
             alert("Please select both book and publisher.")
         }

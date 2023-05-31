@@ -7,7 +7,7 @@ import { AdminProps } from "../../types/adminProps"
 import { useNavigate } from "react-router-dom"
 import { addPublisher } from "../../redux/reducers/publisherReducer"
 
-const AddPublisherModal: React.FC<AdminProps> = ({open, onClose}) => {
+const AddPublisherModal: React.FC<AdminProps> = ({ open, onClose }) => {
     const user = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -88,6 +88,9 @@ const AddPublisherModal: React.FC<AdminProps> = ({open, onClose}) => {
                             value={name}
                             placeholder="Enter publisher name"
                             variant="standard"
+                            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                                event.stopPropagation();
+                            }}
                             onChange={(event) => setName(event.target.value)}
                         />
                         <Button
