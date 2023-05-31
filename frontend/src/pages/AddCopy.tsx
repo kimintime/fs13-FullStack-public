@@ -76,11 +76,11 @@ const AddCopy = () => {
                         selectedPublisher={selectedPublisher}
                     />
                     {showBooks ?
-                        <AdminBookTable onBookSelection={handleBookSelection}/>
+                        <AdminBookTable onBookSelection={handleBookSelection} setShowBooks={setShowBooks}/>
                         : null
                     }
                     {showPublishers ?
-                        <AdminPublisherTable onPublisherSelection={handlePublisherSelection} />
+                        <AdminPublisherTable onPublisherSelection={handlePublisherSelection} setShowPublishers={setShowPublishers} />
                         : null
                     }
                 </>

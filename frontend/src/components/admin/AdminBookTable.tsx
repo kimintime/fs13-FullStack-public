@@ -7,7 +7,7 @@ import SitePagination from "../SitePagination";
 import SearchBar from "../SearchBar"
 import { AdminBookTableProps } from "../../types/adminProps"
 
-const AdminBookTable = ({ onBookSelection }: AdminBookTableProps) => {
+const AdminBookTable = ({ onBookSelection, setShowBooks }: AdminBookTableProps) => {
     const books = useAppSelector(state => state.book)
     const dispatch = useAppDispatch()
     const [page, setPage] = useState(1)
@@ -18,12 +18,14 @@ const AdminBookTable = ({ onBookSelection }: AdminBookTableProps) => {
         dispatch(getAllBooks({ page, pageSize }));
     }, [dispatch, page, pageSize])
 
+    const bookList = Array.isArray(books) ? books : [];
+
     const handleBookSelection = (book: Book) => {
         setSelectedBook(book);
         onBookSelection(book)
-    };
 
-    const bookList = Array.isArray(books) ? books : [];
+        setShowBooks(false)
+    };
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
@@ -77,7 +79,7 @@ const AdminBookTable = ({ onBookSelection }: AdminBookTableProps) => {
             <Grid container justifyContent="center" alignItems="center" marginTop={5}>
                 <Grid item md={3}>
                     <SitePagination
-                        total={books.length}
+                        total={bookList.length}
                         page={page}
                         pageSize={pageSize}
                         setPage={setPage}

@@ -11,8 +11,9 @@ import AddAuthorModal from "./AddAuthorModal";
 import AddCategoryModal from "./AddCategoryModal";
 import AddPublisherModal from "./AddPublisherModal";
 import { NavLink } from "react-router-dom";
+import { AdminProps } from "../../types/adminProps";
 
-const AddMenu = () => {
+const AddMenu = ({ onClose }: AdminProps) => {
     const [addBookModalOpen, setAddBookModalOpen] = useState(false)
     const [addAuthorModalOpen, setAddAuthorModalOpen] = useState(false)
     const [addCategoryModalOpen, setAddCategoryModalOpen] = useState(false)
@@ -49,6 +50,13 @@ const AddMenu = () => {
     const handleCloseAddPublisherModal = () => {
         setAddPublisherModalOpen(false);
     };
+
+    const handleClick = () => {
+        if (onClose) {
+            onClose();
+        }
+    };
+
     return (
         <MenuList>
             <Divider />
@@ -90,7 +98,7 @@ const AddMenu = () => {
                 </ListItemIcon>
             </MenuItem>
             <NavLink to={`/admin/addcopy`} style={{ textDecoration: 'none', color: 'black' }}>
-                <MenuItem>
+                <MenuItem onClick={handleClick}>
                     <ListItemIcon>
                         <AddIcon fontSize="small" />
                     </ListItemIcon>

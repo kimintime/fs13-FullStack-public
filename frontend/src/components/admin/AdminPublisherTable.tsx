@@ -6,7 +6,7 @@ import { getAllPublishers, sortByName } from "../../redux/reducers/publisherRedu
 import SitePagination from "../SitePagination";
 import { AdminPublisherTableProps } from "../../types/adminProps";
 
-const AdminPublisherTable = ({ onPublisherSelection }: AdminPublisherTableProps) => {
+const AdminPublisherTable = ({ onPublisherSelection, setShowPublishers }: AdminPublisherTableProps) => {
     const publishers = useAppSelector(state => state.publisher)
     const dispatch = useAppDispatch()
     const [page, setPage] = useState(1)
@@ -22,6 +22,8 @@ const AdminPublisherTable = ({ onPublisherSelection }: AdminPublisherTableProps)
     const handlePublisherSelection = (publisher: Publisher) => {
         setSelectedPublisher(publisher);
         onPublisherSelection(publisher);
+
+        setShowPublishers(false)
     };
 
     const publisherList = Array.isArray(publishers) ? publishers : [];
@@ -79,7 +81,7 @@ const AdminPublisherTable = ({ onPublisherSelection }: AdminPublisherTableProps)
             <Grid container justifyContent="center" alignItems="center" marginTop={5}>
                 <Grid item md={3}>
                     <SitePagination
-                        total={publishers.length}
+                        total={publisherList.length}
                         page={page}
                         pageSize={pageSize}
                         setPage={setPage}

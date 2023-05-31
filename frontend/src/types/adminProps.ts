@@ -13,9 +13,11 @@ export interface AddCopyFormProps {
 
 export interface AdminBookTableProps {
   onBookSelection: (book: Book) => void;
+  setShowBooks: (value: boolean) => void;
 }
 
 export interface AdminPublisherTableProps {
   onPublisherSelection: (publisher: Publisher) => void;
+  setShowPublishers: (value: boolean) => void;
 }
 
