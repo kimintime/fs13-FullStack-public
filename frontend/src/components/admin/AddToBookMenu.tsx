@@ -38,15 +38,17 @@ const AddToBookMenu = ({ onClose }: AdminProps) => {
                         </ListItemIcon>
                     </MenuItem>
                 </NavLink>
-                <MenuItem>
-                    <ListItemIcon>
-                        <AddIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText primary="Category" />
-                    <ListItemIcon sx={{ ml: 2 }}>
-                        <StyleIcon fontSize="small" />
-                    </ListItemIcon>
-                </MenuItem>
+                <NavLink to={`/admin/addcategory`} style={{ textDecoration: 'none', color: 'black' }}>
+                    <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <AddIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText primary="Category" />
+                        <ListItemIcon sx={{ ml: 2 }}>
+                            <StyleIcon fontSize="small" />
+                        </ListItemIcon>
+                    </MenuItem>
+                </NavLink>
             </Collapse>
             <Divider />
         </MenuList>

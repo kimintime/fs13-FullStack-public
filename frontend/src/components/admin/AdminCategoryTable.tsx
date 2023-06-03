@@ -1,40 +1,40 @@
 import { useEffect, useState } from "react"
 import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel } from "@mui/material"
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
-import { getAllAuthors, sortByLastName } from "../../redux/reducers/authorReducer"
-import { Author } from "../../types/author";
 import SitePagination from "../SitePagination"
-import { AdminAuthorTableProps } from "../../types/adminProps"
+import { AdminCategoryTableProps } from "../../types/adminProps"
+import { getAllCategories, sortByName } from "../../redux/reducers/categoryReducer";
+import { Category } from "../../types/category";
 
-const AdminAuthorTable = ({ onAuthorSelection, setShowAuthors }: AdminAuthorTableProps) => {
-    const authors = useAppSelector(state => state.author)
+const AdminCategoryTable = ({ onCategorySelection, setShowCategories }: AdminCategoryTableProps) => {
+    const categories = useAppSelector(state => state.category)
     const dispatch = useAppDispatch()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-    const [selectedAuthor, setSelectedAuthor] = useState<Author | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
     useEffect(() => {
-        dispatch(getAllAuthors({ page: page, pageSize: pageSize }))
+        dispatch(getAllCategories({ page: page, pageSize: pageSize }))
     }, [dispatch, page, pageSize])
 
-    const authorList = Array.isArray(authors) ? authors : [];
+    const categoryList = Array.isArray(categories) ? categories : [];
 
-    const handleAuthorSelection = (author: Author) => {
-        setSelectedAuthor(author);
-        onAuthorSelection(author);
+    const handleCategorySelection = (category: Category) => {
+        setSelectedCategory(category);
+        onCategorySelection(category);
 
-        setShowAuthors(false)
+        setShowCategories(false)
     };
 
     const handleSortByName = () => {
-        if (authorList) {
+        if (categoryList) {
             const actionType = sortOrder === "asc" ? "asc" : "desc";
-            dispatch(sortByLastName(actionType));
+            dispatch(sortByName(actionType));
             setSortOrder(actionType === "asc" ? "desc" : "asc");
 
         } else {
-            alert("Double-click 'Select Author' to show Author table.")
+            alert("Double-click 'Select Category' to show Category table.")
         }
 
     };
@@ -42,7 +42,7 @@ const AdminAuthorTable = ({ onAuthorSelection, setShowAuthors }: AdminAuthorTabl
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
             <Grid item md={3}>
-                <Typography variant="h6" textAlign="center">Authors</Typography>
+                <Typography variant="h6" textAlign="center">Categories</Typography>
                 <TableContainer>
                     <Table>
                         <TableHead>
@@ -52,20 +52,26 @@ const AdminAuthorTable = ({ onAuthorSelection, setShowAuthors }: AdminAuthorTabl
                                         Name
                                     </TableSortLabel>
                                 </TableCell>
+                                <TableCell align="center">
+                                    Description
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {authorList.map((author: Author) =>
-                                <TableRow key={author.id}
+                            {categoryList.map((category: Category) =>
+                                <TableRow key={category.id}
                                     sx={{
                                         "cursor": "pointer",
                                         "&:hover": { backgroundColor: 'lightgray' },
-                                        backgroundColor: author === selectedAuthor ? 'lightgray' : 'transparent'
+                                        backgroundColor: category === selectedCategory ? 'lightgray' : 'transparent'
                                     }}
-                                    onClick={() => handleAuthorSelection(author)}
+                                    onClick={() => handleCategorySelection(category)}
                                 >
-                                    <TableCell align="center">
-                                        {author.firstName}{" "}{author.lastName}
+                                    <TableCell align="right">
+                                        {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+                                    </TableCell>
+                                    <TableCell>
+                                        {category.description}
                                     </TableCell>
                                 </TableRow>
                             )}
@@ -77,7 +83,7 @@ const AdminAuthorTable = ({ onAuthorSelection, setShowAuthors }: AdminAuthorTabl
             <Grid container justifyContent="center" alignItems="center" marginTop={5}>
                 <Grid item md={3}>
                     <SitePagination
-                        total={authorList.length}
+                        total={categoryList.length}
                         page={page}
                         pageSize={pageSize}
                         setPage={setPage}
@@ -89,4 +95,4 @@ const AdminAuthorTable = ({ onAuthorSelection, setShowAuthors }: AdminAuthorTabl
     )
 }
 
-export default AdminAuthorTable;
+export default AdminCategoryTable;

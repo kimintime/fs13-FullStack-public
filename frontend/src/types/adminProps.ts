@@ -1,5 +1,6 @@
 import { Author } from "./author";
 import { Book } from "./book";
+import { Category } from "./category";
 import { Publisher } from "./publisher";
 
 export interface AdminProps {
@@ -17,6 +18,11 @@ export interface AddAuthorFormProps {
   selectedAuthor: Author | null;
 }
 
+export interface AddCategoryFormProps {
+  selectedBook: Book | null;
+  selectedCategory: Category | null;
+}
+
 export interface AdminBookTableProps {
   onBookSelection: (book: Book) => void;
   setShowBooks: (value: boolean) => void;
@@ -30,5 +36,10 @@ export interface AdminPublisherTableProps {
 export interface AdminAuthorTableProps {
   onAuthorSelection: (author: Author) => void;
   setShowAuthors: (value: boolean) => void;
+}
+
+export interface AdminCategoryTableProps {
+  onCategorySelection: (category: Category) => void;
+  setShowCategories: (value: boolean) => void;
 }
 

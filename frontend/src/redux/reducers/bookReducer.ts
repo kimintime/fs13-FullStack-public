@@ -212,7 +212,7 @@ export const addCategoryToBook = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.post(
-                `${ENV.BACKEND_URL}/api/v1/books/${addToBook.id}/categories}`,
+                `${ENV.BACKEND_URL}/api/v1/books/${addToBook.id}/categories`,
                 {
                     addId: addToBook.addId
                 },
