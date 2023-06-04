@@ -5,6 +5,7 @@ import { AdminProps } from "../../types/adminProps";
 import Notifications from "../Notifications";
 import AddMenu from "./AddMenu";
 import AddToBookMenu from "./AddToBookMenu";
+import EditMenu from "./EditMenu";
 
 const AdminDrawer = ({ open, onClose }: AdminProps) => {
   
@@ -27,6 +28,7 @@ const AdminDrawer = ({ open, onClose }: AdminProps) => {
         </Box>
         <AddMenu open={open} onClose={onClose} />
         <AddToBookMenu open={open} onClose={onClose} />
+        <EditMenu open={open} onClose={onClose} />
       </Box>
       <Notifications />
     </Drawer>

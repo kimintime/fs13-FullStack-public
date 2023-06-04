@@ -3,7 +3,7 @@ import { Copy, CreateCopy } from "../../types/copy";
 import { Pagination } from "../../types/pagination";
 import { RootState } from "../store";
 import axios from "axios";
-import ENV from "../../env";
+import { BACKEND_URL } from "../../env";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
 
@@ -15,7 +15,7 @@ export const getAllCopies = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/copies`,
+                `${BACKEND_URL}/api/v1/copies`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` },
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
@@ -40,7 +40,7 @@ export const getCopyById = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/copies/${id}`,
+                `${BACKEND_URL}/api/v1/copies/${id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
@@ -64,7 +64,7 @@ export const addCopy = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.post(
-                `${ENV.BACKEND_URL}/api/v1/copies`,
+                `${BACKEND_URL}/api/v1/copies`,
                 {
                     ...newCopy
                 },
@@ -97,7 +97,7 @@ export const updateCopy = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.put(
-                `${ENV.BACKEND_URL}/api/v1/copies/${updateCopy.id}`,
+                `${BACKEND_URL}/api/v1/copies/${updateCopy.id}`,
                 {
                     ...updateCopy
                 },
@@ -131,7 +131,7 @@ export const deleteCopy = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.delete(
-                `${ENV.BACKEND_URL}/api/v1/copies/${deleteCopy.id}`,
+                `${BACKEND_URL}/api/v1/copies/${deleteCopy.id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` },
                 }

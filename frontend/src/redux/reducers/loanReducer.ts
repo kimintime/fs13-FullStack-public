@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreateLoan, Loan, LoanFilter, UpdateLoan } from "../../types/loan";
 import axios from "axios";
-import ENV from "../../env";
+import { BACKEND_URL } from "../../env";
 import { RootState } from "../store";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
@@ -14,7 +14,7 @@ export const getAllLoans = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/loans`,
+                `${BACKEND_URL}/api/v1/loans`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` },
                     params: filters === null
@@ -47,7 +47,7 @@ export const getLoanById = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/loans/${id}`,
+                `${BACKEND_URL}/api/v1/loans/${id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 }
@@ -72,7 +72,7 @@ export const getOwnLoans = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/loans/user/loans`,
+                `${BACKEND_URL}/api/v1/loans/user/loans`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` },
                     params: loanFilter === null
@@ -100,7 +100,7 @@ export const addLoan = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.post(
-                `${ENV.BACKEND_URL}/api/v1/loans`,
+                `${BACKEND_URL}/api/v1/loans`,
                 {
                     ...newLoan
                 },
@@ -133,7 +133,7 @@ export const updateLoan = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.put(
-                `${ENV.BACKEND_URL}/api/v1/loans/${updateLoan.id}`,
+                `${BACKEND_URL}/api/v1/loans/${updateLoan.id}`,
                 {
                     userId: updateLoan.userId,
                     copyId: updateLoan.copyId,
@@ -170,7 +170,7 @@ export const deleteLoan = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.delete(
-                `${ENV.BACKEND_URL}/api/v1/loans/${deleteLoan.id}`,
+                `${BACKEND_URL}/api/v1/loans/${deleteLoan.id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`},
                 }

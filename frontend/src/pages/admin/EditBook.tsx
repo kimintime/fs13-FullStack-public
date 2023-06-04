@@ -1,15 +1,15 @@
 import { Box, Button, Toolbar } from "@mui/material"
-import AddCopyForm from "../components/admin/forms/AddCopyForm"
-import AdminBookTable from "../components/admin/tables/AdminBookTable"
+import AddCopyForm from "../../components/admin/forms/AddCopyForm"
+import AdminBookTable from "../../components/admin/tables/AdminBookTable"
 import { useEffect, useState } from "react"
-import AdminPublisherTable from "../components/admin/tables/AdminPublisherTable"
-import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks"
-import { getOwnProfile, setUser } from "../redux/reducers/userReducer"
-import { User } from "../types/user"
-import { Book } from "../types/book"
-import { Publisher } from "../types/publisher"
+import AdminPublisherTable from "../../components/admin/tables/AdminPublisherTable"
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks"
+import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
+import { User } from "../../types/user"
+import { Book } from "../../types/book"
+import { Publisher } from "../../types/publisher"
 
-const AddCopy = () => {
+const EditBook = () => {
     const dispatch = useAppDispatch()
     const user = useAppSelector(state => state.user)
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
@@ -96,4 +96,4 @@ const AddCopy = () => {
     )
 }
 
-export default AddCopy
+export default EditBook

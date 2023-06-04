@@ -5,7 +5,7 @@ import { RootState } from "../store";
 import axios from "axios";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
-import ENV from "../../env";
+import { BACKEND_URL } from "../../env";
 
 const initialState: Publisher[] = [];
 
@@ -15,7 +15,7 @@ export const getAllPublishers = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/publishers`,
+                `${BACKEND_URL}/api/v1/publishers`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`},
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
@@ -40,7 +40,7 @@ export const getPublisherById = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/publishers/${id}`,
+                `${BACKEND_URL}/api/v1/publishers/${id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
@@ -64,7 +64,7 @@ export const addPublisher = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.post(
-                `${ENV.BACKEND_URL}/api/v1/publishers`,
+                `${BACKEND_URL}/api/v1/publishers`,
                 {
                     ...newPublisher
                 },
@@ -97,7 +97,7 @@ export const updatePublisher = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.put(
-                `${ENV.BACKEND_URL}/api/v1/publishers/${updatePublisher.id}`,
+                `${BACKEND_URL}/api/v1/publishers/${updatePublisher.id}`,
                 {
                     ...updatePublisher
                 },
@@ -131,7 +131,7 @@ export const deletePublisher = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.delete(
-                `${ENV.BACKEND_URL}/api/v1/publishers/${deletePublisher.id}`,
+                `${BACKEND_URL}/api/v1/publishers/${deletePublisher.id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`},
                 }

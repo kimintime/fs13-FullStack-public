@@ -15,9 +15,14 @@ import BooksByAuthor from './pages/BooksByAuthor'
 import BooksByCategory from './pages/BooksByCategory'
 import BooksByPublisher from './pages/BooksByPublisher'
 import Copies from './pages/Copies'
-import AddCopy from './pages/AddCopy'
-import AddAuthor from './pages/AddAuthor'
-import AddCategory from './pages/AddCategory'
+import AddCopy from './pages/admin/AddCopy'
+import AddAuthor from './pages/admin/AddAuthor'
+import AddCategory from './pages/admin/AddCategory'
+import EditAuthor from './pages/admin/EditAuthor'
+import EditBook from './pages/admin/EditBook'
+import EditCategory from './pages/admin/EditCategory'
+import EditCopy from './pages/admin/EditCopy'
+import EditPublisher from './pages/admin/EditPublisher'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -150,6 +155,46 @@ const App = () => {
           element: (
             <Protected>
               <AddCategory/>
+            </Protected>
+          )
+        },
+        {
+          path: "admin/editauthor",
+          element: (
+            <Protected>
+              <EditAuthor/>
+            </Protected>
+          )
+        },
+        {
+          path: "admin/editbook",
+          element: (
+            <Protected>
+              <EditBook/>
+            </Protected>
+          )
+        },
+        {
+          path: "admin/editcategory",
+          element: (
+            <Protected>
+              <EditCategory/>
+            </Protected>
+          )
+        },
+        {
+          path: "admin/editcopy",
+          element: (
+            <Protected>
+              <EditCopy/>
+            </Protected>
+          )
+        },
+        {
+          path: "admin/editpublisher",
+          element: (
+            <Protected>
+              <EditPublisher/>
             </Protected>
           )
         }

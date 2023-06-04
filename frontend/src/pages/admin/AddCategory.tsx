@@ -1,13 +1,13 @@
 import { Box, Button, Toolbar } from "@mui/material"
-import AdminBookTable from "../components/admin/tables/AdminBookTable"
+import AdminBookTable from "../../components/admin/tables/AdminBookTable"
 import { useEffect, useState } from "react"
-import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks"
-import { getOwnProfile, setUser } from "../redux/reducers/userReducer"
-import { User } from "../types/user"
-import { Book } from "../types/book"
-import { Category } from "../types/category"
-import AddCategoryForm from "../components/admin/forms/AddCategoryForm"
-import AdminCategoryTable from "../components/admin/tables/AdminCategoryTable"
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks"
+import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
+import { User } from "../../types/user"
+import { Book } from "../../types/book"
+import { Category } from "../../types/category"
+import AddCategoryForm from "../../components/admin/forms/AddCategoryForm"
+import AdminCategoryTable from "../../components/admin/tables/AdminCategoryTable"
 
 const AddCategory = () => {
     const dispatch = useAppDispatch()

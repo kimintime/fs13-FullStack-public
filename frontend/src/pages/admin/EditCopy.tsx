@@ -1,23 +1,23 @@
 import { Box, Button, Toolbar } from "@mui/material"
-import AdminBookTable from "../components/admin/tables/AdminBookTable"
+import AddCopyForm from "../../components/admin/forms/AddCopyForm"
+import AdminBookTable from "../../components/admin/tables/AdminBookTable"
 import { useEffect, useState } from "react"
-import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks"
-import { getOwnProfile, setUser } from "../redux/reducers/userReducer"
-import { User } from "../types/user"
-import { Book } from "../types/book"
-import AddAuthorForm from "../components/admin/forms/AddAuthorForm"
-import AdminAuthorTable from "../components/admin/tables/AdminAuthorTable"
-import { Author } from "../types/author"
+import AdminPublisherTable from "../../components/admin/tables/AdminPublisherTable"
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks"
+import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
+import { User } from "../../types/user"
+import { Book } from "../../types/book"
+import { Publisher } from "../../types/publisher"
 
-const AddAuthor = () => {
+const EditCopy = () => {
     const dispatch = useAppDispatch()
     const user = useAppSelector(state => state.user)
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false)
     const [showBooks, setShowBooks] = useState(false)
-    const [showAuthors, setShowAuthors] = useState(false)
+    const [showPublishers, setShowPublishers] = useState(false)
     const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-    const [selectedAuthor, setSelectedAuthor] = useState<Author | null>(null);
+    const [selectedPublisher, setSelectedPublisher] = useState<Publisher | null>(null);
 
     useEffect(() => {
         if (!isUserDataLoaded && user) {
@@ -36,13 +36,14 @@ const AddAuthor = () => {
 
     }, [dispatch, user, isUserDataLoaded]);
 
+
     const handleShowBooks = () => {
         setShowBooks(!showBooks)
-        setShowAuthors(false)
+        setShowPublishers(false)
     }
 
-    const handleShowAuthors = () => {
-        setShowAuthors(!showAuthors)
+    const handleShowPublishers = () => {
+        setShowPublishers(!showPublishers)
         setShowBooks(false)
     }
 
@@ -50,14 +51,15 @@ const AddAuthor = () => {
         setSelectedBook(book);
     };
 
-    const handleAuthorSelection = (author: Author) => {
-        setSelectedAuthor(author);
+    const handlePublisherSelection = (publisher: Publisher) => {
+        setSelectedPublisher(publisher);
     };
 
     const clearSelected = () => {
-        setSelectedAuthor(null);
+        setSelectedPublisher(null);
         setSelectedBook(null);
     };
+
 
     return (
         <Box style={{
@@ -71,19 +73,19 @@ const AddAuthor = () => {
                 <>
                     <Toolbar>
                         <Button onClick={handleShowBooks}>Select Book</Button>
-                        <Button onClick={handleShowAuthors}>Select Author</Button>
+                        <Button onClick={handleShowPublishers}>Select Publisher</Button>
                     </Toolbar>
-                    <AddAuthorForm
+                    <AddCopyForm
                         selectedBook={selectedBook}
-                        selectedAuthor={selectedAuthor}
+                        selectedPublisher={selectedPublisher}
                         clearSelected={clearSelected}
                     />
                     {showBooks ?
-                        <AdminBookTable onBookSelection={handleBookSelection} setShowBooks={setShowBooks} />
+                        <AdminBookTable onBookSelection={handleBookSelection} setShowBooks={setShowBooks}/>
                         : null
                     }
-                    {showAuthors ?
-                        <AdminAuthorTable onAuthorSelection={handleAuthorSelection} setShowAuthors={setShowAuthors} />
+                    {showPublishers ?
+                        <AdminPublisherTable onPublisherSelection={handlePublisherSelection} setShowPublishers={setShowPublishers} />
                         : null
                     }
                 </>
@@ -94,4 +96,4 @@ const AddAuthor = () => {
     )
 }
 
-export default AddAuthor
+export default EditCopy

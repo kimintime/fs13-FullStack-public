@@ -5,7 +5,7 @@ import { RootState } from "../store";
 import axios from "axios";
 import { logout } from "./userReducer";
 import { addNotification } from "./notificationReducer";
-import ENV from "../../env";
+import { BACKEND_URL } from "../../env";
 
 const initialState: Category[] = [];
 
@@ -15,7 +15,7 @@ export const getAllCategories = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/categories`,
+                `${BACKEND_URL}/api/v1/categories`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`},
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
@@ -40,7 +40,7 @@ export const getCategoryById = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/categories/${id}`,
+                `${BACKEND_URL}/api/v1/categories/${id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
@@ -64,7 +64,7 @@ export const addCategory = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.post(
-                `${ENV.BACKEND_URL}/api/v1/categories`,
+                `${BACKEND_URL}/api/v1/categories`,
                 {
                     ...newCategory
                 },
@@ -97,7 +97,7 @@ export const updateCategory = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.put(
-                `${ENV.BACKEND_URL}/api/v1/categories/${updateCategory.id}`,
+                `${BACKEND_URL}/api/v1/categories/${updateCategory.id}`,
                 {
                     ...updateCategory
                 },
@@ -131,7 +131,7 @@ export const deleteCategory = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.delete(
-                `${ENV.BACKEND_URL}/api/v1/categories/${deleteCategory.id}`,
+                `${BACKEND_URL}/api/v1/categories/${deleteCategory.id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}`},
                 }

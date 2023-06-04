@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User, UserLogin, UserProfileEdit, UserRegister, UserUpdate, UserUpdatePassword } from "../../types/user";
 import axios from "axios";
 import { addNotification } from "./notificationReducer";
-import ENV from "../../env";
+import { BACKEND_URL } from "../../env";
 import { RootState } from "../store";
 import { Pagination } from "../../types/pagination";
 
@@ -14,7 +14,7 @@ export const getAllUsers = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/users`,
+                `${BACKEND_URL}/api/v1/users`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` },
                     params: pagination === null ? {} : { page: pagination.page, pageSize: pagination.pageSize }
@@ -39,7 +39,7 @@ export const getUserById = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/users/${id}`,
+                `${BACKEND_URL}/api/v1/users/${id}`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
@@ -63,7 +63,7 @@ export const getOwnProfile = createAsyncThunk(
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(
-                `${ENV.BACKEND_URL}/api/v1/users/profile`,
+                `${BACKEND_URL}/api/v1/users/profile`,
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
@@ -86,7 +86,7 @@ export const login = createAsyncThunk(
     async (credentials: UserLogin, thunkAPI) => {
         try {
             thunkAPI.dispatch(addNotification({ message: "Logging in...", timeInSec: 5, type: "info" }))
-            let result = await axios.post(`${ENV.BACKEND_URL}/api/v1/users/login`, credentials);
+            let result = await axios.post(`${BACKEND_URL}/api/v1/users/login`, credentials);
 
             if (result.status === 204) {
                 await thunkAPI.dispatch(addNotification({ message: "Wrong username or password", timeInSec: 5, type: "warning" }))
@@ -108,7 +108,7 @@ export const register = createAsyncThunk(
     "register",
     async (form: UserRegister, thunkAPI) => {
         try {
-            let result = await axios.post(`${ENV.BACKEND_URL}/api/v1/users/register`, form);
+            let result = await axios.post(`${BACKEND_URL}/api/v1/users/register`, form);
 
             if (result.status === 204) {
                 thunkAPI.dispatch(addNotification({ message: "Registration failed", timeInSec: 5, type: "warning" }))
@@ -128,7 +128,7 @@ export const updateOwnAccount = createAsyncThunk(
     async (update: UserProfileEdit, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
-            let result = await axios.put(`${ENV.BACKEND_URL}/api/v1/users/profile/update`,
+            let result = await axios.put(`${BACKEND_URL}/api/v1/users/profile/update`,
                 {
                     ...update
                 },
@@ -153,7 +153,7 @@ export const updateOwnPassword = createAsyncThunk(
     async (update: UserUpdatePassword, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
-            let result = await axios.put(`${ENV.BACKEND_URL}/api/v1/users/profile/update/password`,
+            let result = await axios.put(`${BACKEND_URL}/api/v1/users/profile/update/password`,
                 {
                     ...update
                 },
@@ -175,11 +175,11 @@ export const updateOwnPassword = createAsyncThunk(
 )
 
 export const updateUser = createAsyncThunk(
-    "upserUser",
+    "updateUser",
     async (update: UserUpdate, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
-            let result = await axios.put(`${ENV.BACKEND_URL}/api/v1/users/${update.id}/update`,
+            let result = await axios.put(`${BACKEND_URL}/api/v1/users/${update.id}/update`,
                 {
                     ...update
                 },
