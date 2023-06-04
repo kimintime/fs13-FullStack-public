@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
-import { Publisher } from "../../types/publisher";
-import { getAllPublishers, sortByName } from "../../redux/reducers/publisherReducer"
-import SitePagination from "../SitePagination";
-import { AdminPublisherTableProps } from "../../types/adminProps";
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel, IconButton } from "@mui/material"
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks"
+import { Publisher } from "../../../types/publisher";
+import { getAllPublishers, sortByName } from "../../../redux/reducers/publisherReducer"
+import SitePagination from "../../SitePagination";
+import { AdminPublisherTableProps } from "../../../types/adminProps";
+import AddIcon from '@mui/icons-material/Add';
 
 const AdminPublisherTable = ({ onPublisherSelection, setShowPublishers }: AdminPublisherTableProps) => {
     const publishers = useAppSelector(state => state.publisher)
@@ -13,6 +14,7 @@ const AdminPublisherTable = ({ onPublisherSelection, setShowPublishers }: AdminP
     const [pageSize, setPageSize] = useState(25)
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc")
     const [selectedPublisher, setSelectedPublisher] = useState<Publisher | null>(null);
+    const [hoveredRow, setHoveredRow] = useState(0)
 
     useEffect(() => {
         dispatch(getAllPublishers({ page, pageSize }))
@@ -67,9 +69,26 @@ const AdminPublisherTable = ({ onPublisherSelection, setShowPublishers }: AdminP
                                         backgroundColor: publisher === selectedPublisher ? 'lightgray' : 'transparent'
                                     }}
                                     onClick={() => handlePublisherSelection(publisher)}
+                                    onMouseEnter={() => setHoveredRow(publisher.id)}
+                                    onMouseLeave={() => setHoveredRow(0)}
                                 >
                                     <TableCell align="center">
                                         {publisher.publisherName}
+                                        {" "}
+                                        {hoveredRow === publisher.id && (
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: 'lightblue',
+                                                    },
+                                                }}
+                                                aria-label="Add to Selection"
+                                                onClick={() => handlePublisherSelection(publisher)}
+                                            >
+                                                <AddIcon />
+                                            </IconButton>
+                                            )
+                                        }
                                     </TableCell>
                                 </TableRow>
                             )}

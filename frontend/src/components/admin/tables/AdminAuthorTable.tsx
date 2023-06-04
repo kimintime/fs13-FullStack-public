@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
-import { getAllAuthors, sortByLastName } from "../../redux/reducers/authorReducer"
-import { Author } from "../../types/author";
-import SitePagination from "../SitePagination"
-import { AdminAuthorTableProps } from "../../types/adminProps"
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel, IconButton } from "@mui/material"
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks"
+import { getAllAuthors, sortByLastName } from "../../../redux/reducers/authorReducer"
+import { Author } from "../../../types/author";
+import SitePagination from "../../SitePagination"
+import { AdminAuthorTableProps } from "../../../types/adminProps"
+import AddIcon from '@mui/icons-material/Add';
 
 const AdminAuthorTable = ({ onAuthorSelection, setShowAuthors }: AdminAuthorTableProps) => {
     const authors = useAppSelector(state => state.author)
@@ -13,6 +14,7 @@ const AdminAuthorTable = ({ onAuthorSelection, setShowAuthors }: AdminAuthorTabl
     const [pageSize, setPageSize] = useState(25)
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
     const [selectedAuthor, setSelectedAuthor] = useState<Author | null>(null);
+    const [hoveredRow, setHoveredRow] = useState(0)
 
     useEffect(() => {
         dispatch(getAllAuthors({ page: page, pageSize: pageSize }))
@@ -36,7 +38,6 @@ const AdminAuthorTable = ({ onAuthorSelection, setShowAuthors }: AdminAuthorTabl
         } else {
             alert("Double-click 'Select Author' to show Author table.")
         }
-
     };
 
     return (
@@ -63,9 +64,26 @@ const AdminAuthorTable = ({ onAuthorSelection, setShowAuthors }: AdminAuthorTabl
                                         backgroundColor: author === selectedAuthor ? 'lightgray' : 'transparent'
                                     }}
                                     onClick={() => handleAuthorSelection(author)}
+                                    onMouseEnter={() => setHoveredRow(author.id)}
+                                    onMouseLeave={() => setHoveredRow(0)}
                                 >
                                     <TableCell align="center">
                                         {author.firstName}{" "}{author.lastName}
+                                        {" "}
+                                        {hoveredRow === author.id && (
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: 'lightblue',
+                                                    },
+                                                }}
+                                                aria-label="Add to Selection"
+                                                onClick={() => handleAuthorSelection(author)}
+                                            >
+                                                <AddIcon />
+                                            </IconButton>
+                                            )
+                                        }
                                     </TableCell>
                                 </TableRow>
                             )}

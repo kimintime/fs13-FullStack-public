@@ -14,15 +14,15 @@ import {
     Typography
 } from "@mui/material"
 
-import { useAppDispatch } from "../../hooks/reduxHooks"
-import { getBookById } from "../../redux/reducers/bookReducer"
-import { Book } from "../../types/book"
-import { AddAuthorFormProps } from "../../types/adminProps"
-import { Author } from "../../types/author"
-import { addAuthorToBook } from "../../redux/reducers/bookReducer"
-import { getAuthorById } from "../../redux/reducers/authorReducer"
+import { useAppDispatch } from "../../../hooks/reduxHooks"
+import { getBookById } from "../../../redux/reducers/bookReducer"
+import { Book } from "../../../types/book"
+import { AddAuthorFormProps } from "../../../types/adminProps"
+import { Author } from "../../../types/author"
+import { addAuthorToBook } from "../../../redux/reducers/bookReducer"
+import { getAuthorById } from "../../../redux/reducers/authorReducer"
 
-const AddAuthorForm = ({ selectedBook, selectedAuthor }: AddAuthorFormProps) => {
+const AddAuthorForm = ({ selectedBook, selectedAuthor, clearSelected }: AddAuthorFormProps) => {
     const dispatch = useAppDispatch()
     const [book, setBook] = useState({} as Book)
     const [author, setAuthor] = useState({} as Author)
@@ -60,6 +60,7 @@ const AddAuthorForm = ({ selectedBook, selectedAuthor }: AddAuthorFormProps) => 
     const clearForm = () => {
         setBook({} as Book)
         setAuthor({} as Author)
+        clearSelected()
     }
 
     return (

@@ -11,16 +11,19 @@ export interface AdminProps {
 export interface AddCopyFormProps {
   selectedBook: Book | null;
   selectedPublisher: Publisher | null;
+  clearSelected: () => void;
 }
 
 export interface AddAuthorFormProps {
   selectedBook: Book | null;
   selectedAuthor: Author | null;
+  clearSelected: () => void;
 }
 
 export interface AddCategoryFormProps {
   selectedBook: Book | null;
   selectedCategory: Category | null;
+  clearSelected: () => void;
 }
 
 export interface AdminBookTableProps {

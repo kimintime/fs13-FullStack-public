@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
-import { getAllBooks } from "../../redux/reducers/bookReducer"
-import { Book } from "../../types/book";
-import SitePagination from "../SitePagination";
-import SearchBar from "../SearchBar"
-import { AdminBookTableProps } from "../../types/adminProps"
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material"
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks"
+import { getAllBooks } from "../../../redux/reducers/bookReducer"
+import { Book } from "../../../types/book";
+import SitePagination from "../../SitePagination";
+import SearchBar from "../../SearchBar"
+import { AdminBookTableProps } from "../../../types/adminProps"
+import AddIcon from '@mui/icons-material/Add';
 
 const AdminBookTable = ({ onBookSelection, setShowBooks }: AdminBookTableProps) => {
     const books = useAppSelector(state => state.book)
@@ -13,6 +14,7 @@ const AdminBookTable = ({ onBookSelection, setShowBooks }: AdminBookTableProps) 
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
     const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+    const [hoveredRow, setHoveredRow] = useState(0)
 
     useEffect(() => {
         dispatch(getAllBooks({ page, pageSize }));
@@ -53,9 +55,11 @@ const AdminBookTable = ({ onBookSelection, setShowBooks }: AdminBookTableProps) 
                                     sx={{
                                         cursor: "pointer",
                                         "&:hover": { backgroundColor: 'lightgray' },
-                                        backgroundColor: book === selectedBook ? 'lightgray' : 'transparent'
+                                        backgroundColor: book === selectedBook ? 'lightgray' : 'transparent',
                                     }}
                                     onClick={() => handleBookSelection(book)}
+                                    onMouseEnter={() => setHoveredRow(book.id)}
+                                    onMouseLeave={() => setHoveredRow(0)}
                                 >
                                     <TableCell align="left">
                                         {book.title}
@@ -66,6 +70,22 @@ const AdminBookTable = ({ onBookSelection, setShowBooks }: AdminBookTableProps) 
                                         </Typography>
                                     </TableCell>
                                     <TableCell align="center">{book.copiesAvailable}</TableCell>
+                                    <TableCell>
+                                        {hoveredRow === book.id && (
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: 'lightblue',
+                                                    },
+                                                }}
+                                                aria-label="Add to Selection"
+                                                onClick={() => handleBookSelection(book)}
+                                            >
+                                                <AddIcon />
+                                            </IconButton>
+                                            )
+                                        }
+                                    </TableCell>
                                 </TableRow>
                             )}
                         </TableBody>

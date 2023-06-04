@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 import { Box, Button, Modal, TextField, Typography } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
-import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
-import { addBook } from "../../redux/reducers/bookReducer"
-import { User } from "../../types/user"
-import { AdminProps } from "../../types/adminProps"
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks"
+import { getOwnProfile, setUser } from "../../../redux/reducers/userReducer"
+import { addBook } from "../../../redux/reducers/bookReducer"
+import { User } from "../../../types/user"
+import { AdminProps } from "../../../types/adminProps"
 
 const AddBookModal: React.FC<AdminProps> = ({open, onClose}) => {
     const user = useAppSelector(state => state.user)

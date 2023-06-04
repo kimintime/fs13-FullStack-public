@@ -1,8 +1,8 @@
 import { Box, Button, Toolbar } from "@mui/material"
-import AddCopyForm from "../components/admin/AddCopyForm"
-import AdminBookTable from "../components/admin/AdminBookTable"
+import AddCopyForm from "../components/admin/forms/AddCopyForm"
+import AdminBookTable from "../components/admin/tables/AdminBookTable"
 import { useEffect, useState } from "react"
-import AdminPublisherTable from "../components/admin/AdminPublisherTable"
+import AdminPublisherTable from "../components/admin/tables/AdminPublisherTable"
 import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks"
 import { getOwnProfile, setUser } from "../redux/reducers/userReducer"
 import { User } from "../types/user"
@@ -55,6 +55,11 @@ const AddCopy = () => {
         setSelectedPublisher(publisher);
     };
 
+    const clearSelected = () => {
+        setSelectedPublisher(null);
+        setSelectedBook(null);
+    };
+
 
     return (
         <Box style={{
@@ -73,6 +78,7 @@ const AddCopy = () => {
                     <AddCopyForm
                         selectedBook={selectedBook}
                         selectedPublisher={selectedPublisher}
+                        clearSelected={clearSelected}
                     />
                     {showBooks ?
                         <AdminBookTable onBookSelection={handleBookSelection} setShowBooks={setShowBooks}/>

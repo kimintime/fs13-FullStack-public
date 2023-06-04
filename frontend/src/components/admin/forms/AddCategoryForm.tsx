@@ -14,18 +14,17 @@ import {
     Typography
 } from "@mui/material"
 
-import { useAppDispatch } from "../../hooks/reduxHooks"
-import { getBookById } from "../../redux/reducers/bookReducer"
-import { Book } from "../../types/book"
-import { Publisher } from "../../types/publisher"
-import { AddCopyFormProps } from "../../types/adminProps"
-import { getPublisherById } from "../../redux/reducers/publisherReducer"
-import { addCopy } from "../../redux/reducers/copiesReducer"
+import { useAppDispatch } from "../../../hooks/reduxHooks"
+import { addCategoryToBook, getBookById } from "../../../redux/reducers/bookReducer"
+import { Book } from "../../../types/book"
+import { AddCategoryFormProps } from "../../../types/adminProps"
+import { Category } from "../../../types/category"
+import { getCategoryById } from "../../../redux/reducers/categoryReducer"
 
-const AddCopyForm = ({ selectedBook, selectedPublisher }: AddCopyFormProps) => {
+const AddCategoryForm = ({ selectedBook, selectedCategory, clearSelected }: AddCategoryFormProps) => {
     const dispatch = useAppDispatch()
     const [book, setBook] = useState({} as Book)
-    const [publisher, setPublisher] = useState({} as Publisher)
+    const [category, setCategory] = useState({} as Category)
     
     useEffect(() => {
         if (selectedBook)
@@ -34,31 +33,33 @@ const AddCopyForm = ({ selectedBook, selectedPublisher }: AddCopyFormProps) => {
                 setBook(bookItemData as Book)
             })
 
-        if (selectedPublisher)
-            dispatch(getPublisherById(selectedPublisher.id)).then((data) => {
-                const publisherData = data.payload
-                setPublisher(publisherData as Publisher)
+        if (selectedCategory)
+            dispatch(getCategoryById(selectedCategory.id)).then((data) => {
+                const categoryData = data.payload
+                setCategory(categoryData as Category)
             })
-    }, [dispatch, selectedBook, selectedPublisher])
+
+    }, [dispatch, selectedBook, selectedCategory])
 
     const createCopy = () => {
-        if (book && publisher)
+        if (book && category)
         {
-            dispatch(addCopy({
-                bookId: book.id,
-                publisherId: publisher.id
+            dispatch(addCategoryToBook({
+                id: book.id,
+                addId: category.id
             }))
 
             clearForm()
 
         } else {
-            alert("Please select both book and publisher.")
+            alert("Please select both book and category.")
         }
     }
 
     const clearForm = () => {
         setBook({} as Book)
-        setPublisher({} as Publisher)
+        setCategory({} as Category)
+        clearSelected()
     }
 
     return (
@@ -71,7 +72,7 @@ const AddCopyForm = ({ selectedBook, selectedPublisher }: AddCopyFormProps) => {
                 marginTop: 10,
             }}
         >
-            <Typography variant="subtitle1">Add Copy</Typography>
+            <Typography variant="subtitle1">Add Category</Typography>
             <Paper
                 sx={{ marginTop: 5, p: 2 }}
                 component="form"
@@ -92,11 +93,11 @@ const AddCopyForm = ({ selectedBook, selectedPublisher }: AddCopyFormProps) => {
                             </TableRow>
                             <TableRow>
                                 <TableCell>
-                                    <Typography variant="subtitle2">Publisher Name:</Typography>
+                                    <Typography variant="subtitle2">Category:</Typography>
                                 </TableCell>
                                 <TableCell>
-                                    {publisher &&
-                                    <Typography>{publisher.publisherName}</Typography>
+                                    {category &&
+                                    <Typography>{category.name}</Typography>
                                     }
                                 </TableCell>
                             </TableRow>
@@ -105,11 +106,11 @@ const AddCopyForm = ({ selectedBook, selectedPublisher }: AddCopyFormProps) => {
                     </Table>
                 </TableContainer>
             </Paper>
-            <Button onClick={createCopy}>Add Copy</Button>
+            <Button onClick={createCopy}>Add Category to Book</Button>
             <Button color="error" onClick={clearForm}>Clear</Button>
             <Divider flexItem />
         </Box>
     )
 }
 
-export default AddCopyForm
+export default AddCategoryForm

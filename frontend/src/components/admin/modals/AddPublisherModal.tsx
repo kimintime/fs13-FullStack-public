@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react"
 import { Box, Button, Modal, TextField, Typography } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
-import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
-import { User } from "../../types/user"
-import { AdminProps } from "../../types/adminProps"
-import { addCategory } from "../../redux/reducers/categoryReducer"
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks"
+import { getOwnProfile, setUser } from "../../../redux/reducers/userReducer"
+import { User } from "../../../types/user"
+import { AdminProps } from "../../../types/adminProps"
 import { useNavigate } from "react-router-dom"
+import { addPublisher } from "../../../redux/reducers/publisherReducer"
 
-const AddCategoryModal: React.FC<AdminProps> = ({open, onClose}) => {
+const AddPublisherModal: React.FC<AdminProps> = ({ open, onClose }) => {
     const user = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false)
 
@@ -36,20 +35,18 @@ const AddCategoryModal: React.FC<AdminProps> = ({open, onClose}) => {
     const handleClose = () => {
         onClose()
         setName("")
-        setDescription("")
     }
 
-    const createCategory = () => {
-        dispatch(addCategory({
-            name: name,
-            description: description,
+    const createPublisher = () => {
+        dispatch(addPublisher({
+            publisherName: name,
         }))
 
         onClose()
-        navigate(`/categories`)
+
+        navigate(`/publishers`)
 
         setName("")
-        setDescription("")
     }
 
     return (
@@ -81,7 +78,7 @@ const AddCategoryModal: React.FC<AdminProps> = ({open, onClose}) => {
                             borderRadius: 5,
                         }}>
                         <Typography variant="h5" sx={{ textDecoration: "underline" }}>
-                            Add Category
+                            Add Publisher
                         </Typography>
                         <TextField
                             sx={{ marginTop: 1, minWidth: 300 }}
@@ -89,35 +86,20 @@ const AddCategoryModal: React.FC<AdminProps> = ({open, onClose}) => {
                             label="Name"
                             type="name"
                             value={name}
-                            placeholder="Enter name"
+                            placeholder="Enter publisher name"
                             variant="standard"
                             onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
                                 event.stopPropagation();
                             }}
                             onChange={(event) => setName(event.target.value)}
                         />
-                        <TextField
-                            sx={{ marginTop: 1, minWidth: 300 }}
-                            required
-                            label="Description"
-                            type="description"
-                            value={description}
-                            placeholder="Enter description"
-                            variant="standard"
-                            multiline
-                            rows={4}
-                            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
-                                event.stopPropagation();
-                            }}
-                            onChange={(event) => setDescription(event.target.value)}
-                        />
                         <Button
                             variant="contained"
                             color="success"
                             sx={{ marginTop: 2 }}
-                            onClick={createCategory}
+                            onClick={createPublisher}
                         >
-                            Add Category
+                            Add Publisher
                         </Button>
                         <Button
                             variant="contained"
@@ -135,4 +117,4 @@ const AddCategoryModal: React.FC<AdminProps> = ({open, onClose}) => {
     )
 }
 
-export default AddCategoryModal
+export default AddPublisherModal

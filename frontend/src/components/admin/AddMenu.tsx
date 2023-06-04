@@ -6,10 +6,10 @@ import BusinessIcon from '@mui/icons-material/Business';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from "react";
-import AddBookModal from "./AddBookModal";
-import AddAuthorModal from "./AddAuthorModal";
-import AddCategoryModal from "./AddCategoryModal";
-import AddPublisherModal from "./AddPublisherModal";
+import AddBookModal from "./modals/AddBookModal";
+import AddAuthorModal from "./modals/AddAuthorModal";
+import AddCategoryModal from "./modals/AddCategoryModal";
+import AddPublisherModal from "./modals/AddPublisherModal";
 import { NavLink } from "react-router-dom";
 import { AdminProps } from "../../types/adminProps";
 

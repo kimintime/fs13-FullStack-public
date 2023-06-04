@@ -1,12 +1,12 @@
 import { Box, Button, Toolbar } from "@mui/material"
-import AdminBookTable from "../components/admin/AdminBookTable"
+import AdminBookTable from "../components/admin/tables/AdminBookTable"
 import { useEffect, useState } from "react"
 import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks"
 import { getOwnProfile, setUser } from "../redux/reducers/userReducer"
 import { User } from "../types/user"
 import { Book } from "../types/book"
-import AddAuthorForm from "../components/admin/AddAuthorForm"
-import AdminAuthorTable from "../components/admin/AdminAuthorTable"
+import AddAuthorForm from "../components/admin/forms/AddAuthorForm"
+import AdminAuthorTable from "../components/admin/tables/AdminAuthorTable"
 import { Author } from "../types/author"
 
 const AddAuthor = () => {
@@ -54,6 +54,10 @@ const AddAuthor = () => {
         setSelectedAuthor(author);
     };
 
+    const clearSelected = () => {
+        setSelectedAuthor(null);
+        setSelectedBook(null);
+    };
 
     return (
         <Box style={{
@@ -72,9 +76,10 @@ const AddAuthor = () => {
                     <AddAuthorForm
                         selectedBook={selectedBook}
                         selectedAuthor={selectedAuthor}
+                        clearSelected={clearSelected}
                     />
                     {showBooks ?
-                        <AdminBookTable onBookSelection={handleBookSelection} setShowBooks={setShowBooks}/>
+                        <AdminBookTable onBookSelection={handleBookSelection} setShowBooks={setShowBooks} />
                         : null
                     }
                     {showAuthors ?

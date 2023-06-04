@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react"
 import { Box, Button, Modal, TextField, Typography } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
-import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
-import { User } from "../../types/user"
-import { AdminProps } from "../../types/adminProps"
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks"
+import { getOwnProfile, setUser } from "../../../redux/reducers/userReducer"
+import { User } from "../../../types/user"
+import { AdminProps } from "../../../types/adminProps"
+import { addAuthor } from "../../../redux/reducers/authorReducer"
 import { useNavigate } from "react-router-dom"
-import { addPublisher } from "../../redux/reducers/publisherReducer"
 
-const AddPublisherModal: React.FC<AdminProps> = ({ open, onClose }) => {
+const AddAuthorModal: React.FC<AdminProps> = ({open, onClose}) => {
     const user = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const [name, setName] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false)
 
@@ -34,19 +35,22 @@ const AddPublisherModal: React.FC<AdminProps> = ({ open, onClose }) => {
 
     const handleClose = () => {
         onClose()
-        setName("")
+        setFirstName("")
+        setLastName("")
     }
 
-    const createPublisher = () => {
-        dispatch(addPublisher({
-            publisherName: name,
+    const createAuthor = () => {
+        dispatch(addAuthor({
+            firstName: firstName,
+            lastName: lastName,
         }))
 
         onClose()
 
-        navigate(`/publishers`)
+        navigate(`/authors`)
 
-        setName("")
+        setFirstName("")
+        setLastName("")
     }
 
     return (
@@ -78,28 +82,41 @@ const AddPublisherModal: React.FC<AdminProps> = ({ open, onClose }) => {
                             borderRadius: 5,
                         }}>
                         <Typography variant="h5" sx={{ textDecoration: "underline" }}>
-                            Add Publisher
+                            Add Author
                         </Typography>
                         <TextField
                             sx={{ marginTop: 1, minWidth: 300 }}
                             required
-                            label="Name"
-                            type="name"
-                            value={name}
-                            placeholder="Enter publisher name"
+                            label="First name"
+                            type="firstName"
+                            value={firstName}
+                            placeholder="Enter first name"
                             variant="standard"
                             onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
                                 event.stopPropagation();
                             }}
-                            onChange={(event) => setName(event.target.value)}
+                            onChange={(event) => setFirstName(event.target.value)}
+                        />
+                        <TextField
+                            sx={{ marginTop: 1, minWidth: 300 }}
+                            required
+                            label="Last name"
+                            type="lastName"
+                            value={lastName}
+                            placeholder="Enter last name"
+                            variant="standard"
+                            onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+                                event.stopPropagation();
+                            }}
+                            onChange={(event) => setLastName(event.target.value)}
                         />
                         <Button
                             variant="contained"
                             color="success"
                             sx={{ marginTop: 2 }}
-                            onClick={createPublisher}
+                            onClick={createAuthor}
                         >
-                            Add Publisher
+                            Add Author
                         </Button>
                         <Button
                             variant="contained"
@@ -117,4 +134,4 @@ const AddPublisherModal: React.FC<AdminProps> = ({ open, onClose }) => {
     )
 }
 
-export default AddPublisherModal
+export default AddAuthorModal

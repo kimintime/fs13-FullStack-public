@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel } from "@mui/material"
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks"
-import SitePagination from "../SitePagination"
-import { AdminCategoryTableProps } from "../../types/adminProps"
-import { getAllCategories, sortByName } from "../../redux/reducers/categoryReducer";
-import { Category } from "../../types/category";
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel, IconButton } from "@mui/material"
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks"
+import SitePagination from "../../SitePagination"
+import { AdminCategoryTableProps } from "../../../types/adminProps"
+import { getAllCategories, sortByName } from "../../../redux/reducers/categoryReducer";
+import { Category } from "../../../types/category";
+import AddIcon from '@mui/icons-material/Add';
 
 const AdminCategoryTable = ({ onCategorySelection, setShowCategories }: AdminCategoryTableProps) => {
     const categories = useAppSelector(state => state.category)
@@ -13,6 +14,8 @@ const AdminCategoryTable = ({ onCategorySelection, setShowCategories }: AdminCat
     const [pageSize, setPageSize] = useState(25)
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+    const [hoveredRow, setHoveredRow] = useState(0)
+
 
     useEffect(() => {
         dispatch(getAllCategories({ page: page, pageSize: pageSize }))
@@ -36,7 +39,6 @@ const AdminCategoryTable = ({ onCategorySelection, setShowCategories }: AdminCat
         } else {
             alert("Double-click 'Select Category' to show Category table.")
         }
-
     };
 
     return (
@@ -66,12 +68,30 @@ const AdminCategoryTable = ({ onCategorySelection, setShowCategories }: AdminCat
                                         backgroundColor: category === selectedCategory ? 'lightgray' : 'transparent'
                                     }}
                                     onClick={() => handleCategorySelection(category)}
+                                    onMouseEnter={() => setHoveredRow(category.id)}
+                                    onMouseLeave={() => setHoveredRow(0)}
                                 >
                                     <TableCell align="right">
                                         {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
                                     </TableCell>
                                     <TableCell>
                                         {category.description}
+                                    </TableCell>
+                                    <TableCell>
+                                        {hoveredRow === category.id && (
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: 'lightblue',
+                                                    },
+                                                }}
+                                                aria-label="Add to Selection"
+                                                onClick={() => handleCategorySelection(category)}
+                                            >
+                                                <AddIcon />
+                                            </IconButton>
+                                            )
+                                        }
                                     </TableCell>
                                 </TableRow>
                             )}
