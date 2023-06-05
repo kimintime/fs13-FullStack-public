@@ -26,6 +26,11 @@ export interface AddCategoryFormProps {
   clearSelected: () => void;
 }
 
+export interface EditBookFormProps {
+  selectedBook: Book | null;
+  clearSelected: () => void;
+}
+
 export interface AdminBookTableProps {
   onBookSelection: (book: Book) => void;
   setShowBooks: (value: boolean) => void;
