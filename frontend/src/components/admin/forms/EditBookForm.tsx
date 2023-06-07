@@ -13,21 +13,23 @@ import {
     TableHead,
     TableRow,
     TextField,
+    Tooltip,
     Typography
 } from "@mui/material"
 
 import { useAppDispatch } from "../../../hooks/reduxHooks"
-import { getBookById, removeAuthorFromBook, removeCategoryFromBook, updateBook } from "../../../redux/reducers/bookReducer"
+import { deleteBook, getBookById, removeAuthorFromBook, removeCategoryFromBook, updateBook } from "../../../redux/reducers/bookReducer"
 import { Book } from "../../../types/book"
 import { EditBookFormProps } from "../../../types/adminProps"
 import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const EditBookForm = ({ selectedBook, clearSelected }: EditBookFormProps) => {
     const dispatch = useAppDispatch()
-    const [book, setBook] = useState({} as Book)
+    const [book, setBook] = useState<Book | null>(null);
     const [title, setTitle] = useState("")
-    const [isAuthorId, setIsAuthorId] = useState(false)
-    const [isCategoryId, setIsCategoryId] = useState(false)
+    const [isAuthorId, setIsAuthorId] = useState(0)
+    const [isCategoryId, setIsCategoryId] = useState(0)
     const [description, setDescription] = useState("")
 
     useEffect(() => {
@@ -35,7 +37,7 @@ const EditBookForm = ({ selectedBook, clearSelected }: EditBookFormProps) => {
             dispatch(getBookById(selectedBook.id)).then((data) => {
                 const bookItemData = data.payload as Book
                 setBook(bookItemData)
-                setTitle(bookItemData.title); 
+                setTitle(bookItemData.title);
                 setDescription(bookItemData.description || "");
             })
 
@@ -58,17 +60,30 @@ const EditBookForm = ({ selectedBook, clearSelected }: EditBookFormProps) => {
     }
 
     const deleteCategory = (categoryId: number) => {
-        setIsCategoryId(true)
-        dispatch(removeCategoryFromBook({ id: book.id, addId: categoryId }))
+        setIsCategoryId(categoryId)
+
+        if (book)
+            dispatch(removeCategoryFromBook({ id: book.id, addId: categoryId }))
+        //clearForm()
     }
 
     const deleteAuthor = (authorId: number) => {
-        setIsAuthorId(true)
-        dispatch(removeAuthorFromBook({ id: book.id, addId: authorId }))
+        setIsAuthorId(authorId)
+
+        if (book)
+            dispatch(removeAuthorFromBook({ id: book.id, addId: authorId }))
+        // clearForm()
+    }
+
+    const removeBook = (book: Book) => {
+        if (book)
+            dispatch(deleteBook(book))
+
+        clearForm()
     }
 
     const clearForm = () => {
-        setBook({} as Book)
+        setBook(null)
         setTitle("")
         setDescription("")
         clearSelected()
@@ -85,6 +100,20 @@ const EditBookForm = ({ selectedBook, clearSelected }: EditBookFormProps) => {
             }}
         >
             <Typography variant="subtitle1">Edit Book</Typography>
+            {book &&
+                <Tooltip title="Delete Book">
+                    <IconButton
+                        sx={{
+                            '&:hover': {
+                                color: 'red',
+                            },
+                        }}
+                        onClick={() => removeBook(book)}
+                    >
+                        <DeleteForeverIcon fontSize="large" />
+                    </IconButton>
+                </Tooltip>
+            }
             <Paper
                 sx={{ marginTop: 5, p: 2 }}
                 component="form"
@@ -131,7 +160,7 @@ const EditBookForm = ({ selectedBook, clearSelected }: EditBookFormProps) => {
                             </TableRow>
                             {book && (book.authors?.map(author => (
                                 <>
-                                    {!isAuthorId &&
+                                    {isAuthorId !== author.id &&
                                         <TableRow key={author.id}>
                                             <TableCell>
                                                 <Typography variant="subtitle2">Author: </Typography>
@@ -140,7 +169,13 @@ const EditBookForm = ({ selectedBook, clearSelected }: EditBookFormProps) => {
                                                 <Typography>{author.firstName}{" "}{author.lastName}</Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <IconButton onClick={() => deleteAuthor(author.id)}>
+                                                <IconButton
+                                                    sx={{
+                                                        '&:hover': {
+                                                            color: 'red',
+                                                        },
+                                                    }}
+                                                    onClick={() => deleteAuthor(author.id)}>
                                                     <DeleteIcon fontSize="small" />
                                                 </IconButton>
                                             </TableCell>
@@ -150,7 +185,7 @@ const EditBookForm = ({ selectedBook, clearSelected }: EditBookFormProps) => {
                             )))}
                             {book && (book.categories?.map(category => (
                                 <>
-                                    {!isCategoryId &&
+                                    {isCategoryId !== category.id &&
                                         <TableRow key={category.id} >
                                             <TableCell>
                                                 <Typography variant="subtitle2">Category: </Typography>
@@ -159,7 +194,13 @@ const EditBookForm = ({ selectedBook, clearSelected }: EditBookFormProps) => {
                                                 <Typography>{category.name}</Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <IconButton onClick={() => deleteCategory(category.id)}>
+                                                <IconButton
+                                                    sx={{
+                                                        '&:hover': {
+                                                            color: 'red',
+                                                        },
+                                                    }}
+                                                    onClick={() => deleteCategory(category.id)}>
                                                     <DeleteIcon fontSize="small" />
                                                 </IconButton>
                                             </TableCell>

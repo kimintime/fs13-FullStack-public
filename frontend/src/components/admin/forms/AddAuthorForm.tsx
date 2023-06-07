@@ -83,7 +83,7 @@ const AddAuthorForm = ({ selectedBook, selectedAuthor, clearSelected }: AddAutho
                         <TableHead />
                         <TableBody>
                             <TableRow>
-                                <TableCell>
+                                <TableCell align="right">
                                     <Typography variant="subtitle2">Book: </Typography>
                                 </TableCell>
                                 <TableCell>
@@ -92,9 +92,21 @@ const AddAuthorForm = ({ selectedBook, selectedAuthor, clearSelected }: AddAutho
                                     }
                                 </TableCell>
                             </TableRow>
+                            {book.authors && (
+                                book.authors.map(author => (
+                                    <TableRow key={author.id}>
+                                        <TableCell>
+                                            <Typography variant="subtitle2">Current Author: </Typography>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Typography>{author.firstName}{" "}{author.lastName}</Typography>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            )}
                             <TableRow>
-                                <TableCell>
-                                    <Typography variant="subtitle2">Author:</Typography>
+                                <TableCell align="right">
+                                    <Typography variant="subtitle2">Add Author:</Typography>
                                 </TableCell>
                                 <TableCell>
                                     {author &&

@@ -25,7 +25,7 @@ const AddCategoryForm = ({ selectedBook, selectedCategory, clearSelected }: AddC
     const dispatch = useAppDispatch()
     const [book, setBook] = useState({} as Book)
     const [category, setCategory] = useState({} as Category)
-    
+
     useEffect(() => {
         if (selectedBook)
             dispatch(getBookById(selectedBook.id)).then((data) => {
@@ -42,8 +42,7 @@ const AddCategoryForm = ({ selectedBook, selectedCategory, clearSelected }: AddC
     }, [dispatch, selectedBook, selectedCategory])
 
     const createCopy = () => {
-        if (book && category)
-        {
+        if (book && category) {
             dispatch(addCategoryToBook({
                 id: book.id,
                 addId: category.id
@@ -82,7 +81,7 @@ const AddCategoryForm = ({ selectedBook, selectedCategory, clearSelected }: AddC
                         <TableHead />
                         <TableBody>
                             <TableRow>
-                                <TableCell>
+                                <TableCell align="right">
                                     <Typography variant="subtitle2">Book: </Typography>
                                 </TableCell>
                                 <TableCell>
@@ -91,13 +90,25 @@ const AddCategoryForm = ({ selectedBook, selectedCategory, clearSelected }: AddC
                                     }
                                 </TableCell>
                             </TableRow>
+                            {book.categories && (
+                                book.categories.map(category => (
+                                    <TableRow key={category.id}>
+                                        <TableCell>
+                                            <Typography variant="subtitle2">Current Category: </Typography>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Typography>{category.name}</Typography>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            )}
                             <TableRow>
-                                <TableCell>
-                                    <Typography variant="subtitle2">Category:</Typography>
+                                <TableCell align="right">
+                                    <Typography variant="subtitle2">Add Category:</Typography>
                                 </TableCell>
                                 <TableCell>
                                     {category &&
-                                    <Typography>{category.name}</Typography>
+                                        <Typography>{category.name}</Typography>
                                     }
                                 </TableCell>
                             </TableRow>

@@ -82,7 +82,7 @@ const AddCopyForm = ({ selectedBook, selectedPublisher, clearSelected }: AddCopy
                         <TableHead />
                         <TableBody>
                             <TableRow>
-                                <TableCell>
+                                <TableCell align="right">
                                     <Typography variant="subtitle2">Book: </Typography>
                                 </TableCell>
                                 <TableCell>
@@ -91,9 +91,21 @@ const AddCopyForm = ({ selectedBook, selectedPublisher, clearSelected }: AddCopy
                                     }
                                 </TableCell>
                             </TableRow>
+                            {book.publishers && (
+                                book.publishers.map(publisher => (
+                                    <TableRow key={publisher.id}>
+                                        <TableCell>
+                                            <Typography variant="subtitle2">Current Publisher: </Typography>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Typography>{publisher.publisherName}</Typography>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            )}
                             <TableRow>
-                                <TableCell>
-                                    <Typography variant="subtitle2">Publisher Name:</Typography>
+                                <TableCell align="right">
+                                    <Typography variant="subtitle2">Add Publisher:</Typography>
                                 </TableCell>
                                 <TableCell>
                                     {publisher &&
