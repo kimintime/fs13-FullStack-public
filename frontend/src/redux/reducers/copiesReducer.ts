@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Copy, CreateCopy } from "../../types/copy";
+import { Copy, CreateCopy, UpdateCopy } from "../../types/copy";
 import { Pagination } from "../../types/pagination";
 import { RootState } from "../store";
 import axios from "axios";
@@ -93,7 +93,7 @@ export const addCopy = createAsyncThunk(
 
 export const updateCopy = createAsyncThunk(
     "updateCopy",
-    async (updateCopy: Copy, thunkAPI) => {
+    async (updateCopy: UpdateCopy, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let result = await axios.put(

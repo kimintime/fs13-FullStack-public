@@ -1,22 +1,18 @@
 import { Box, Button, Toolbar } from "@mui/material"
-import AddCopyForm from "../../components/admin/forms/AddCopyForm"
-import AdminBookTable from "../../components/admin/tables/AdminBookTable"
 import { useEffect, useState } from "react"
-import AdminPublisherTable from "../../components/admin/tables/AdminPublisherTable"
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks"
 import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
 import { User } from "../../types/user"
-import { Book } from "../../types/book"
 import { Publisher } from "../../types/publisher"
+import EditPublisherForm from "../../components/admin/forms/EditPublisherForm"
+import AdminPublisherTable from "../../components/admin/tables/AdminPublisherTable"
 
 const EditPublisher = () => {
     const dispatch = useAppDispatch()
     const user = useAppSelector(state => state.user)
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false)
-    const [showBooks, setShowBooks] = useState(false)
     const [showPublishers, setShowPublishers] = useState(false)
-    const [selectedBook, setSelectedBook] = useState<Book | null>(null);
     const [selectedPublisher, setSelectedPublisher] = useState<Publisher | null>(null);
 
     useEffect(() => {
@@ -36,20 +32,9 @@ const EditPublisher = () => {
 
     }, [dispatch, user, isUserDataLoaded]);
 
-
-    const handleShowBooks = () => {
-        setShowBooks(!showBooks)
-        setShowPublishers(false)
-    }
-
     const handleShowPublishers = () => {
         setShowPublishers(!showPublishers)
-        setShowBooks(false)
     }
-
-    const handleBookSelection = (book: Book) => {
-        setSelectedBook(book);
-    };
 
     const handlePublisherSelection = (publisher: Publisher) => {
         setSelectedPublisher(publisher);
@@ -57,9 +42,7 @@ const EditPublisher = () => {
 
     const clearSelected = () => {
         setSelectedPublisher(null);
-        setSelectedBook(null);
     };
-
 
     return (
         <Box style={{
@@ -72,20 +55,14 @@ const EditPublisher = () => {
             {isUserAdmin ? (
                 <>
                     <Toolbar>
-                        <Button onClick={handleShowBooks}>Select Book</Button>
                         <Button onClick={handleShowPublishers}>Select Publisher</Button>
                     </Toolbar>
-                    <AddCopyForm
-                        selectedBook={selectedBook}
+                    <EditPublisherForm
                         selectedPublisher={selectedPublisher}
                         clearSelected={clearSelected}
                     />
-                    {showBooks ?
-                        <AdminBookTable onBookSelection={handleBookSelection} setShowBooks={setShowBooks}/>
-                        : null
-                    }
                     {showPublishers ?
-                        <AdminPublisherTable onPublisherSelection={handlePublisherSelection} setShowPublishers={setShowPublishers} />
+                        <AdminPublisherTable onPublisherSelection={handlePublisherSelection} setShowPublishers={setShowPublishers}/>
                         : null
                     }
                 </>

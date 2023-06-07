@@ -1,6 +1,7 @@
 import { Author } from "./author";
 import { Book } from "./book";
 import { Category } from "./category";
+import { Copy } from "./copy";
 import { Publisher } from "./publisher";
 
 export interface AdminProps {
@@ -27,6 +28,27 @@ export interface AddCategoryFormProps {
 }
 
 export interface EditBookFormProps {
+  selectedBook: Book | null;
+  clearSelected: () => void;
+}
+
+export interface EditAuthorFormProps {
+  selectedAuthor: Author | null;
+  clearSelected: () => void;
+}
+
+export interface EditCategoryFormProps {
+  selectedCategory: Category | null;
+  clearSelected: () => void;
+}
+
+export interface EditPublisherFormProps {
+  selectedPublisher: Publisher | null;
+  clearSelected: () => void;
+}
+
+export interface EditCopyFormProps {
+  selectedCopy: Copy | null;
   selectedBook: Book | null;
   clearSelected: () => void;
 }
