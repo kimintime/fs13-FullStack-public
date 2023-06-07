@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import {
     Box,
     Button,
@@ -159,54 +159,52 @@ const EditBookForm = ({ selectedBook, clearSelected }: EditBookFormProps) => {
                                 </TableCell>
                             </TableRow>
                             {book && (book.authors?.map(author => (
-                                <>
-                                    {isAuthorId !== author.id &&
-                                        <TableRow key={author.id}>
-                                            <TableCell>
-                                                <Typography variant="subtitle2">Author: </Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Typography>{author.firstName}{" "}{author.lastName}</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <IconButton
-                                                    sx={{
-                                                        '&:hover': {
-                                                            color: 'red',
-                                                        },
-                                                    }}
-                                                    onClick={() => deleteAuthor(author.id)}>
-                                                    <DeleteIcon fontSize="small" />
-                                                </IconButton>
-                                            </TableCell>
-                                        </TableRow>
-                                    }
-                                </>
+                                isAuthorId !== author.id && (
+                                    <TableRow key={author.id}>
+                                        <TableCell>
+                                            <Typography variant="subtitle2">Author: </Typography>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Typography>{author.firstName}{" "}{author.lastName}</Typography>
+                                        </TableCell>
+                                        <TableCell>
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        color: 'red',
+                                                    },
+                                                }}
+                                                onClick={() => deleteAuthor(author.id)}>
+                                                <DeleteIcon fontSize="small" />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                )
+
+
                             )))}
                             {book && (book.categories?.map(category => (
-                                <>
-                                    {isCategoryId !== category.id &&
-                                        <TableRow key={category.id} >
-                                            <TableCell>
-                                                <Typography variant="subtitle2">Category: </Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Typography>{category.name}</Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <IconButton
-                                                    sx={{
-                                                        '&:hover': {
-                                                            color: 'red',
-                                                        },
-                                                    }}
-                                                    onClick={() => deleteCategory(category.id)}>
-                                                    <DeleteIcon fontSize="small" />
-                                                </IconButton>
-                                            </TableCell>
-                                        </TableRow>
-                                    }
-                                </>
+                                isCategoryId !== category.id && (
+                                    <TableRow key={category.id}>
+                                        <TableCell>
+                                            <Typography variant="subtitle2">Category: </Typography>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Typography>{category.name}</Typography>
+                                        </TableCell>
+                                        <TableCell>
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        color: 'red',
+                                                    },
+                                                }}
+                                                onClick={() => deleteCategory(category.id)}>
+                                                <DeleteIcon fontSize="small" />
+                                            </IconButton>
+                                        </TableCell>
+                                    </TableRow>
+                                )
                             )))}
                         </TableBody>
                         <TableFooter />
