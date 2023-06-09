@@ -1,23 +1,23 @@
 import { Box, Button, Toolbar } from "@mui/material"
-import AddCopyForm from "../../components/admin/forms/AddCopyForm"
-import AdminBookTable from "../../components/admin/tables/AdminBookTable"
 import { useEffect, useState } from "react"
 import AdminPublisherTable from "../../components/admin/tables/AdminPublisherTable"
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks"
 import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
 import { User } from "../../types/user"
-import { Book } from "../../types/book"
 import { Publisher } from "../../types/publisher"
+import { Copy } from "../../types/copy"
+import EditCopyForm from "../../components/admin/forms/EditCopyForm"
+import AdminCopyTable from "../../components/admin/tables/AdminCopyTable"
 
 const EditCopy = () => {
     const dispatch = useAppDispatch()
     const user = useAppSelector(state => state.user)
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false)
-    const [showBooks, setShowBooks] = useState(false)
     const [showPublishers, setShowPublishers] = useState(false)
-    const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+    const [showCopies, setShowCopies] = useState(false)
     const [selectedPublisher, setSelectedPublisher] = useState<Publisher | null>(null);
+    const [selectedCopy, setSelectedCopy] = useState<Copy | null>(null)
 
     useEffect(() => {
         if (!isUserDataLoaded && user) {
@@ -36,20 +36,19 @@ const EditCopy = () => {
 
     }, [dispatch, user, isUserDataLoaded]);
 
-
-    const handleShowBooks = () => {
-        setShowBooks(!showBooks)
+    const handleShowCopies = () => {
+        setShowCopies(!showCopies)
         setShowPublishers(false)
     }
 
     const handleShowPublishers = () => {
         setShowPublishers(!showPublishers)
-        setShowBooks(false)
+        setShowCopies(false)
     }
 
-    const handleBookSelection = (book: Book) => {
-        setSelectedBook(book);
-    };
+    const handleCopySelection = (copy: Copy) => {
+        setSelectedCopy(copy);
+    }
 
     const handlePublisherSelection = (publisher: Publisher) => {
         setSelectedPublisher(publisher);
@@ -57,9 +56,8 @@ const EditCopy = () => {
 
     const clearSelected = () => {
         setSelectedPublisher(null);
-        setSelectedBook(null);
+        setSelectedCopy(null)
     };
-
 
     return (
         <Box style={{
@@ -72,16 +70,16 @@ const EditCopy = () => {
             {isUserAdmin ? (
                 <>
                     <Toolbar>
-                        <Button onClick={handleShowBooks}>Select Book</Button>
+                        <Button onClick={handleShowCopies}>Select Copy</Button>
                         <Button onClick={handleShowPublishers}>Select Publisher</Button>
                     </Toolbar>
-                    <AddCopyForm
-                        selectedBook={selectedBook}
+                    <EditCopyForm
+                        selectedCopy={selectedCopy}
                         selectedPublisher={selectedPublisher}
                         clearSelected={clearSelected}
                     />
-                    {showBooks ?
-                        <AdminBookTable onBookSelection={handleBookSelection} setShowBooks={setShowBooks}/>
+                    {showCopies ?
+                        <AdminCopyTable onCopySelection={handleCopySelection} setShowCopies={setShowCopies} />
                         : null
                     }
                     {showPublishers ?

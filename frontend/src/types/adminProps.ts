@@ -49,7 +49,7 @@ export interface EditPublisherFormProps {
 
 export interface EditCopyFormProps {
   selectedCopy: Copy | null;
-  selectedBook: Book | null;
+  selectedPublisher: Publisher | null;
   clearSelected: () => void;
 }
 
@@ -71,5 +71,10 @@ export interface AdminAuthorTableProps {
 export interface AdminCategoryTableProps {
   onCategorySelection: (category: Category) => void;
   setShowCategories: (value: boolean) => void;
+}
+
+export interface AdminCopiesTableProps {
+  onCopySelection: (copy: Copy) => void;
+  setShowCopies: (value: boolean) => void;
 }
 

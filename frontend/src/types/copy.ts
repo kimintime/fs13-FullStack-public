@@ -7,7 +7,11 @@ export interface Copy extends Base {
     publisher: Publisher
 }
 
-export type UpdateCopy = Omit<Copy, "isAvailable" | "title">;
+export type UpdateCopy = {
+    id: number,
+    bookId: number,
+    publisherId: number
+}
 
 export type CreateCopy = {
     bookId: number,
