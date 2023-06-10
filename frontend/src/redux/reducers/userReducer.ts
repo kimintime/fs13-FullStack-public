@@ -67,7 +67,7 @@ export const getOwnProfile = createAsyncThunk(
                 {
                     headers: { Authorization: `Bearer ${state.user?.token}` }
                 })
-                
+
             return response.data as User
 
         } catch (e: any) {
@@ -214,7 +214,7 @@ const userReducer = createSlice({
         },
         logout: () => {
             return null
-        }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (_, action) => {

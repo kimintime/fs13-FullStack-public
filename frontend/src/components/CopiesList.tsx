@@ -50,12 +50,12 @@ const CopiesList = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell align="center" onClick={handleSortByTitle} style={{ cursor: "pointer" }}>
+                                <TableCell onClick={handleSortByTitle} style={{ cursor: "pointer" }}>
                                     <TableSortLabel active={true} direction={sortOrderTitle}>
                                         Title
                                     </TableSortLabel>
                                 </TableCell>
-                                <TableCell align="center" onClick={handleSortByPublisher} style={{ cursor: "pointer" }}>
+                                <TableCell onClick={handleSortByPublisher} style={{ cursor: "pointer" }}>
                                     <TableSortLabel active={true} direction={sortOrderName}>
                                         Publisher
                                     </TableSortLabel>

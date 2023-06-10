@@ -2,7 +2,9 @@ import { Author } from "./author";
 import { Book } from "./book";
 import { Category } from "./category";
 import { Copy } from "./copy";
+import { Loan } from "./loan";
 import { Publisher } from "./publisher";
+import { User } from "./user";
 
 export interface AdminProps {
   open: boolean;
@@ -53,6 +55,11 @@ export interface EditCopyFormProps {
   clearSelected: () => void;
 }
 
+export interface EditLoanFormProps {
+  selectedLoan: Loan | null;
+  clearSelected: () => void;
+}
+
 export interface AdminBookTableProps {
   onBookSelection: (book: Book) => void;
   setShowBooks: (value: boolean) => void;
@@ -76,5 +83,15 @@ export interface AdminCategoryTableProps {
 export interface AdminCopiesTableProps {
   onCopySelection: (copy: Copy) => void;
   setShowCopies: (value: boolean) => void;
+}
+
+export interface AdminLoanTableProps {
+  onLoanSelection: (loan: Loan) => void;
+  setShowLoans: (value: boolean) => void;
+}
+
+export interface AdminUserTableProps {
+  onUserSelection: (user: User) => void;
+  setShowUsers: (value: boolean) => void;
 }
 

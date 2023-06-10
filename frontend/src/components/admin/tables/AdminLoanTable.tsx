@@ -14,35 +14,55 @@ import {
     Typography
 } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
+import AddIcon from '@mui/icons-material/Add';
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks"
+import { getAllLoans, sortByDateDue, sortByDateLoaned, sortByName, sortByReturned, sortByTitle } from "../../../redux/reducers/loanReducer";
+import SitePagination from "../../../components/SitePagination";
+import LoanFilter from "../../../components/LoanFilter";
+import { AdminLoanTableProps } from "../../../types/adminProps";
+import { Loan } from "../../../types/loan";
 
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
-import { getOwnLoans, sortByDateDue, sortByDateLoaned, sortByReturned, sortByTitle } from "../redux/reducers/loanReducer";
-import SitePagination from "../components/SitePagination";
-import LoanFilter from "../components/LoanFilter";
-
-const Loans = () => {
+const AdminLoansTable = ({ onLoanSelection, setShowLoans }: AdminLoanTableProps) => {
     const loans = useAppSelector(state => state.loan)
-    const user = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const [filter, setFilter] = useState<"Ongoing" | "Expired" | null>(null);
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
     const [sortOrderTitle, setSortOrderTitle] = useState<"asc" | "desc">("asc")
+    const [sortOrderName, setSortOrderName] = useState<"asc" | "desc">("asc")
     const [sortOrderDateLoaned, setSortOrderDateLoaned] = useState<"asc" | "desc">("asc")
     const [sortOrderDateDue, setSortOrderDateDue] = useState<"asc" | "desc">("asc")
     const [sortOrderReturned, setSortOrderReturned] = useState<"asc" | "desc">("asc")
+    const [selectedLoan, setSelectedLoan] = useState<Loan | null>(null);
+    const [hoveredRow, setHoveredRow] = useState(0)
+
 
     const currentDate = new Date();
 
     useEffect(() => {
-        dispatch(getOwnLoans({ pagination: { page: page, pageSize: pageSize }, filter: filter }))
+        dispatch(getAllLoans({ pagination: { page: page, pageSize: pageSize }, filter: filter }))
 
     }, [dispatch, page, pageSize, filter])
+
+    const loansList = Array.isArray(loans) ? loans : [];
+
+    const handleLoanSelection = (loan: Loan) => {
+        setSelectedLoan(loan);
+        onLoanSelection(loan)
+
+        setShowLoans(false)
+    };
 
     const handleSortByTitle = () => {
         const actionType = sortOrderTitle === "asc" ? "asc" : "desc";
         dispatch(sortByTitle(actionType));
         setSortOrderTitle(actionType === "asc" ? "desc" : "asc");
+    };
+
+    const handleSortByName = () => {
+        const actionType = sortOrderName === "asc" ? "asc" : "desc";
+        dispatch(sortByName(actionType));
+        setSortOrderName(actionType === "asc" ? "desc" : "asc");
     };
 
     const handleSortByDateLoaned = () => {
@@ -78,7 +98,7 @@ const Loans = () => {
             <Divider style={{ width: '67%' }} />
             <Grid container justifyContent="center" alignItems="center">
                 <Grid item md={8}>
-                    <Typography textAlign="center" variant="h6" marginBottom={5} marginTop={5}>Loans for {user?.userName}</Typography>
+                    <Typography textAlign="center" variant="h6" marginBottom={5} marginTop={5}>Loans</Typography>
                     <Divider flexItem />
                     <TableContainer sx={{ mt: 5 }}>
                         <Table>
@@ -90,6 +110,9 @@ const Loans = () => {
                                     <TableCell align="center" onClick={handleSortByTitle} style={{ cursor: "pointer" }}>
                                         <TableSortLabel active={true} direction={sortOrderTitle}>Book</TableSortLabel>
                                     </TableCell>
+                                    <TableCell onClick={handleSortByName} style={{ cursor: "pointer" }}>
+                                        <TableSortLabel active={true} direction={sortOrderName}>User</TableSortLabel>
+                                    </TableCell>
                                     <TableCell align="center" onClick={handleSortByDateDue} style={{ cursor: "pointer" }}>
                                         <TableSortLabel active={true} direction={sortOrderDateDue}>Date Due</TableSortLabel>
                                     </TableCell>
@@ -99,13 +122,19 @@ const Loans = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {loans.map(item =>
+                                {loansList.map(item =>
                                     <TableRow key={item.id}
-                                        sx={{ "&:hover": { backgroundColor: 'lightgray' } }}>
+                                        sx={{
+                                            "&:hover": { backgroundColor: 'lightgray' },
+                                            backgroundColor: item === selectedLoan ? 'lightgray' : 'transparent',
+                                        }}
+                                        onClick={() => handleLoanSelection(item)}
+                                        onMouseEnter={() => setHoveredRow(item.id)}
+                                        onMouseLeave={() => setHoveredRow(0)}
+                                    >
                                         <TableCell align="left">{new Date(item.dateLoaned).toLocaleDateString('en-GB')}</TableCell>
-                                        <TableCell align="center">
-                                            {item.copy.title}
-                                        </TableCell>
+                                        <TableCell align="center">{item.copy.title}</TableCell>
+                                        <TableCell>{item.user.firstName}{" "}{item.user.lastName}</TableCell>
                                         <TableCell align="center"
                                             sx={{
                                                 color: new Date(item.dateDue).getTime() <= new Date(currentDate).getTime() && !item.returned ? 'red' : 'inherit',
@@ -126,6 +155,21 @@ const Loans = () => {
                                                     : null
                                             }
                                         </TableCell>
+                                        <TableCell>
+                                        {hoveredRow === item.id && (
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: 'lightblue',
+                                                    },
+                                                }}
+                                                aria-label="Add to Selection"
+                                                onClick={() => handleLoanSelection(item)}
+                                            >
+                                                <AddIcon />
+                                            </IconButton>
+                                        )}
+                                    </TableCell>
                                     </TableRow>
                                 )}
                             </TableBody>
@@ -136,7 +180,7 @@ const Loans = () => {
                 <Grid container justifyContent="center" alignItems="center" marginTop={5}>
                     <Grid item md={3}>
                         <SitePagination
-                            total={loans.length}
+                            total={loansList.length}
                             page={page}
                             pageSize={pageSize}
                             setPage={setPage}
@@ -149,4 +193,4 @@ const Loans = () => {
     )
 }
 
-export default Loans
+export default AdminLoansTable

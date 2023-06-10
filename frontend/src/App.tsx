@@ -23,6 +23,7 @@ import EditBook from './pages/admin/EditBook'
 import EditCategory from './pages/admin/EditCategory'
 import EditCopy from './pages/admin/EditCopy'
 import EditPublisher from './pages/admin/EditPublisher'
+import EditLoan from './pages/admin/EditLoan'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -195,6 +196,14 @@ const App = () => {
           element: (
             <Protected>
               <EditPublisher/>
+            </Protected>
+          )
+        },
+        {
+          path: "admin/returns",
+          element: (
+            <Protected>
+              <EditLoan/>
             </Protected>
           )
         }

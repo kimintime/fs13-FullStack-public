@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreateLoan, Loan, LoanFilter, UpdateLoan } from "../../types/loan";
 import axios from "axios";
 import { BACKEND_URL } from "../../env";
@@ -197,7 +197,55 @@ export const deleteLoan = createAsyncThunk(
 const loanReducer = createSlice({
     name: "loanReducer",
     initialState,
-    reducers: {},
+    reducers: {
+        sortByTitle: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+                state.sort((a, b) => a.copy.title.localeCompare(b.copy.title))
+
+            } else {
+                state.sort((a, b) => b.copy.title.localeCompare(a.copy.title))
+            }
+        },
+        sortByName: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+                state.sort((a, b) => a.user.lastName.localeCompare(b.user.lastName))
+
+            } else {
+                state.sort((a, b) => b.user.lastName.localeCompare(a.user.lastName))
+            }
+        },
+        sortByDateLoaned: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+              state.sort((a, b) => new Date(a.dateLoaned).getTime() - new Date(b.dateLoaned).getTime());
+
+            } else {
+              state.sort((a, b) => new Date(b.dateLoaned).getTime() - new Date(a.dateLoaned).getTime());
+            }
+          },
+          sortByDateDue: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+              state.sort((a, b) => new Date(a.dateDue).getTime() - new Date(b.dateDue).getTime());
+            } else {
+              state.sort((a, b) => new Date(b.dateDue).getTime() - new Date(a.dateDue).getTime());
+            }
+          },
+          sortByReturned: (state, action: PayloadAction<"asc" | "desc">) => {
+            if (action.payload === "asc") {
+                state.sort((a, b) => {
+                    const aReturned = a.returned ? 1 : 0;
+                    const bReturned = b.returned ? 1 : 0;
+                    return aReturned - bReturned;
+                })
+
+            } else {
+                state.sort((a, b) => {
+                    const aReturned = a.returned ? 1 : 0;
+                    const bReturned = b.returned ? 1 : 0;
+                    return bReturned - aReturned;
+                  });
+            }
+        }  
+    },
     extraReducers: (builder) => {
         builder.addCase(getAllLoans.fulfilled, (_, action) => {
             return action.payload;
@@ -218,6 +266,7 @@ const loanReducer = createSlice({
 })
 
 export default loanReducer.reducer;
+export const { sortByTitle, sortByDateLoaned, sortByDateDue, sortByReturned, sortByName } = loanReducer.actions
 
 
 
