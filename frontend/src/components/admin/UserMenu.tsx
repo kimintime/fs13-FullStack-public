@@ -13,7 +13,7 @@ const UserMenu = ({ onClose }: AdminProps) => {
     const pages = [
         {
             name: "Loans",
-            nav: "/admin/editloan"
+            nav: "/admin/returns"
         },
         {
             name: "Users",

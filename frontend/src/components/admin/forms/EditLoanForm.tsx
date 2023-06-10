@@ -41,17 +41,28 @@ const EditLoanForm = ({ selectedLoan, clearSelected }: EditLoanFormProps) => {
 
     const editLoan = () => {
         if (loan) {
-            const updatedLoan = {
-                ...loan,
-                id: loan.id,
-                userId: loan.user.id,
-                copyId: loan.copy.id,
-                returned: returned,
-                dueDate: dueDate
+            let updatedLoan
+            if (dueDate !== null) {
+                updatedLoan = {
+                    ...loan,
+                    id: loan.id,
+                    userId: loan.user.id,
+                    copyId: loan.copy.id,
+                    returned: returned,
+                    dateDue: new Date(dueDate)
+                }
+            } else {
+                updatedLoan = {
+                    ...loan,
+                    id: loan.id,
+                    userId: loan.user.id,
+                    copyId: loan.copy.id,
+                    returned: returned,
+                    dateDue: loan.dateDue
+                }
             }
 
             dispatch(updateLoan(updatedLoan))
-
             clearForm()
             setReturned(false)
         }
@@ -118,9 +129,10 @@ const EditLoanForm = ({ selectedLoan, clearSelected }: EditLoanFormProps) => {
                                     <Typography variant="subtitle2">User: </Typography>
                                 </TableCell>
                                 <TableCell>
-                                    {loan &&
-                                        <Typography>{loan.user.firstName}{" "}{loan.user.lastName}</Typography>
-                                    }
+                                    {loan?.user && (
+                                        <Typography>
+                                            {loan.user.firstName}{" "}{loan.user.lastName}</Typography>
+                                    )}
                                 </TableCell>
                             </TableRow>
                             <TableRow>
@@ -139,11 +151,21 @@ const EditLoanForm = ({ selectedLoan, clearSelected }: EditLoanFormProps) => {
                                 </TableCell>
                                 <TableCell>
                                     {loan &&
+                                        <Typography>{new Date(loan.dateDue).toLocaleDateString('en-GB')}</Typography>
+                                    }
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <Typography variant="subtitle2">New Due Date:</Typography>
+                                </TableCell>
+                                <TableCell>
+                                    {loan &&
                                         <TextField
                                             sx={{ marginTop: 1, minWidth: 300 }}
                                             required
                                             type="date"
-                                            value={new Date(loan.dateDue).toLocaleDateString('en-GB')}
+                                            value={dueDate ? dueDate.toISOString().split('T')[0] : ''}
                                             variant="standard"
                                             onChange={(event) => setDueDate(new Date(event.target.value))}
                                         />
@@ -152,13 +174,16 @@ const EditLoanForm = ({ selectedLoan, clearSelected }: EditLoanFormProps) => {
                             </TableRow>
                             <TableRow>
                                 <TableCell>
+                                    <Typography variant="subtitle2">Returned: </Typography>
+                                </TableCell>
+                                <TableCell>
                                     {loan &&
                                         <TextField
                                             sx={{ marginTop: 1, minWidth: 300 }}
                                             required
                                             type="checkbox"
                                             value={loan.returned || false}
-                                            variant="standard"
+                                            variant="filled"
                                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setReturned(event.target.checked)}
                                         />
                                     }
@@ -172,7 +197,7 @@ const EditLoanForm = ({ selectedLoan, clearSelected }: EditLoanFormProps) => {
             <Button onClick={editLoan}>Update</Button>
             <Button color="error" onClick={clearForm}>Clear</Button>
             <Divider flexItem />
-        </Box>
+        </Box >
     )
 }
 

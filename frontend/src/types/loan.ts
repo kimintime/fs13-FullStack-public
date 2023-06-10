@@ -26,6 +26,6 @@ export interface UpdateLoan {
     userId: number,
     copyId: number,
     returned: boolean | null,
-    dueDate: Date | null
+    dateDue: Date | null
 }
 

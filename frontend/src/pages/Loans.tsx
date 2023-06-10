@@ -39,6 +39,8 @@ const Loans = () => {
 
     }, [dispatch, page, pageSize, filter])
 
+    const loansList = Array.isArray(loans) ? loans : [];
+
     const handleSortByTitle = () => {
         const actionType = sortOrderTitle === "asc" ? "asc" : "desc";
         dispatch(sortByTitle(actionType));
@@ -99,7 +101,7 @@ const Loans = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {loans.map(item =>
+                                {loansList.map(item =>
                                     <TableRow key={item.id}
                                         sx={{ "&:hover": { backgroundColor: 'lightgray' } }}>
                                         <TableCell align="left">{new Date(item.dateLoaned).toLocaleDateString('en-GB')}</TableCell>
@@ -136,7 +138,7 @@ const Loans = () => {
                 <Grid container justifyContent="center" alignItems="center" marginTop={5}>
                     <Grid item md={3}>
                         <SitePagination
-                            total={loans.length}
+                            total={loansList.length}
                             page={page}
                             pageSize={pageSize}
                             setPage={setPage}

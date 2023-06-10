@@ -137,7 +137,7 @@ export const updateLoan = createAsyncThunk(
                 {
                     userId: updateLoan.userId,
                     copyId: updateLoan.copyId,
-                    dueDate: updateLoan.dueDate,
+                    dateDue: updateLoan.dateDue,
                     returned: updateLoan.returned
                 },
                 {
