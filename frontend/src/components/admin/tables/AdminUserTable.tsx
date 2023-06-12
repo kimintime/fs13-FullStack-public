@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material"
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton, TableSortLabel } from "@mui/material"
 import { useAppDispatch } from "../../../hooks/reduxHooks"
 import SitePagination from "../../SitePagination"
 import { User } from "../../../types/user"
@@ -35,39 +35,80 @@ const AdminUserTable = ({ onUserSelection, setShowUsers }: AdminUserTableProps) 
         setShowUsers(false)
     };
 
-    // const handleSortByName = () => {
-    //     const actionType = sortName === "asc" ? "asc" : "desc";
+    const handleSortByName = () => {
+        const actionType = sortName === "asc" ? "asc" : "desc";
 
+        if (actionType === "asc") {
+            users.sort((a, b) => a.lastName.localeCompare(b.lastName))
 
+        } else {
+            users.sort((a, b) => b.lastName.localeCompare(a.lastName))
+        }
 
-    //     setSortName(actionType === "asc" ? "desc" : "asc");
-    // };
+        setSortName(actionType === "asc" ? "desc" : "asc");
+    }
+
+    const handleSortByEmail = () => {
+        const actionType = sortEmail === "asc" ? "asc" : "desc";
+
+        if (actionType === "asc") {
+            users.sort((a, b) => a.email.localeCompare(b.email))
+
+        } else {
+            users.sort((a, b) => b.email.localeCompare(a.email))
+        }
+
+        setSortEmail(actionType === "asc" ? "desc" : "asc");
+    }
+
+    const handleSortByUsername = () => {
+        const actionType = sortUsername === "asc" ? "asc" : "desc";
+
+        if (actionType === "asc") {
+            users.sort((a, b) => a.userName.localeCompare(b.userName))
+
+        } else {
+            users.sort((a, b) => b.userName.localeCompare(a.userName))
+        }
+
+        setSortUsername(actionType === "asc" ? "desc" : "asc");
+    }
+
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
-            <Grid item md={10}>
-                <Typography variant="h6" textAlign="center">Authors</Typography>
+            <Grid item md={6}>
+                <Typography variant="h6" textAlign="center">Users</Typography>
                 <TableContainer>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Username</TableCell>
-                                <TableCell>Email</TableCell>
+                                <TableCell onClick={handleSortByName} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortName}>Name</TableSortLabel>
+                                </TableCell>
+                                <TableCell align="center" onClick={handleSortByUsername} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortUsername}>Username</TableSortLabel>
+                                </TableCell>
+                                <TableCell align="center" onClick={handleSortByEmail} style={{ cursor: "pointer" }}>
+                                    <TableSortLabel active={true} direction={sortEmail}>Email</TableSortLabel>
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {usersList.map((user: User) =>
                                 <TableRow
                                     key={user.id}
-                                    sx={{ "cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' } }}
+                                    sx={{
+                                        "cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' },
+                                        backgroundColor: user === selectedUser ? 'lightgray' : 'transparent',
+                                    }}
                                     onClick={() => handleUserSelection(user)}
                                     onMouseEnter={() => setHoveredRow(user.id)}
                                     onMouseLeave={() => setHoveredRow(0)}
                                 >
                                     <TableCell>{user.firstName}{" "}{user.lastName}</TableCell>
-                                    <TableCell>{user.userName}</TableCell>
-                                    <TableCell>{user.email}</TableCell>
+                                    <TableCell align="center">{user.userName}</TableCell>
+                                    <TableCell align="center">{user.email}</TableCell>
                                     <TableCell>
                                         {hoveredRow === user.id && (
                                             <IconButton

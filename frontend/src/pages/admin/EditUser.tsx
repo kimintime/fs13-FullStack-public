@@ -3,17 +3,16 @@ import { useEffect, useState } from "react"
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks"
 import { getOwnProfile, setUser } from "../../redux/reducers/userReducer"
 import { User } from "../../types/user"
-import { Loan } from "../../types/loan"
-import EditLoanForm from "../../components/admin/forms/EditLoanForm"
-import AdminLoanTable from "../../components/admin/tables/AdminLoanTable"
+import EditUserForm from "../../components/admin/forms/EditUserForm"
+import AdminUserTable from "../../components/admin/tables/AdminUserTable"
 
 const EditUser = () => {
     const dispatch = useAppDispatch()
     const user = useAppSelector(state => state.user)
     const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false)
-    const [showLoans, setShowLoans] = useState(false)
-    const [selectedLoan, setSelectedLoan] = useState<Loan | null>(null);
+    const [showUsers, setShowUsers] = useState(false)
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
     useEffect(() => {
         if (!isUserDataLoaded && user) {
@@ -32,16 +31,16 @@ const EditUser = () => {
 
     }, [dispatch, user, isUserDataLoaded]);
 
-    const handleShowLoans = () => {
-        setShowLoans(!showLoans)
+    const handleShowUsers = () => {
+        setShowUsers(!showUsers)
     }
 
-    const handleLoanSelection = (loan: Loan) => {
-        setSelectedLoan(loan);
+    const handleUserSelection = (user: User) => {
+        setSelectedUser(user);
     }
 
     const clearSelected = () => {
-        setSelectedLoan(null)
+        setSelectedUser(null)
     };
 
     return (
@@ -55,14 +54,14 @@ const EditUser = () => {
             {isUserAdmin ? (
                 <>
                     <Toolbar>
-                        <Button onClick={handleShowLoans}>Select Loan</Button>
+                        <Button onClick={handleShowUsers}>Select User</Button>
                     </Toolbar>
-                    <EditLoanForm
-                        selectedLoan={selectedLoan}
+                    <EditUserForm
+                        selectedUser={selectedUser}
                         clearSelected={clearSelected}
                     />
-                    {showLoans ?
-                        <AdminLoanTable onLoanSelection={handleLoanSelection} setShowLoans={setShowLoans} />
+                    {showUsers ?
+                        <AdminUserTable onUserSelection={handleUserSelection} setShowUsers={setShowUsers} />
                         : null
                     }
                 </>

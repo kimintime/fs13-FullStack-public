@@ -61,7 +61,7 @@ export interface EditLoanFormProps {
 }
 
 export interface EditUserFormProps {
-  selectedLoan: User | null;
+  selectedUser: User | null;
   clearSelected: () => void;
 }
 

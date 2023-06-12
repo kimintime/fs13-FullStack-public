@@ -35,7 +35,7 @@ export interface UserUpdatePassword {
     newPassword: string | null
 };
 
-export interface UserUpdate extends UserRegister {
+export interface UserUpdate extends UserProfileEdit {
     id: number
 }
 

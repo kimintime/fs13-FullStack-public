@@ -17,7 +17,7 @@ const UserMenu = ({ onClose }: AdminProps) => {
         },
         {
             name: "Users",
-            nav: "/admin/user"
+            nav: "/admin/users"
         },
     ]
 
