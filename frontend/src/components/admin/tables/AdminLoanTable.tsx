@@ -97,7 +97,7 @@ const AdminLoansTable = ({ onLoanSelection, setShowLoans }: AdminLoanTableProps)
             />
             <Divider style={{ width: '67%' }} />
             <Grid container justifyContent="center" alignItems="center">
-                <Grid item md={8}>
+                <Grid item md={10}>
                     <Typography textAlign="center" variant="h6" marginBottom={5} marginTop={5}>Loans</Typography>
                     <Divider flexItem />
                     <TableContainer sx={{ mt: 5 }}>
@@ -125,6 +125,7 @@ const AdminLoansTable = ({ onLoanSelection, setShowLoans }: AdminLoanTableProps)
                                 {loansList.map(item =>
                                     <TableRow key={item.id}
                                         sx={{
+                                            cursor: "pointer",
                                             "&:hover": { backgroundColor: 'lightgray' },
                                             backgroundColor: item === selectedLoan ? 'lightgray' : 'transparent',
                                         }}

@@ -62,68 +62,65 @@ const Profile = () => {
 
     const editUser = () => {
         const newUser: UserProfileEdit = {
-          ...user,
-          userName: username,
-          email: email,
-          firstName: firstName,
-          lastName: lastName,
+            ...user,
+            userName: username,
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
         };
-      
+
         if (oldPassword || newPassword) {
-          if (!oldPassword || !newPassword) {
-            alert("Both fields must be filled out");
-            return;
-          } else if (oldPassword === newPassword) {
-            alert("Old password and new password cannot be the same");
-            return;
-          } else {
-            const updatePassword: UserUpdatePassword = {
-              oldPassword: oldPassword,
-              newPassword: newPassword,
-            };
-            dispatch(updateOwnPassword(updatePassword))
-              .then(() => {
-                dispatch(updateOwnAccount(newUser)).then(() => {
-                  setChange(false);
-                  dispatch(getOwnProfile(user!)).then((response) => {
+            if (!oldPassword || !newPassword) {
+                alert("Both fields must be filled out");
+                return;
+            } else if (oldPassword === newPassword) {
+                alert("Old password and new password cannot be the same");
+                return;
+            } else {
+                const updatePassword: UserUpdatePassword = {
+                    oldPassword: oldPassword,
+                    newPassword: newPassword,
+                };
+                dispatch(updateOwnPassword(updatePassword))
+                    .then(() => {
+                        dispatch(updateOwnAccount(newUser)).then(() => {
+                            setChange(false);
+                            dispatch(getOwnProfile(user!)).then((response) => {
+                                const userProfile = response.payload as User;
+                                dispatch(setUser(userProfile));
+                                setFirstName(userProfile.firstName);
+                                setLastName(userProfile.lastName);
+                                setUsername(userProfile.userName);
+                                setEmail(userProfile.email);
+                                setOldPassword("");
+                                setNewPassword("");
+                            });
+                        });
+                    })
+                    .catch(() => {
+                        alert("Incorrect old password");
+                    });
+            }
+        } else {
+            dispatch(updateOwnAccount(newUser)).then(() => {
+                setChange(false);
+                dispatch(getOwnProfile(user!)).then((response) => {
                     const userProfile = response.payload as User;
                     dispatch(setUser(userProfile));
                     setFirstName(userProfile.firstName);
                     setLastName(userProfile.lastName);
                     setUsername(userProfile.userName);
                     setEmail(userProfile.email);
-                    setOldPassword("");
-                    setNewPassword("");
-                  });
                 });
-              })
-              .catch(() => {
-                alert("Incorrect old password");
-              });
-          }
-        } else {
-          dispatch(updateOwnAccount(newUser)).then(() => {
-            setChange(false);
-            dispatch(getOwnProfile(user!)).then((response) => {
-              const userProfile = response.payload as User;
-              dispatch(setUser(userProfile));
-              setFirstName(userProfile.firstName);
-              setLastName(userProfile.lastName);
-              setUsername(userProfile.userName);
-              setEmail(userProfile.email);
             });
-          });
         }
-      };
-      
+    };
+
     const userLogout = () => {
         dispatch(logout())
-        
-        if (user?.roles.includes("Admin"))
-            window.location.reload();
-    }
 
-    //console.log(user)
+        window.location.reload();
+    }
 
     return (
         <Box

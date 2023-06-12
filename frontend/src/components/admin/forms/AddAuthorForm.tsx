@@ -70,7 +70,7 @@ const AddAuthorForm = ({ selectedBook, selectedAuthor, clearSelected }: AddAutho
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 10,
+                marginTop: 5,
             }}
         >
             <Typography variant="subtitle1">Add Author</Typography>

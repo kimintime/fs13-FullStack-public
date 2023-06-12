@@ -24,6 +24,7 @@ import EditCategory from './pages/admin/EditCategory'
 import EditCopy from './pages/admin/EditCopy'
 import EditPublisher from './pages/admin/EditPublisher'
 import EditLoan from './pages/admin/EditLoan'
+import EditUser from './pages/admin/EditUser'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -204,6 +205,14 @@ const App = () => {
           element: (
             <Protected>
               <EditLoan/>
+            </Protected>
+          )
+        },
+        {
+          path: "admin/users",
+          element: (
+            <Protected>
+              <EditUser/>
             </Protected>
           )
         }

@@ -73,7 +73,7 @@ const EditPublisherForm = ({ selectedPublisher, clearSelected }: EditPublisherFo
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 10,
+                marginTop: 5,
             }}
         >
             <Typography variant="subtitle1">Edit Publisher</Typography>

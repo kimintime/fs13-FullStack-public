@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import {
     Box,
     Button,
+    Checkbox,
     Divider,
     IconButton,
     Paper,
@@ -78,6 +79,7 @@ const EditLoanForm = ({ selectedLoan, clearSelected }: EditLoanFormProps) => {
     const clearForm = () => {
         setDueDate(null)
         setReturned(false)
+        setLoan(null)
         clearSelected()
     }
 
@@ -88,23 +90,48 @@ const EditLoanForm = ({ selectedLoan, clearSelected }: EditLoanFormProps) => {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 10,
+                marginTop: 5,
             }}
         >
-            <Typography variant="subtitle1">Edit Book</Typography>
+            <Typography variant="subtitle1">Loan Returns</Typography>
             {loan &&
-                <Tooltip title="Delete Book">
-                    <IconButton
-                        sx={{
-                            '&:hover': {
-                                color: 'red',
-                            },
-                        }}
-                        onClick={() => removeLoan(loan)}
-                    >
-                        <DeleteForeverIcon fontSize="large" />
-                    </IconButton>
-                </Tooltip>
+                <Box>
+                    <Box sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: 2,
+                    }}>
+                        <Tooltip title="Delete Loan">
+                            <IconButton
+                                sx={{
+                                    '&:hover': {
+                                        color: 'red',
+                                    },
+                                }}
+                                onClick={() => removeLoan(loan)}
+                            >
+                                <DeleteForeverIcon fontSize="large" />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                    <TableContainer>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell align="right">
+                                    <Typography variant="subtitle2">Returned: </Typography>
+                                </TableCell>
+                                <TableCell align="left">
+                                    <Checkbox
+                                        checked={returned}
+                                        onChange={(event) => setReturned(event.target.checked)}
+                                        color="success"
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </TableContainer>
+                </Box>
             }
             <Paper
                 sx={{ marginTop: 5, p: 2 }}
@@ -168,23 +195,6 @@ const EditLoanForm = ({ selectedLoan, clearSelected }: EditLoanFormProps) => {
                                             value={dueDate ? dueDate.toISOString().split('T')[0] : ''}
                                             variant="standard"
                                             onChange={(event) => setDueDate(new Date(event.target.value))}
-                                        />
-                                    }
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>
-                                    <Typography variant="subtitle2">Returned: </Typography>
-                                </TableCell>
-                                <TableCell>
-                                    {loan &&
-                                        <TextField
-                                            sx={{ marginTop: 1, minWidth: 300 }}
-                                            required
-                                            type="checkbox"
-                                            value={loan.returned || false}
-                                            variant="filled"
-                                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setReturned(event.target.checked)}
                                         />
                                     }
                                 </TableCell>

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel, Pagination } from "@mui/material"
+import { Typography, Grid, Divider, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material"
 import { useAppDispatch } from "../../../hooks/reduxHooks"
 import SitePagination from "../../SitePagination"
 import { User } from "../../../types/user"
 import { getAllUsers } from "../../../redux/reducers/userReducer"
+import { AdminUserTableProps } from "../../../types/adminProps"
+import AddIcon from '@mui/icons-material/Add';
 
-const AdminUserTable = () => {
+const AdminUserTable = ({ onUserSelection, setShowUsers }: AdminUserTableProps) => {
     const [users, setUsers] = useState<User[]>([])
     const dispatch = useAppDispatch()
     const [page, setPage] = useState(1)
@@ -13,7 +15,8 @@ const AdminUserTable = () => {
     const [sortName, setSortName] = useState<"asc" | "desc">("asc");
     const [sortEmail, setSortEmail] = useState<"asc" | "desc">("asc");
     const [sortUsername, setSortUsername] = useState<"asc" | "desc">("asc");
-
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [hoveredRow, setHoveredRow] = useState(0)
 
     useEffect(() => {
         dispatch(getAllUsers({ page: page, pageSize: pageSize }))
@@ -25,6 +28,13 @@ const AdminUserTable = () => {
 
     const usersList = Array.isArray(users) ? users : [];
 
+    const handleUserSelection = (user: User) => {
+        setSelectedUser(user);
+        onUserSelection(user)
+
+        setShowUsers(false)
+    };
+
     // const handleSortByName = () => {
     //     const actionType = sortName === "asc" ? "asc" : "desc";
 
@@ -35,7 +45,7 @@ const AdminUserTable = () => {
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
-            <Grid item md={3}>
+            <Grid item md={10}>
                 <Typography variant="h6" textAlign="center">Authors</Typography>
                 <TableContainer>
                     <Table>
@@ -48,10 +58,31 @@ const AdminUserTable = () => {
                         </TableHead>
                         <TableBody>
                             {usersList.map((user: User) =>
-                                <TableRow key={user.id} sx={{ "cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' } }}>
+                                <TableRow
+                                    key={user.id}
+                                    sx={{ "cursor": "pointer", "&:hover": { backgroundColor: 'lightgray' } }}
+                                    onClick={() => handleUserSelection(user)}
+                                    onMouseEnter={() => setHoveredRow(user.id)}
+                                    onMouseLeave={() => setHoveredRow(0)}
+                                >
                                     <TableCell>{user.firstName}{" "}{user.lastName}</TableCell>
                                     <TableCell>{user.userName}</TableCell>
                                     <TableCell>{user.email}</TableCell>
+                                    <TableCell>
+                                        {hoveredRow === user.id && (
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        backgroundColor: 'lightblue',
+                                                    },
+                                                }}
+                                                aria-label="Add to Selection"
+                                                onClick={() => handleUserSelection(user)}
+                                            >
+                                                <AddIcon />
+                                            </IconButton>
+                                        )}
+                                    </TableCell>
                                 </TableRow>
                             )}
                         </TableBody>
