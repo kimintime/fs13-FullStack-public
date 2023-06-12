@@ -60,6 +60,11 @@ export interface EditLoanFormProps {
   clearSelected: () => void;
 }
 
+export interface EditUserFormProps {
+  selectedLoan: User | null;
+  clearSelected: () => void;
+}
+
 export interface AdminBookTableProps {
   onBookSelection: (book: Book) => void;
   setShowBooks: (value: boolean) => void;
