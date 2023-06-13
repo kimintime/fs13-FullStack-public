@@ -76,7 +76,6 @@ frontend/build
 
 # env files
 frontend/.env
-frontend/src/env.ts
 
 frontend/npm-debug.log*
 frontend/yarn-debug.log*
