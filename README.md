@@ -21,7 +21,21 @@ This project started as a group effort, planning a database schema and endpoints
 - Luan (Nguyen Thanh) Le [ELNAUL99](https://github.com/ELNAUL99)
 - Alia Nguyen [alikiny](https://github.com/alikiny)
 
+## Frontend
+Watch this space for full documentation coming soon:
+
+-Link: [Library Project](https://kitlibrary.netlify.app/)
+
+### Note! Admin Features!
+The bulk of the website is found in its admin features. To test, login to:
+
+```
+Email: admin@mail.com
+Password: admin123
+```
+
 ## Backend
+- Link: [Library Backend](https://kitbackend-library.azurewebsites.net)
 
 ### Features
 As the features of the Api will recommend the features of the website, the Api currently should support the following functionality:
