@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action, Middleware, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action, Middleware } from '@reduxjs/toolkit';
 import bookReducer from './reducers/bookReducer';
 import userReducer from './reducers/userReducer';
 import authorReducer from './reducers/authorReducer';
