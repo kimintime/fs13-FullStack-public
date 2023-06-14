@@ -19,19 +19,18 @@ const Login = () => {
     }
 
     useEffect(() => {
-        if (user !== null) {
-          navigate("/");
+        if (loading) {
+            dispatch(addNotification({ message: "loading...", timeInSec: 0, type: "info" }))
+
+        } else if (user !== null) {
+            navigate("/");
 
         } else {
             setLoading(false)
         }
+        
+    }, [dispatch, user, navigate, loading]);
 
-      }, [user, navigate]);
-
-      if (loading) {
-        dispatch(addNotification({message: "loading...", timeInSec: 0, type: "info"}))
-      }
-      
 
     return (
         <Box sx={{
@@ -105,7 +104,7 @@ const Login = () => {
                     <Divider variant="middle" />
                     <Typography align="center">New user?</Typography>
                     <Box sx={{ display: "flexbox", justifyContent: "center", alignItems: "center" }}>
-                        <NavLink to='/register' style={{textDecoration: 'none', color: 'white' }}>
+                        <NavLink to='/register' style={{ textDecoration: 'none', color: 'white' }}>
                             <Button
                                 variant="contained"
                                 sx={{ marginTop: 2, width: 300 }}
