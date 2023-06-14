@@ -85,7 +85,8 @@ export const login = createAsyncThunk(
     "login",
     async (credentials: UserLogin, thunkAPI) => {
         try {
-            thunkAPI.dispatch(addNotification({ message: "Logging in...", timeInSec: 5, type: "info" }))
+
+            thunkAPI.dispatch(addNotification({ message: "Logging in...", timeInSec: 10, type: "info" }))
             let result = await axios.post(`${BACKEND_URL}/api/v1/users/login`, credentials);
 
             if (result.status === 204) {
