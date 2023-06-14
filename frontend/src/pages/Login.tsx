@@ -4,15 +4,15 @@ import { NavLink, useNavigate } from "react-router-dom"
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { login } from "../redux/reducers/userReducer"
+import { addNotification } from "../redux/reducers/notificationReducer"
 
 const Login = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const user = useAppSelector(state => state.user);
-      
-
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [loading, setLoading] = useState(true)
 
     const handleLogin = () => {
         dispatch(login({ email: email, password: password }))
@@ -21,8 +21,16 @@ const Login = () => {
     useEffect(() => {
         if (user !== null) {
           navigate("/");
-        } 
+
+        } else {
+            setLoading(false)
+        }
+
       }, [user, navigate]);
+
+      if (loading) {
+        dispatch(addNotification({message: "loading...", timeInSec: 0, type: "info"}))
+      }
       
 
     return (
