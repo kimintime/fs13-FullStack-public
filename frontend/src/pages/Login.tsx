@@ -20,7 +20,7 @@ const Login = () => {
 
     useEffect(() => {
         if (loading) {
-            dispatch(addNotification({ message: "loading...", timeInSec: 0, type: "info" }))
+            dispatch(addNotification({ message: "loading...", timeInSec: 30, type: "info" }))
 
         } else if (user !== null) {
             navigate("/");
@@ -28,7 +28,7 @@ const Login = () => {
         } else {
             setLoading(false)
         }
-        
+
     }, [dispatch, user, navigate, loading]);
 
 
