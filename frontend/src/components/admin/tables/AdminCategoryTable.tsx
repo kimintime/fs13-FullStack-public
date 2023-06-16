@@ -43,7 +43,7 @@ const AdminCategoryTable = ({ onCategorySelection, setShowCategories }: AdminCat
 
     return (
         <Grid container justifyContent="center" alignItems="center" marginTop={5}>
-            <Grid item md={3}>
+            <Grid item md={6}>
                 <Typography variant="h6" textAlign="center">Categories</Typography>
                 <TableContainer>
                     <Table>

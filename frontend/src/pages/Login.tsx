@@ -14,6 +14,7 @@ const Login = () => {
 
     const handleLogin = () => {
         dispatch(login({ email: email, password: password }))
+
     }
 
     useEffect(() => {
