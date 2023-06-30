@@ -69,10 +69,6 @@ const Cart = () => {
                     dispatch(removeFromCart(item));
                     setShow(false);
                     dispatch(getOwnLoans({
-                        pagination: {
-                            page: 1,
-                            pageSize: 25
-                        },
                         filter: null
                     }))
                 })

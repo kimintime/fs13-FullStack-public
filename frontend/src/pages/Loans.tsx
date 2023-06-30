@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { getOwnLoans, sortByDateDue, sortByDateLoaned, sortByReturned, sortByTitle } from "../redux/reducers/loanReducer";
 import LoanFilter from "../components/LoanFilter";
 
+
 const Loans = () => {
     const loans = useAppSelector(state => state.loan)
     const user = useAppSelector(state => state.user)
@@ -130,7 +131,7 @@ const Loans = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Divider variant="middle" />
+                    <Divider sx={{marginBottom: 10}} variant="middle" />
                 </Grid>
             </Grid>
         </Box>
