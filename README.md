@@ -179,7 +179,8 @@ The table is sortable by date loaned, book, date due, and returned status. Overd
 <img width="1440" alt="loan_sort" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/ab2f6f4c-caf6-46ed-aa6d-2fee11404d56">
 
 ### Profile
-On the profile page, the user can view and update their username, name, email address, and password, as well as access their loans. Select the pencil icon to edit your profile. When you’re done editing your profile, select the `Update profile` button.
+On the profile page, the user can view and update their username, name, email address, and password, as well as access their loans. Select the pencil icon to edit your profile. When you’re done editing your profile, select the `Update profile` button. To exit the edit form, simply select the pencil icon again, or leave the page without updating the profile.
+
 
 <img width="1440" alt="profile" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/b3ac3338-8907-4267-b104-8d1ae9a60690">
 

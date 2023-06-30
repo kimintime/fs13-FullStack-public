@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { CreateLoan, Loan, LoanFilter, UpdateLoan } from "../../types/loan";
+import { CreateLoan, Loan, LoanFilter, LoanFilterUser, UpdateLoan } from "../../types/loan";
 import axios from "axios";
 import { BACKEND_URL } from "../../env";
 import { RootState } from "../store";
@@ -68,7 +68,7 @@ export const getLoanById = createAsyncThunk(
 
 export const getOwnLoans = createAsyncThunk(
     "getOwnLoans",
-    async (loanFilter: LoanFilter | null, thunkAPI) => {
+    async (loanFilter: LoanFilterUser | null, thunkAPI) => {
         try {
             let state: RootState = thunkAPI.getState() as RootState;
             let response = await axios.get(

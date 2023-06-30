@@ -16,6 +16,10 @@ export type LoanFilter = {
     pagination: Pagination | null,
 }
 
+export type LoanFilterUser = {
+    filter: "Ongoing" | "Expired" | null
+}
+
 export type CreateLoan = {
     userId: number,
     copyId: number

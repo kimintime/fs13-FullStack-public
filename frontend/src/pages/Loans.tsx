@@ -17,7 +17,6 @@ import CheckIcon from '@mui/icons-material/Check';
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks"
 import { getOwnLoans, sortByDateDue, sortByDateLoaned, sortByReturned, sortByTitle } from "../redux/reducers/loanReducer";
-import SitePagination from "../components/SitePagination";
 import LoanFilter from "../components/LoanFilter";
 
 const Loans = () => {
@@ -25,8 +24,6 @@ const Loans = () => {
     const user = useAppSelector(state => state.user)
     const dispatch = useAppDispatch()
     const [filter, setFilter] = useState<"Ongoing" | "Expired" | null>(null);
-    const [page, setPage] = useState(1)
-    const [pageSize, setPageSize] = useState(25)
     const [sortOrderTitle, setSortOrderTitle] = useState<"asc" | "desc">("asc")
     const [sortOrderDateLoaned, setSortOrderDateLoaned] = useState<"asc" | "desc">("asc")
     const [sortOrderDateDue, setSortOrderDateDue] = useState<"asc" | "desc">("asc")
@@ -35,9 +32,9 @@ const Loans = () => {
     const currentDate = new Date();
 
     useEffect(() => {
-        dispatch(getOwnLoans({ pagination: { page: page, pageSize: pageSize }, filter: filter }))
+        dispatch(getOwnLoans({ filter: filter }))
 
-    }, [dispatch, page, pageSize, filter])
+    }, [dispatch, filter])
 
     const loansList = Array.isArray(loans) ? loans : [];
 
@@ -134,17 +131,6 @@ const Loans = () => {
                         </Table>
                     </TableContainer>
                     <Divider variant="middle" />
-                </Grid>
-                <Grid container justifyContent="center" alignItems="center" marginTop={5}>
-                    <Grid item md={3}>
-                        <SitePagination
-                            total={loansList.length}
-                            page={page}
-                            pageSize={pageSize}
-                            setPage={setPage}
-                            setPageSize={setPageSize}
-                        />
-                    </Grid>
                 </Grid>
             </Grid>
         </Box>
