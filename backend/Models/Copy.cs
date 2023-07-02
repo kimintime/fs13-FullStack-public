@@ -10,7 +10,7 @@ public class Copy : BaseModel
     [JsonIgnore]
     public int PublisherId { get; set; }
 
-    [JsonIgnore]
+   [JsonIgnore]
     public int BookId { get; set; }
     public Publisher Publisher { get; set; } = null!;
 

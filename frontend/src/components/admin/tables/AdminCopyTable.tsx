@@ -25,7 +25,7 @@ const AdminCopyTable = ({ onCopySelection, setShowCopies }: AdminCopiesTableProp
     }, [dispatch, page, pageSize])
 
     const copiesList = Array.isArray(copies) ? copies : [];
-
+    
     const handleCopySelection = (copy: Copy) => {
         setSelectedCopy(copy);
         onCopySelection(copy)
