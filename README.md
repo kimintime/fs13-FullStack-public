@@ -11,6 +11,41 @@
 * Frontend: SASS, TypeScript, React, Redux Toolkit
 * Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
 
+## Table of Contents
+
+- [About](#about)
+    - [Thanks to](#thanks-to)
+- [Frontend](#frontend)
+    - [Note! Admin Features](#note-admin-features)
+    - [Features](#features)
+    - [Frontend file structure](#frontend-file-structure)
+- [How to use](#how-to-use)
+    - [Admin documentation](./AdminFeatures.md)
+    - [Registration and login](#registration-and-login)
+        - [Note!](#note)
+    - [Navigation bar](#navigation-bar)
+    - [Homepage](#homepage)
+        - [Sort bar](#sort-bar)
+        - [Note!](#note-1)
+    - [Book page](#book-page)
+    - [Browse books](#browse-books)
+        - [Browse by categories](#browse-by-categories)
+        - [Browse by Author](#browse-by-author)
+        - [Browse by Publisher](#browse-by-publisher)
+        - [Browse by Copy](#browse-by-copy)
+    - [Cart](#cart)
+    - [Loans](#loans)
+    - [Profile](#profile)
+- [Backend](#backend)
+    - [Features](#features-1)
+    - [Structure](#structure)
+    - [API](#api)
+        - [API documentation](./ApiDocumentation.md)
+    - [File structure](#file-structure)
+    - [Setting up the backend](#setting-up-the-backend)
+- [Future plans](#future-plans)
+- [Update](#update)
+
 ## About
 This project is a fullstack implementation of a library, from its database to its website. So far, only the backend is done, but as ever, watch this space for more information.
 
@@ -23,6 +58,8 @@ This project started as a group effort, planning a database schema and endpoints
 
 ## Frontend
 -Link: [Library Project](https://kitlibrary.netlify.app/)
+
+[Back](#table-of-contents)
 
 ### Note! Admin Features!
 The bulk of the website is found in its admin features. To test, login to:
@@ -59,7 +96,122 @@ Admin functionality:
 
 The library also features a notification system that should work throughout the site.
 
+[Back](#table-of-contents)
+
+### Frontend File Structure
+src  
+ ┣ components  
+ ┃ ┣ admin  
+ ┃ ┃ ┣ forms  
+ ┃ ┃ ┃ ┣ AddAuthorForm.tsx  
+ ┃ ┃ ┃ ┣ AddCategoryForm.tsx  
+ ┃ ┃ ┃ ┣ AddCopyForm.tsx  
+ ┃ ┃ ┃ ┣ EditAuthorForm.tsx  
+ ┃ ┃ ┃ ┣ EditBookForm.tsx  
+ ┃ ┃ ┃ ┣ EditCategoryForm.tsx  
+ ┃ ┃ ┃ ┣ EditCopyForm.tsx  
+ ┃ ┃ ┃ ┣ EditLoanForm.tsx  
+ ┃ ┃ ┃ ┣ EditPublisherForm.tsx  
+ ┃ ┃ ┃ ┗ EditUserForm.tsx  
+ ┃ ┃ ┣ modals  
+ ┃ ┃ ┃ ┣ AddAuthorModal.tsx  
+ ┃ ┃ ┃ ┣ AddBookModal.tsx  
+ ┃ ┃ ┃ ┣ AddCategoryModal.tsx  
+ ┃ ┃ ┃ ┗ AddPublisherModal.tsx  
+ ┃ ┃ ┣ tables  
+ ┃ ┃ ┃ ┣ AdminAuthorTable.tsx  
+ ┃ ┃ ┃ ┣ AdminBookTable.tsx  
+ ┃ ┃ ┃ ┣ AdminCategoryTable.tsx  
+ ┃ ┃ ┃ ┣ AdminCopyTable.tsx  
+ ┃ ┃ ┃ ┣ AdminLoanTable.tsx  
+ ┃ ┃ ┃ ┣ AdminPublisherTable.tsx  
+ ┃ ┃ ┃ ┗ AdminUserTable.tsx  
+ ┃ ┃ ┣ AddMenu.tsx  
+ ┃ ┃ ┣ AddToBookMenu.tsx  
+ ┃ ┃ ┣ AdminDrawer.tsx  
+ ┃ ┃ ┣ EditMenu.tsx  
+ ┃ ┃ ┗ UserMenu.tsx  
+ ┃ ┣ AuthorList.tsx  
+ ┃ ┣ Books.tsx  
+ ┃ ┣ CategoryList.tsx  
+ ┃ ┣ CopiesList.tsx  
+ ┃ ┣ Header.tsx  
+ ┃ ┣ LoanFilter.tsx  
+ ┃ ┣ Navbar.tsx  
+ ┃ ┣ Notifications.tsx  
+ ┃ ┣ Protected.tsx  
+ ┃ ┣ PublisherList.tsx  
+ ┃ ┣ SearchBar.tsx  
+ ┃ ┗ SitePagination.tsx  
+ ┣ hooks  
+ ┃ ┗ reduxHooks.ts  
+ ┣ pages  
+ ┃ ┣ admin  
+ ┃ ┃ ┣ AddAuthor.tsx  
+ ┃ ┃ ┣ AddCategory.tsx  
+ ┃ ┃ ┣ AddCopy.tsx  
+ ┃ ┃ ┣ EditAuthor.tsx  
+ ┃ ┃ ┣ EditBook.tsx  
+ ┃ ┃ ┣ EditCategory.tsx  
+ ┃ ┃ ┣ EditCopy.tsx  
+ ┃ ┃ ┣ EditLoan.tsx  
+ ┃ ┃ ┣ EditPublisher.tsx  
+ ┃ ┃ ┗ EditUser.tsx  
+ ┃ ┣ Authors.tsx  
+ ┃ ┣ BookItem.tsx  
+ ┃ ┣ BooksByAuthor.tsx  
+ ┃ ┣ BooksByCategory.tsx  
+ ┃ ┣ BooksByPublisher.tsx  
+ ┃ ┣ Cart.tsx  
+ ┃ ┣ Categories.tsx  
+ ┃ ┣ Copies.tsx  
+ ┃ ┣ Home.tsx  
+ ┃ ┣ Loans.tsx  
+ ┃ ┣ Login.tsx  
+ ┃ ┣ Profile.tsx  
+ ┃ ┣ Publishers.tsx  
+ ┃ ┣ Register.tsx  
+ ┃ ┗ Root.tsx  
+ ┣ redux  
+ ┃ ┣ reducers  
+ ┃ ┃ ┣ authorReducer.ts  
+ ┃ ┃ ┣ bookReducer.ts  
+ ┃ ┃ ┣ cartReducer.ts  
+ ┃ ┃ ┣ categoryReducer.ts  
+ ┃ ┃ ┣ copiesReducer.ts  
+ ┃ ┃ ┣ loanReducer.ts  
+ ┃ ┃ ┣ notificationReducer.ts  
+ ┃ ┃ ┣ publisherReducer.ts  
+ ┃ ┃ ┗ userReducer.ts  
+ ┃ ┗ store.ts  
+ ┣ types  
+ ┃ ┣ adminProps.ts  
+ ┃ ┣ author.ts  
+ ┃ ┣ base.ts  
+ ┃ ┣ book.ts  
+ ┃ ┣ cart.ts  
+ ┃ ┣ category.ts  
+ ┃ ┣ copy.ts  
+ ┃ ┣ loan.ts  
+ ┃ ┣ notification.ts  
+ ┃ ┣ pagination.ts  
+ ┃ ┣ publisher.ts  
+ ┃ ┗ user.ts  
+ ┣ App.css  
+ ┣ App.tsx  
+ ┣ env.ts  
+ ┣ index.css  
+ ┣ index.tsx  
+ ┣ logo.svg  
+ ┣ react-app-env.d.ts  
+ ┣ reportWebVitals.ts  
+ ┗ setupTests.ts  
+
+[Back](#table-of-contents)
+
 ## How to use
+- Instructions for the administrative features of this site can be found [here](./AdminFeatures.md)
+
 ### Registration and Login
 Welcome to the library! In order to get in, you’ll need to register to create an account. Registration is easy and secure, simply click the ´Register´ button.
 
@@ -73,12 +225,16 @@ You may have also noticed the notification, informing you of admin login. I invi
 
 After registration, you’re redirected to sign-in, after which you should be directed to the homepage.
 
+[Back](#table-of-contents)
+
 #### Note!
 - On first load, the site may be very slow, please just wait after seeing the `Logging in…` notification. If login was successful, you’ll eventually see the homepage with the successful login notification at the bottom.
 
 <img width="327" alt="login_success" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/abb66f0a-fb7e-4ed3-a68e-26f7f0b1d77d">
 
 - Login is good for 60 minutes, so if you’ve been on the site that long, and start getting errors, log back in.
+
+[Back](#table-of-contents)
 
 ### Navigation bar
 Throughout the site, you’ll be able to access features from the navigation bar:
@@ -88,6 +244,8 @@ Throughout the site, you’ll be able to access features from the navigation bar
 - Books: Allows you to browse books by author, category, publisher, and individual copies, as well as access this help page.
 
 <img width="1440" alt="navbar" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/37070db5-37ea-4190-b363-2962c04b3f3d">
+
+[Back](#table-of-contents)
 
 ### Homepage
 On the homepage you can see the collection of books. Click on a given book to see its full description, or feel free to add it to your cart directly. If no copies are available, then you will not be able to add that book to check out that book.
@@ -102,10 +260,14 @@ The homepage also contains links to the categories, authors, and publishers page
 
 <img width="1440" alt="pagination_result" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/ac552c23-b818-404f-88c0-da85156bf0ef">
 
+[Back](#table-of-contents)
+
 #### Sort bar
 The sort bar allows you to sort the books by author, title, or availability, as well as search books by title. The backspace icon in the search field clears the input, and selecting the magnifying glass on an empty search shows all results.
 
 <img width="1440" alt="sortbar" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/c6490e17-949e-450d-a482-645dc7df3d88">
+
+[Back](#table-of-contents)
 
 #### Note!
 Customers may only check out one copy per book. 
@@ -118,15 +280,21 @@ Customers may only check out one copy per book.
 
 <img width="1440" alt="bookpage_added_to_cart_alert" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/3f2d5790-f1b5-4c95-b583-a734a9ff628d">
 
+[Back](#table-of-contents)
+
 ### Book page
 Each book has a page containing more information - the authors, publishers, its description, and categories, and how many are currently available, and can be added to the cart by selecting `Add to Cart`. 
 
 <img width="1440" alt="Screenshot 2023-06-30 at 13 08 38" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/fcef8d44-8889-4008-aa4c-0b0ab3fd7dac">
 
+[Back](#table-of-contents)
+
 ### Browse Books 
 Each table is sortable by selecting the arrows, and features the same pagination options as the homepage.
 
 <img width="770" alt="table sort" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/ed48f1b1-1327-4cdc-bf39-b55bc64aa0a3">
+
+[Back](#table-of-contents)
 
 #### Browse by Categories
 On the categories page, you can see the list of categories and their descriptions. Click on a category to see all books in that category. Books of course have many categories, so can appear in multiple categories.
@@ -137,6 +305,8 @@ On the categories page, you can see the list of categories and their description
 
 The listing of books by category works just like the homepage. Select a given book for more information. Note that the table is sortable by title, author, and copies available.
 
+[Back](#table-of-contents)
+
 #### Browse by Author
 On the authors page, you can also sort the list. Click on an author to see their books. Books can have many authors, so can appear under multiple authors.
 
@@ -145,6 +315,8 @@ On the authors page, you can also sort the list. Click on an author to see their
 <img width="1440" alt="books_by_author" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/26393569-e5dc-499d-a5d2-053743bf0ac1">
 
 The listing of books by author works just like the homepage. Select a given book for more information. Note that the table is sortable by title and copies available.
+
+[Back](#table-of-contents)
 
 #### Browse by Publisher
 On the publishers page, you can also sort the list. Click on a publisher to see their books. Books can have many publishers, so can appear under multiple publishers.
@@ -155,10 +327,14 @@ On the publishers page, you can also sort the list. Click on a publisher to see 
 
 The listing of books by publisher works just like the homepage. Select a given book for more information. Note that the table is sortable by title, author and copies available.
 
+[Back](#table-of-contents)
+
 #### Browse by Copy
 The copies page allows the user to see the status of given individual copies of books, and is sortable by title, publisher, and availability. For example, if the user wanted to see if a specific edition of a book was available. Clicking on the selection takes the user to a listing of books published by that publisher.
 
 <img width="1440" alt="copies" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/fe9f7940-6e5f-45f3-815a-95e4558a16c5">
+
+[Back](#table-of-contents)
 
 ### Cart
 The cart remembers the contents between login, and memory of the contents is cleared both on checkout and when the cart is emptied, which is done by selecting the `Empty Cart´ button.
@@ -169,6 +345,8 @@ Select the ´-´ icon beside each item to remove it from the cart. When you’re
 
 <img width="1440" alt="cart_selected" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/31c5908d-e84b-4eef-9aaa-91d01ed9da18">
 
+[Back](#table-of-contents)
+
 ### Loans
 There are two ways to see your loans. You always see your list of loans after checking out books, and also from your own profile, by selecting the `Loans` button from your profile page. 
 
@@ -178,9 +356,10 @@ The table is sortable by date loaned, book, date due, and returned status. Overd
 
 <img width="1440" alt="loan_sort" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/ab2f6f4c-caf6-46ed-aa6d-2fee11404d56">
 
+[Back](#table-of-contents)
+
 ### Profile
 On the profile page, the user can view and update their username, name, email address, and password, as well as access their loans. Select the pencil icon to edit your profile. When you’re done editing your profile, select the `Update profile` button. To exit the edit form, simply select the pencil icon again, or leave the page without updating the profile.
-
 
 <img width="1440" alt="profile" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/b3ac3338-8907-4267-b104-8d1ae9a60690">
 
@@ -192,6 +371,7 @@ To update your password, you must enter your current password, and then the new 
 
 And finally, when you wish to logout, simply click the `Logout` button.
 
+[Back](#table-of-contents)
 
 ## Backend
 - Link: [Library Backend](https://kitbackend-library.azurewebsites.net)
@@ -230,10 +410,14 @@ As the features of the Api will recommend the features of the website, the Api c
     - Admin Role
         -  Add, update and delete books, authors, categories, and publishers
 
+[Back](#table-of-contents)
+
 ### Structure
 The database was based on this original model, although there are differences. There is no need for a cart table, and reservations are now known as loans, and reviews have not been implemented. Breaking it down into plain English, many users can have one role, admin (or librarian), or customer. The database allows users to have many loans, and those loans are of copies of specific books. It is those specific copies that can be lent out to become loans. When a copy is on loan, it is marked as unavailable, and each user's loans are connected to their own profile. Publishers are connected to copies, rather than the books, as books often have many editions, and also more than one publisher. Books can also have more than one author and more than one category. 
 
 ![219979882-b295c08d-2ac5-4a7f-b05f-ceb173f48d28](https://user-images.githubusercontent.com/40215472/230119173-20c8ba29-b823-40e2-8742-0d9f46a10d89.png)
+
+[Back](#table-of-contents)
 
 ---
 
@@ -241,12 +425,6 @@ The database was based on this original model, although there are differences. T
 The Api documentation can be found [here](./ApiDocumentation.md).
 
 ---
-
-### Future Plans
-- Unit Testing
-
-## Update!
-The backend now includes error handling and logger middleware. The updated file structure is below. 
 
 ### File Structure
 
@@ -323,10 +501,11 @@ backend
  ┣ backend.csproj  
  ┗ example.json  
 
+ [Back](#table-of-contents)
+
 ---
 
 ### Setting Up the `Backend`
-
 1. Create the `appsettings.json` file in the root of folder `Backend`. You can refer to the content of file `example.json`
 2. Required to run the Library backend:
     * .Net Core (this project is version 7)
@@ -337,4 +516,18 @@ backend
 4. Run the command `dotnet restore` to restore all the required libraries, then `dotnet run` to start the server. 
 5. Add a new migration by running `dotnet ef migrations add <InitialMigration>` and then `dotnet ef database update` to create the new database.
 6. The project is using Swagger UI to run the Api, so you have the option to navigate to localhost:5001/swagger/index.html to test out the Api. Note that the port depends on your own configuration of the server settings in the Program.cs file. 
+
+[Back](#table-of-contents)
+
+
+## Future Plans
+- Implementing sorting on the backend
+- Unit Testing
+
+## Update!
+The backend now includes error handling and logger middleware. The updated file structure is below. 
+
+[Back](#table-of-contents)
+
+
 
