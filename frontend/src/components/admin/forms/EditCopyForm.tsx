@@ -115,7 +115,7 @@ const EditCopyForm = ({ selectedPublisher, selectedCopy, clearSelected }: EditCo
                 marginTop: 5,
             }}
         >
-            <Typography variant="subtitle1">Add Copy</Typography>
+            <Typography variant="subtitle1">Edit Copy</Typography>
             {copy &&
                 <Tooltip title="Delete Copy">
                     <IconButton
