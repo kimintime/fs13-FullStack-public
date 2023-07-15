@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom"
-import { AppBar, IconButton, Toolbar, Typography, Button, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Box } from "@mui/material"
+import { AppBar, IconButton, Toolbar, Typography, Button, Badge, Menu, MenuItem, ListItemIcon, ListItemText, Box, Divider, Link } from "@mui/material"
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import HomeIcon from '@mui/icons-material/Home';
@@ -11,6 +11,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import HelpIcon from '@mui/icons-material/Help';
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import React from "react";
 import AdminDrawer from "./admin/AdminDrawer";
@@ -40,9 +41,9 @@ const Header = () => {
 
             if (user?.roles && user.roles.includes("Admin")) {
                 setIsUserAdmin(true)
-    
+
             }
-        } 
+        }
 
     }, [dispatch, user, isUserDataLoaded]);
 
@@ -61,7 +62,6 @@ const Header = () => {
     const handleToggleDrawer = () => {
         setIsDrawerOpen((prevState) => !prevState);
     };
-
 
     const pages = [
         {
@@ -175,7 +175,21 @@ const Header = () => {
                             </NavLink>
                         ))
                     }
-
+                    <Divider />
+                    <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <HelpIcon fontSize="small" />
+                        </ListItemIcon>
+                        <ListItemText>
+                            <Link
+                                href="https://github.com/kimintime/fs13-FullStack-public#how-to-use"
+                                target="_blank"
+                                style={{ textDecoration: 'none', color: 'black' }}
+                            >
+                                Help
+                            </Link>
+                        </ListItemText>
+                    </MenuItem>
                 </Menu>
                 {
                     pages.map(page => (
