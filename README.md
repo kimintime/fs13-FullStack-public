@@ -243,7 +243,7 @@ Throughout the site, you’ll be able to access features from the navigation bar
 - Profile: Click here to view and edit your profile, and see your loans
 - Books: Allows you to browse books by author, category, publisher, and individual copies, as well as access this help page.
 
-<img width="1440" alt="navbar" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/37070db5-37ea-4190-b363-2962c04b3f3d">
+<img width="1440" alt="Screenshot 2023-07-15 at 13 01 43" src="https://github.com/kimintime/fs13-FullStack-public/assets/40215472/048a00d3-4083-4f54-ad89-0d4fa8efe96e">
 
 [Back](#table-of-contents)
 
