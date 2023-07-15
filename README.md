@@ -18,6 +18,7 @@
 - [Frontend](#frontend)
     - [Note! Admin Features](#note-admin-features)
     - [Features](#features)
+    - [Running the frontend locally](#running-the-frontend-locally)
     - [Frontend file structure](#frontend-file-structure)
 - [How to use](#how-to-use)
     - [Admin documentation](./AdminFeatures.md)
