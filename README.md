@@ -98,6 +98,39 @@ The library also features a notification system that should work throughout the 
 
 [Back](#table-of-contents)
 
+### Running the Frontend Locally
+1. Ensure that you have Node.js installed on your computer. You can download the latest version from the official Node.js website (https://nodejs.org).
+
+2. Clone the project repository from GitHub, if you haven't already. You can either do this from Github, or:
+
+```
+git clone https://github.com/kimintime/fs13-FullStack-public
+```
+
+3. Navigate to the project's frontend directory using the cd command:
+
+```
+cd fs13-FullStack-public/frontend
+```
+
+4. Install the project dependencies by running the following command:
+
+```
+npm install
+```
+
+5. Once the dependencies are installed, you can start the development server by running:
+
+```
+npm run
+```
+
+6. The development server should now be up and running. Open your web browser and visit http://localhost:3000 to see the application.
+
+Note: If port 3000 is already in use, the development server will prompt you to use the next available port. Follow the instructions in the terminal if this happens.
+
+[Back](#table-of-contents)
+
 ### Frontend File Structure
 src  
  ┣ components  
@@ -525,7 +558,7 @@ backend
 - Unit Testing
 
 ## Update!
-The backend now includes error handling and logger middleware. The updated file structure is below. 
+The backend now includes error handling and logger middleware. 
 
 [Back](#table-of-contents)
 
