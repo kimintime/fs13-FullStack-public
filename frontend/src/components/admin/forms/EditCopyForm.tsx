@@ -31,10 +31,7 @@ const EditCopyForm = ({ selectedPublisher, selectedCopy, clearSelected }: EditCo
     const [book, setBook] = useState<Book | null>(null)
     const [publisher, setPublisher] = useState<Publisher | null>(null)
     const [copy, setCopy] = useState<Copy | null>(null)
-    const [bookClear, setBookClear] = useState(false)
-    const [copyClear, setCopyClear] = useState(false)
-    const [publisherClear, setPublisherClear] = useState(false)
-
+    
     useEffect(() => {
         if (selectedCopy) {
             dispatch(getCopyById(selectedCopy.id)).then((data) => {
@@ -67,9 +64,6 @@ const EditCopyForm = ({ selectedPublisher, selectedCopy, clearSelected }: EditCo
     }, [dispatch, selectedPublisher]);
 
     const clearForm = () => {
-        setBookClear(true)
-        setCopyClear(true)
-        setPublisherClear(true)
 
         clearSelected();
         clearStates();
@@ -143,7 +137,7 @@ const EditCopyForm = ({ selectedPublisher, selectedCopy, clearSelected }: EditCo
                                     <Typography variant="subtitle2">Title: </Typography>
                                 </TableCell>
                                 <TableCell>
-                                    {copy && !bookClear &&  (
+                                    {copy &&  (
                                         <Typography>{copy.title}</Typography>
                                     )}
                                 </TableCell>
@@ -153,7 +147,7 @@ const EditCopyForm = ({ selectedPublisher, selectedCopy, clearSelected }: EditCo
                                     <Typography variant="subtitle2">Current Publisher: </Typography>
                                 </TableCell>
                                 <TableCell>
-                                    {copy?.publisher && !copyClear && (
+                                    {copy?.publisher && (
                                         <Typography>{copy.publisher.publisherName}</Typography>
                                     )}
                                 </TableCell>
@@ -163,7 +157,7 @@ const EditCopyForm = ({ selectedPublisher, selectedCopy, clearSelected }: EditCo
                                     <Typography variant="subtitle2">New Publisher: </Typography>
                                 </TableCell>
                                 <TableCell>
-                                    {publisher && !publisherClear && (
+                                    {publisher && (
                                         <Typography>{publisher.publisherName}</Typography>
                                     )}
                                 </TableCell>
