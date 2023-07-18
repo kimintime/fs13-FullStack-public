@@ -39,7 +39,15 @@ const EditCopyForm = ({ selectedPublisher, selectedCopy, clearSelected }: EditCo
                 setCopy(copyItemData);
             });
         }
-    }, [dispatch, selectedCopy]);
+
+        if (selectedPublisher) {
+            dispatch(getPublisherById(selectedPublisher.id)).then((publisherData) => {
+                const publisher = publisherData.payload as Publisher;
+                setPublisher(publisher);
+            });
+        }
+
+    }, [dispatch, selectedCopy, selectedPublisher]);
 
     useEffect(() => {
         if (copy) {
@@ -51,17 +59,6 @@ const EditCopyForm = ({ selectedPublisher, selectedCopy, clearSelected }: EditCo
             })
         }
     }, [dispatch, copy, book?.title])
-
-    useEffect(() => {
-        if (selectedPublisher) {
-            dispatch(getPublisherById(selectedPublisher.id)).then((publisherData) => {
-                const publisher = publisherData.payload as Publisher;
-                setPublisher(publisher);
-            });
-
-            console.log("Selected Publisher", selectedPublisher)
-        }
-    }, [dispatch, selectedPublisher]);
 
     const clearForm = () => {
 
