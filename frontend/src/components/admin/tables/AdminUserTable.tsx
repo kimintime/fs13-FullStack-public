@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 const AdminUserTable = ({ onUserSelection, setShowUsers }: AdminUserTableProps) => {
     const [users, setUsers] = useState<User[]>([])
-    const dispatch = useAppDispatch()
+    const dispatch: any = useAppDispatch()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(25)
     const [sortName, setSortName] = useState<"asc" | "desc">("asc");
